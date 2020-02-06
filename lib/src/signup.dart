@@ -24,16 +24,18 @@ class _SignUpPageState extends State<SignUpPage> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
+              child: Icon(Icons.arrow_back, size: 20.0 , color: Colors.black),
+              //child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
             ),
-            Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
+            Text('Voltar',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
           ],
         ),
       ),
     );
   }
 
+//Campo senha
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
@@ -58,7 +60,8 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _loginButton() {
+// CAmpo logn
+  Widget _registerButton() {
     return Container(
       width: MediaQuery.of(context).size.width,
       padding: EdgeInsets.symmetric(vertical: 15),
@@ -156,6 +159,31 @@ class _SignUpPageState extends State<SignUpPage> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
+             decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.grey.shade200,
+                      offset: Offset(2, 4),
+                      blurRadius: 5,
+                      spreadRadius: 2)
+                ],
+                gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    stops: [
+                      0.1,
+                      0.4,
+                      0.6,
+                      0.9
+                    ],
+                    colors: [
+                      Colors.deepPurple,
+                      Colors.indigo,
+                      Colors.blue,
+                      Colors.cyan
+                    ])),
+                    
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +200,7 @@ class _SignUpPageState extends State<SignUpPage> {
                 SizedBox(
                   height: 20,
                 ),
-                _loginButton(),
+                _registerButton(),
                 Expanded(
                   flex: 2,
                   child: SizedBox(),
