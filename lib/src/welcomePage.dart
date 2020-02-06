@@ -61,7 +61,15 @@ class _WelcomePageState extends State<WelcomePage> {
           borderRadius: BorderRadius.all(Radius.circular(20)),
           border: Border.all(color: Colors.yellow[900], width: 2),
           color: Colors.yellow[900],
+         boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.yellow[900],
+                      //offset: Offset(2, 2),
+                      blurRadius: 5,
+                      spreadRadius: 3)
+                ],
         ),
+        
         child: _padraoTextoBotao(texto,tamFonte)
       );
   }
