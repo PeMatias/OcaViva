@@ -33,7 +33,7 @@ class _WelcomePageState extends State<WelcomePage> {
         Text(
           texto, // texto com borda feito com Stroke .
           style: TextStyle(
-            fontSize: tamFonteBotao,
+            fontSize: tamFonte,
             foreground: Paint()
             ..style = PaintingStyle.stroke
             ..strokeWidth = 3
@@ -52,25 +52,24 @@ class _WelcomePageState extends State<WelcomePage> {
   }
 
     // Padrão de botões do App ocaviva
-  Widget _padraoBotao(var texto, var tamFonte){
+  Widget _padraoBotao(var texto){
     return Container(
         width: MediaQuery.of(context).size.width,
         padding: EdgeInsets.symmetric(vertical: 13),
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          border: Border.all(color: Colors.yellow[900], width: 2),
-          color: Colors.yellow[900],
-         boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      color: Colors.yellow[900],
-                      //offset: Offset(2, 2),
-                      blurRadius: 5,
-                      spreadRadius: 3)
-                ],
+          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+          border: Border.all(color: Colors.yellow[700], width: 2),
+          color: Colors.yellow[700],
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.yellow[700],
+              blurRadius: 5,
+              spreadRadius: 3)
+            ],
         ),
         
-        child: _padraoTextoBotao(texto,tamFonte)
+        child: _padraoTextoBotao(texto,tamFonteBotao)
       );
   }
 
@@ -82,7 +81,7 @@ class _WelcomePageState extends State<WelcomePage> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => SignUpPage()));
       },     
-      child: _padraoBotao('Registre-se', tamFonteBotao)
+      child: _padraoBotao('Registre-se')
     );
   }
 
@@ -93,7 +92,7 @@ class _WelcomePageState extends State<WelcomePage> {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
-      child: _padraoBotao('Login', tamFonteBotao)
+      child: _padraoBotao('Login')
     );
   }
 

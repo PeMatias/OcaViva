@@ -24,65 +24,99 @@ class _SignUpPageState extends State<SignUpPage> {
           children: <Widget>[
             Container(
               padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.arrow_back, size: 20.0 , color: Colors.black),
+              child: Icon(Icons.arrow_back, size: 20.0 , color: Colors.white),
               //child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
             ),
-            Text('Voltar',
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500))
+            _padraoTexto('Voltar', 14.0)
           ],
         ),
       ),
     );
   }
 
-//Campo senha
+  Widget _padraoTexto(var texto, var tamFonte){
+    return Stack( 
+      children: <Widget> [
+        Text(
+          texto, // texto com borda feito com Stroke .
+          style: TextStyle(
+            fontSize: tamFonte,
+            foreground: Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 3
+            ..color = Colors.black,
+          ),
+        ),
+        Text( 
+          texto, // texto com solida em branco
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: tamFonte,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+
+    // Padrão de botões do App ocaviva
+  Widget _padraoBotao(var texto){
+    return Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 13),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+          border: Border.all(color: Colors.yellow[700], width: 2),
+          color: Colors.yellow[700],
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.yellow[700],
+              blurRadius: 5,
+              spreadRadius: 3)
+            ],
+        ),
+        
+        child: _padraoTexto(texto,20.0)
+      );
+  }
+  
+
+  //Campos
   Widget _entryField(String title, {bool isPassword = false}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
+          _padraoTexto(title, 15.0),
           SizedBox(
-            height: 10,
+            height: 8,
           ),
           TextField(
               obscureText: isPassword,
               decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                    borderSide: BorderSide(
+                      style: BorderStyle.none,
+                    )
+                  ),
+                  fillColor: Colors.yellow[700],
                   filled: true))
         ],
       ),
     );
   }
 
-// CAmpo logn
+// Botao de registro
   Widget _registerButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.shade200,
-                offset: Offset(2, 4),
-                blurRadius: 5,
-                spreadRadius: 2)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-      child: Text(
-        'Register Now',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+      },     
+      child: _padraoBotao('Cadastrar')
     );
   }
 
@@ -94,7 +128,7 @@ class _SignUpPageState extends State<SignUpPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            'Already have an account ?',
+            'Já possui conta ?',
             style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
           ),
           SizedBox(
@@ -108,7 +142,8 @@ class _SignUpPageState extends State<SignUpPage> {
             child: Text(
               'Login',
               style: TextStyle(
-                  color: Color(0xfff79c4f),
+                  //color: Color(0xfff79c4f),
+                  color: Colors.white,
                   fontSize: 13,
                   fontWeight: FontWeight.w600),
             ),
@@ -118,36 +153,15 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: 'd',
-          style: GoogleFonts.portLligatSans(
-            textStyle: Theme.of(context).textTheme.display1,
-            fontSize: 30,
-            fontWeight: FontWeight.w700,
-            color: Color(0xffe46b10),
-          ),
-          children: [
-            TextSpan(
-              text: 'ev',
-              style: TextStyle(color: Colors.black, fontSize: 30),
-            ),
-            TextSpan(
-              text: 'rnz',
-              style: TextStyle(color: Color(0xffe46b10), fontSize: 30),
-            ),
-          ]),
-    );
-  }
 
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
+        _entryField("Nome"),
+        _entryField("Escola"),
         _entryField("Username"),
-        _entryField("Email id"),
-        _entryField("Password", isPassword: true),
+        _entryField("Email"),
+        _entryField("Senha", isPassword: true),
       ],
     );
   }
@@ -163,41 +177,19 @@ class _SignUpPageState extends State<SignUpPage> {
             padding: EdgeInsets.symmetric(horizontal: 20),
              decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
-                boxShadow: <BoxShadow>[
-                  BoxShadow(
-                      color: Colors.grey.shade200,
-                      offset: Offset(2, 4),
-                      blurRadius: 5,
-                      spreadRadius: 2)
-                ],
                 gradient: LinearGradient(
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
-                    stops: [
-                      0.1,
-                      0.4,
-                      0.6,
-                      0.9
-                    ],
-                    colors: [
-                      Colors.deepPurple,
-                      Colors.indigo,
-                      Colors.blue,
-                      Colors.cyan
-                    ])),
+                    stops: [0.1, 0.4, 0.6, 0.9],
+                    colors: [ Colors.deepPurple,Colors.indigo, Colors.blue, Colors.cyan ])),
                     
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: SizedBox(),
+                Expanded(flex: 2, child: SizedBox(),
                 ),
-                _title(),
-                SizedBox(
-                  height: 50,
-                ),
+                //Image.asset('assets/images/oca_viva-logo.png',height: 82, width: 81,),
                 _emailPasswordWidget(),
                 SizedBox(
                   height: 20,
@@ -215,10 +207,10 @@ class _SignUpPageState extends State<SignUpPage> {
             child: _loginAccountLabel(),
           ),
           Positioned(top: 40, left: 0, child: _backButton()),
-          Positioned(
+          /*Positioned(
               top: -MediaQuery.of(context).size.height * .15,
               right: -MediaQuery.of(context).size.width * .4,
-              child: BezierContainer())
+              //child: BezierContainer())*/
         ],
       ),
     );
