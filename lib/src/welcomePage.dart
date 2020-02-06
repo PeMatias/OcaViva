@@ -1,3 +1,5 @@
+import 'dart:ui' as prefix0;
+
 import 'package:flutter/material.dart';
 import 'package:ocaviva/src/loginPage.dart';
 import 'package:ocaviva/src/signup.dart';
@@ -8,6 +10,9 @@ final String fraseInicial =
 "Olá  \n\n"
 "Vejo que é a sua primeira vez aqui!\n"
 "Vamos começar!\n";
+
+final double tamFonteBotao = 20;
+final double tamFonteTexto = 18;
 
 
 class WelcomePage extends StatefulWidget {
@@ -20,53 +25,67 @@ class WelcomePage extends StatefulWidget {
 }
 
 class _WelcomePageState extends State<WelcomePage> {
-  
+
+  // Padrão de texto do App ocaviva com stroke+fill
+  Widget _padraoTextoBotao(var texto, var tamFonte){
+    return Stack( 
+      children: <Widget> [
+        Text(
+          texto, // texto com borda feito com Stroke .
+          style: TextStyle(
+            fontSize: tamFonteBotao,
+            foreground: Paint()
+            ..style = PaintingStyle.stroke
+            ..strokeWidth = 3
+            ..color = Colors.black,
+          ),
+        ),
+        Text( 
+          texto, // texto com solida em branco
+          style: TextStyle(
+            fontSize: tamFonte,
+            color: Colors.white,
+          ),
+        ),
+      ],
+    );
+  }
+
+    // Padrão de botões do App ocaviva
+  Widget _padraoBotao(var texto, var tamFonte){
+    return Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 13),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          border: Border.all(color: Colors.yellow[900], width: 2),
+          color: Colors.yellow[900],
+        ),
+        child: _padraoTextoBotao(texto,tamFonte)
+      );
+  }
+
+
+  //Botão de Registro -> leva para SigUpPage()
+  Widget _signUpButton() { 
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => SignUpPage()));
+      },     
+      child: _padraoBotao('Registre-se', tamFonteBotao)
+    );
+  }
+
+//Botão de login -> leva para LoginPage()
   Widget _loginButton() {
     return InkWell(
       onTap: () {
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 13),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          border: Border.all(color: Colors.yellow[900], width: 2),
-          //color: Colors.amberAccent[700],
-          color: Colors.yellow[900],
-        ),
-        child: Text(
-          'Login',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-      ),
-    );
-  }
-
-  Widget _signUpButton() {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUpPage()));
-      },
-      
-      child: Container(
-        width: MediaQuery.of(context).size.width,
-        padding: EdgeInsets.symmetric(vertical: 13),
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(20)),
-          border: Border.all(color: Colors.yellow[900], width: 2),
-          //color: Colors.amberAccent[700],
-          color: Colors.yellow[900],
-        ),
-        child: Text(
-          'Registre-se',
-          style: TextStyle(fontSize: 20, color: Colors.white),
-        ),
-      ),
+      child: _padraoBotao('Login', tamFonteBotao)
     );
   }
 
@@ -109,6 +128,25 @@ class _WelcomePageState extends State<WelcomePage> {
             fontWeight: FontWeight.w700,
             color: Colors.white,
           ),
+      )
+    );
+  }
+  Widget _padraoTextoExterno(var texto, var tamFonte)
+  {
+    return Container(
+      width: MediaQuery.of(context).size.width,
+      padding: EdgeInsets.symmetric(vertical: 10),
+      child: RichText(
+        textAlign: TextAlign.center,
+        text: TextSpan(
+          text: texto,
+          style: GoogleFonts.quantico(
+            textStyle: Theme.of(context).textTheme.display1,
+            fontSize: tamFonte,
+            fontWeight: FontWeight.w700,
+            color: Colors.white,
+          ),
+        )
       )
     );
   }
@@ -159,38 +197,12 @@ class _WelcomePageState extends State<WelcomePage> {
                 height: 187,
                 width: 174,
                 ),
-                //_title(),
-                //SizedBox(
-                 // height: 80,
-                //),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      text: fraseInicial,
-                      style: GoogleFonts.quantico(
-                        textStyle: Theme.of(context).textTheme.display1,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                  )
-                ),
+                _padraoTextoExterno(fraseInicial, tamFonteTexto),
                 _signUpButton(),
                 SizedBox(
                   height: 20,
                 ),
-                RichText(
-                  textAlign: TextAlign.center,
-                  text: TextSpan(
-                      text: "Se já possui conta:\n",
-                      style: GoogleFonts.quantico(
-                        textStyle: Theme.of(context).textTheme.display1,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white,
-                      ),
-                  )
-                ),
+                _padraoTextoExterno("Se já possui conta:\n", tamFonteTexto),
                 _loginButton(),
                 SizedBox(
                   height: 20,
