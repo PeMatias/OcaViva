@@ -24,6 +24,8 @@ class _HomePageState extends State<HomePage> {
         applicationIcon: Icon(Icons.adb),
         icon: Icon(Icons.info));
 
+    
+
     ListTile getNavItem(var icon, String s, String routeName) {
       return ListTile(
         leading: Icon(icon),
@@ -49,6 +51,8 @@ class _HomePageState extends State<HomePage> {
 
     ListView listView = ListView(children: myNavChildren);
 
+    
+
     return Drawer(
       child: listView,
     );
@@ -61,7 +65,7 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0.0,
-        title: Text("Navigation Drawer Example"),
+        title: Text("Tela principal das Fases"),
       ),
       extendBodyBehindAppBar: true,
       body: Stack(
@@ -81,42 +85,42 @@ class _HomePageState extends State<HomePage> {
             Center(
               child:    Container(
              height: 600,
-          margin: EdgeInsets.symmetric(vertical: 50.0),
-          child: ListView(
-            scrollDirection: Axis.horizontal,
-            children: <Widget>[
-              Container(
-                width: 160.0,
-                color: Colors.red,
-                alignment: Alignment.center,
-                child: Text("FASE 1"),
+              margin: EdgeInsets.symmetric(vertical: 50.0),
+              child: ListView(
+                scrollDirection: Axis.horizontal,
+                children: <Widget>[
+                  Container(
+                    width: 160.0,
+                    color: Colors.red,
+                    alignment: Alignment.center,
+                    child: Text("FASE 1"),
+                  ),
+                  Container(
+                    width: 160.0,
+                    color: Colors.blue,
+                    alignment: Alignment.center,
+                    child: Text("FASE 2"),
+                  ),
+                  Container(
+                    width: 160.0,
+                    color: Colors.green,
+                    alignment: Alignment.center,
+                    child: Text("FASE 3"),
+                  ),
+                  Container(
+                    width: 160.0,
+                    color: Colors.yellow,
+                    alignment: Alignment.center,
+                    child: Text("FASE 4"),
+                  ),
+                  Container(
+                    width: 160.0,
+                    color: Colors.orange,
+                    alignment: Alignment.center,
+                    child: Text("FASE 5"),
+                  )
+                ],
               ),
-              Container(
-                width: 160.0,
-                color: Colors.blue,
-                alignment: Alignment.center,
-                child: Text("FASE 2"),
-              ),
-              Container(
-                width: 160.0,
-                color: Colors.green,
-                alignment: Alignment.center,
-                child: Text("FASE 3"),
-              ),
-              Container(
-                width: 160.0,
-                color: Colors.yellow,
-                alignment: Alignment.center,
-                child: Text("FASE 4"),
-              ),
-              Container(
-                width: 160.0,
-                color: Colors.orange,
-                alignment: Alignment.center,
-                child: Text("FASE 5"),
-              )
-            ],
-          ),
             ),   
             ),       
          ]
