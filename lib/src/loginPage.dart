@@ -154,8 +154,8 @@ Widget _entryField(String title, {bool isPassword = false}) {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Email id"),
-        _entryField("Password", isPassword: true),
+        _entryField("Email"),
+        _entryField("Senha", isPassword: true),
       ],
     );
   }
