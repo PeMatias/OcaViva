@@ -29,10 +29,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
 
-flutter_icons:
-  image_path: "assets/images/oca_viva-logo.png" 
-  android: true
-  ios: true
+#flutter_icons:
+  #image_path: "assets/images/oca_viva-logo.png" 
+  #android: true
+  #ios: true
 
 
 # For information on the generic Dart part of this file, see the
