@@ -129,7 +129,7 @@ class _SignUpPageState extends State<SignUpPage> {
         children: <Widget>[
           Text(
             'Já possui conta ?',
-            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+            style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
           ),
           SizedBox(
             width: 10,
@@ -144,7 +144,7 @@ class _SignUpPageState extends State<SignUpPage> {
               style: TextStyle(
                   //color: Color(0xfff79c4f),
                   color: Colors.white,
-                  fontSize: 13,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600),
             ),
           )
@@ -163,7 +163,7 @@ class _SignUpPageState extends State<SignUpPage> {
 
         _entryField("Nome"),
         _entryField("Escola"),
-        _entryField("Username"),
+        //_entryField("Username"),// n e mais necessario
         _entryField("Email"),
         _entryField("Senha", isPassword: true),
         SizedBox(height: 50,),

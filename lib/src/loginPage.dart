@@ -35,133 +35,86 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _entryField(String title, {bool isPassword = false}) {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
-          ),
-          SizedBox(
-            height: 10,
-          ),
-          TextField(
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true))
-        ],
+Widget _padraoTexto(var texto, var tamFonte){
+  return Stack( 
+    children: <Widget> [
+      Text(
+        texto, // texto com borda feito com Stroke .
+        style: TextStyle(
+          fontSize: tamFonte,
+          foreground: Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = 3
+          ..color = Colors.black,
+        ),
       ),
-    );
+      Text( 
+        texto, // texto com solida em branco
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: tamFonte,
+          color: Colors.white,
+        ),
+      ),
+    ],
+  );
+  }
+
+
+Widget _entryField(String title, {bool isPassword = false}) {
+  return Container(
+    margin: EdgeInsets.symmetric(vertical: 4),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        _padraoTexto(title, 15.0),
+        SizedBox(
+          height: 8,
+        ),
+        TextField(
+            obscureText: isPassword,
+            decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                  borderSide: BorderSide(
+                    style: BorderStyle.none,
+                  )
+                ),
+                fillColor: Colors.yellow[700],
+                filled: true))
+      ],
+    ),
+  );
+  }
+
+  Widget _padraoBotao(var texto){
+    return Container(
+        width: MediaQuery.of(context).size.width,
+        padding: EdgeInsets.symmetric(vertical: 13),
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(25.0)),
+          border: Border.all(color: Colors.yellow[700], width: 2),
+          color: Colors.yellow[700],
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Colors.yellow[700],
+              blurRadius: 5,
+              spreadRadius: 3)
+            ],
+        ),
+        
+        child: _padraoTexto(texto,20.0)
+      );
   }
 
   Widget _loginButton() {
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      padding: EdgeInsets.symmetric(vertical: 15),
-      alignment: Alignment.center,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(5)),
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-                color: Colors.grey.shade200,
-                offset: Offset(2, 4),
-                blurRadius: 5,
-                spreadRadius: 2)
-          ],
-          gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [Color(0xfffbb448), Color(0xfff7892b)])),
-      child: Text(
-        'Login',
-        style: TextStyle(fontSize: 20, color: Colors.white),
-      ),
-    );
-  }
-
-  Widget _divider() {
-    return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          Text('or'),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _facebookButton() {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.symmetric(vertical: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            flex: 1,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xff1959a9),
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(5),
-                    topLeft: Radius.circular(5)),
-              ),
-              alignment: Alignment.center,
-              child: Text('f',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400)),
-            ),
-          ),
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: BoxDecoration(
-                color: Color(0xff2872ba),
-                borderRadius: BorderRadius.only(
-                    bottomRight: Radius.circular(5),
-                    topRight: Radius.circular(5)),
-              ),
-              alignment: Alignment.center,
-              child: Text('Log in with Facebook',
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w400)),
-            ),
-          ),
-        ],
-      ),
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginPage()));
+      },     
+      child: _padraoBotao('Login')
     );
   }
 
@@ -173,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-            'Don\'t have an account ?',
+            'Não possui conta ?',
             style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
           ),
           SizedBox(
@@ -185,39 +138,15 @@ class _LoginPageState extends State<LoginPage> {
                   MaterialPageRoute(builder: (context) => SignUpPage()));
             },
             child: Text(
-              'Register',
+              'Registre-se',
               style: TextStyle(
-                  color: Color(0xfff79c4f),
-                  fontSize: 13,
+                  color: Colors.white,
+                  fontSize: 18,
                   fontWeight: FontWeight.w600),
             ),
           )
         ],
       ),
-    );
-  }
-
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: 'd',
-          style: GoogleFonts.portLligatSans(
-            textStyle: Theme.of(context).textTheme.display1,
-            fontSize: 30,
-            fontWeight: FontWeight.w700,
-            color: Color(0xffe46b10),
-          ),
-          children: [
-            TextSpan(
-              text: 'ev',
-              style: TextStyle(color: Colors.black, fontSize: 30),
-            ),
-            TextSpan(
-              text: 'rnz',
-              style: TextStyle(color: Color(0xffe46b10), fontSize: 30),
-            ),
-          ]),
     );
   }
 
@@ -239,6 +168,13 @@ class _LoginPageState extends State<LoginPage> {
         children: <Widget>[
           Container(
             padding: EdgeInsets.symmetric(horizontal: 20),
+             decoration: BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                gradient: LinearGradient(
+                    begin: Alignment.topRight,
+                    end: Alignment.bottomLeft,
+                    stops: [0.1, 0.4, 0.6, 0.9],
+                    colors: [ Colors.deepPurple,Colors.indigo, Colors.blue, Colors.cyan ])),   
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -247,7 +183,11 @@ class _LoginPageState extends State<LoginPage> {
                   flex: 3,
                   child: SizedBox(),
                 ),
-                _title(),
+                Image.asset(
+                'assets/images/oca_viva-logo.png',
+                height: 187,
+                width: 174,
+                ),
                 SizedBox(
                   height: 50,
                 ),
@@ -259,12 +199,10 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   alignment: Alignment.centerRight,
-                  child: Text('Forgot Password ?',
+                  child: Text('Esqueceu sua senha?',
                       style:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.w500)),
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
                 ),
-                _divider(),
-                _facebookButton(),
                 Expanded(
                   flex: 2,
                   child: SizedBox(),
@@ -277,10 +215,7 @@ class _LoginPageState extends State<LoginPage> {
             child: _createAccountLabel(),
           ),
           Positioned(top: 40, left: 0, child: _backButton()),
-          Positioned(
-              top: -MediaQuery.of(context).size.height * .15,
-              right: -MediaQuery.of(context).size.width * .4,
-              child: BezierContainer())
+          
         ],
       ),
     );
