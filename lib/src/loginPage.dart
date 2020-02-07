@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/src/HomePage.dart';
 import 'package:ocaviva/src/signup.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -112,7 +113,7 @@ Widget _entryField(String title, {bool isPassword = false}) {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => HomePage()));
       },     
       child: _padraoBotao('Login')
     );
