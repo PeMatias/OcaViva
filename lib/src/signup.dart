@@ -155,22 +155,32 @@ class _SignUpPageState extends State<SignUpPage> {
 
 
   Widget _emailPasswordWidget() {
-    return Column(
+    return Center(
+      child: ListView(
+      shrinkWrap: true,
+      padding: const EdgeInsets.all(8),
       children: <Widget>[
+
         _entryField("Nome"),
         _entryField("Escola"),
         _entryField("Username"),
         _entryField("Email"),
         _entryField("Senha", isPassword: true),
+        SizedBox(height: 50,),
+         _registerButton(),   
+         Align(
+            alignment: Alignment.bottomCenter,
+            child: _loginAccountLabel(),      
+          ),    
       ],
-    );
+    ));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: false,
-      resizeToAvoidBottomPadding: false,
+      //resizeToAvoidBottomInset: false,
+      //resizeToAvoidBottomPadding: false,
       body: Stack(
         children: <Widget>[
           Container(
@@ -181,31 +191,18 @@ class _SignUpPageState extends State<SignUpPage> {
                     begin: Alignment.topRight,
                     end: Alignment.bottomLeft,
                     stops: [0.1, 0.4, 0.6, 0.9],
-                    colors: [ Colors.deepPurple,Colors.indigo, Colors.blue, Colors.cyan ])),
-                    
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Expanded(flex: 2, child: SizedBox(),
+                    colors: [ Colors.deepPurple,Colors.indigo, Colors.blue, Colors.cyan ])),                       
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    SizedBox(height: 100,),
+                    Expanded(child: _emailPasswordWidget(), ),
+                    //Image.asset('assets/images/oca_viva-logo.png',height: 82, width: 81,),            
+                  ],
                 ),
-                //Image.asset('assets/images/oca_viva-logo.png',height: 82, width: 81,),
-                _emailPasswordWidget(),
-                SizedBox(
-                  height: 20,
-                ),
-                _registerButton(),
-                Expanded(
-                  flex: 2,
-                  child: SizedBox(),
-                )
-              ],
-            ),
           ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: _loginAccountLabel(),
-          ),
+          
           Positioned(top: 40, left: 0, child: _backButton()),
           /*Positioned(
               top: -MediaQuery.of(context).size.height * .15,

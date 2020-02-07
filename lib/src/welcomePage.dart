@@ -208,9 +208,7 @@ class _WelcomePageState extends State<WelcomePage> {
                 ),
                 _padraoTextoExterno(fraseInicial, tamFonteTexto),
                 _signUpButton(),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox( height: 20, ),
                 _padraoTextoExterno("Se já possui conta:\n", tamFonteTexto),
                 _loginButton(),
                 SizedBox(
