@@ -62,30 +62,34 @@ Widget _padraoTexto(var texto, var tamFonte){
   }
 
 
-Widget _entryField(String title, {bool isPassword = false}) {
-  return Container(
-    margin: EdgeInsets.symmetric(vertical: 4),
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: <Widget>[
-        _padraoTexto(title, 15.0),
-        SizedBox(
-          height: 8,
-        ),
-        TextField(
+  Widget _entryField(String title,String textoDica, IconData icone, {bool isPassword = false}) {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 4),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          _padraoTexto(title, 15.0),
+          SizedBox(
+            height: 8,
+          ),
+          TextField(
+            style: TextStyle(color: Colors.white,fontSize: 18.0, fontFamily: "GoogleFonts.quantico"),
             obscureText: isPassword,
             decoration: InputDecoration(
-                border: OutlineInputBorder(
+              border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                  borderSide: BorderSide(
-                    style: BorderStyle.none,
-                  )
-                ),
-                fillColor: Colors.yellow[700],
-                filled: true))
-      ],
-    ),
-  );
+                  borderSide: BorderSide( style: BorderStyle.none, )
+              ),
+            fillColor: Colors.yellow[700],
+            filled: true,
+            hintText: "Digite aqui "+ textoDica,
+            prefixIcon: Icon(icone),
+            hintStyle: TextStyle(color: Colors.white),
+            )
+                )
+        ],
+      ),
+    );
   }
 
   Widget _padraoBotao(var texto){
@@ -154,8 +158,8 @@ Widget _entryField(String title, {bool isPassword = false}) {
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
-        _entryField("Email"),
-        _entryField("Senha", isPassword: true),
+        _entryField("Email","seu email",Icons.email),
+        _entryField("Senha", "sua senha", Icons.lock, isPassword: true),
       ],
     );
   }
@@ -181,7 +185,7 @@ Widget _entryField(String title, {bool isPassword = false}) {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Expanded(
-                  flex: 3,
+                  flex: 2,
                   child: SizedBox(),
                 ),
                 Image.asset(
@@ -189,20 +193,17 @@ Widget _entryField(String title, {bool isPassword = false}) {
                 height: 187,
                 width: 174,
                 ),
-                SizedBox(
-                  height: 50,
-                ),
+                SizedBox(height: 10, ),
                 _emailPasswordWidget(),
-                SizedBox(
-                  height: 20,
-                ),
+                SizedBox(height: 30, ),
                 _loginButton(),
+                SizedBox(height: 10, ),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 10),
                   alignment: Alignment.centerRight,
                   child: Text('Esqueceu sua senha?',
                       style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.w500)),
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
                 ),
                 Expanded(
                   flex: 2,

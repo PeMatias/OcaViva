@@ -83,7 +83,7 @@ class _SignUpPageState extends State<SignUpPage> {
   
 
   //Campos
-  Widget _entryField(String title, {bool isPassword = false}) {
+  Widget _entryField(String title,String textoDica, IconData icone, {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 4),
       child: Column(
@@ -94,16 +94,20 @@ class _SignUpPageState extends State<SignUpPage> {
             height: 8,
           ),
           TextField(
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(25.0)),
-                    borderSide: BorderSide(
-                      style: BorderStyle.none,
-                    )
-                  ),
-                  fillColor: Colors.yellow[700],
-                  filled: true))
+            style: TextStyle(color: Colors.white,fontSize: 18.0, fontFamily: "GoogleFonts.quantico"),
+            obscureText: isPassword,
+            decoration: InputDecoration(
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.all(Radius.circular(25.0)),
+                  borderSide: BorderSide( style: BorderStyle.none, )
+              ),
+            fillColor: Colors.yellow[700],
+            filled: true,
+            hintText: "Digite aqui "+ textoDica,
+            prefixIcon: Icon(icone),
+            hintStyle: TextStyle(color: Colors.white),
+            )
+                )
         ],
       ),
     );
@@ -161,11 +165,11 @@ class _SignUpPageState extends State<SignUpPage> {
       padding: const EdgeInsets.all(8),
       children: <Widget>[
 
-        _entryField("Nome"),
-        _entryField("Escola"),
+        _entryField("Nome","seu nome",Icons.person),
+        _entryField("Escola","sua escola", Icons.school),
         //_entryField("Username"),// n e mais necessario
-        _entryField("Email"),
-        _entryField("Senha", isPassword: true),
+        _entryField("Email","seu email", Icons.email),
+        _entryField("Senha","sua senha",Icons.lock, isPassword: true),
         SizedBox(height: 50,),
          _registerButton(),   
          Align(
@@ -179,8 +183,6 @@ class _SignUpPageState extends State<SignUpPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      //resizeToAvoidBottomInset: false,
-      //resizeToAvoidBottomPadding: false,
       body: Stack(
         children: <Widget>[
           Container(
@@ -196,18 +198,14 @@ class _SignUpPageState extends State<SignUpPage> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    SizedBox(height: 100,),
+                    SizedBox(height: 70,),
+                    Image.asset('assets/images/oca_viva-logo.png',height: 82, width: 81,),            
                     Expanded(child: _emailPasswordWidget(), ),
-                    //Image.asset('assets/images/oca_viva-logo.png',height: 82, width: 81,),            
                   ],
                 ),
           ),
           
           Positioned(top: 40, left: 0, child: _backButton()),
-          /*Positioned(
-              top: -MediaQuery.of(context).size.height * .15,
-              right: -MediaQuery.of(context).size.width * .4,
-              //child: BezierContainer())*/
         ],
       ),
     );

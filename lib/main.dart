@@ -13,9 +13,14 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'OcaViva',
       theme: ThemeData(
-         primarySwatch: Colors.blue,
-         textTheme:GoogleFonts.latoTextTheme(textTheme).copyWith(
+        // Definindo o padrão de brilho e das cores
+        brightness: Brightness.light,
+        /*primaryColor: Colors.yellow[700],
+        accentColor: Colors.white,*/
+         ///primarySwatch: Colors.blue,
+         textTheme:GoogleFonts.quanticoTextTheme().copyWith(         
            body1: GoogleFonts.quantico(textStyle: textTheme.body1),
+           body2: GoogleFonts.quantico(textStyle: textTheme.body2)
          ),
       ),
       debugShowCheckedModeBanner: false,

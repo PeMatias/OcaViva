@@ -60,61 +60,62 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        title: Text("Tela principal das Fases"),
-      ),
-      extendBodyBehindAppBar: true,
-      body: Stack(
-         children: <Widget>[
-           Container(
-              //padding: EdgeInsets.symmetric(horizontal: 640),
-              width: double.infinity,
-              height: double.infinity,
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  gradient: LinearGradient(
-                      begin: Alignment.topRight,
-                      end: Alignment.bottomLeft,
-                      stops: [0.1, 0.4, 0.6, 0.9],
-                      colors: [ Colors.deepPurple,Colors.indigo, Colors.blue, Colors.cyan ])),               
-            ),
-            Center(
-              child:    Container(
-             height: 600,
-              margin: EdgeInsets.symmetric(vertical: 50.0),
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                children: <Widget>[
-                  Container(
-                    width: 160.0,
+    var tamanhoFase = 200.0;
+        return Scaffold(
+    
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0.0,
+            title: Text("Tela principal das Fases"),
+          ),
+          extendBodyBehindAppBar: true,
+          body: Stack(
+             children: <Widget>[
+               Container(
+                  //padding: EdgeInsets.symmetric(horizontal: 640),
+                  width: double.infinity,
+                  height: double.infinity,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(5)),
+                      gradient: LinearGradient(
+                          begin: Alignment.topRight,
+                          end: Alignment.bottomLeft,
+                          stops: [0.1, 0.4, 0.6, 0.9],
+                          colors: [ Colors.deepPurple,Colors.indigo, Colors.blue, Colors.cyan ])),               
+                ),
+                Center(
+                  child:    Container(
+                 height: 400,
+                  margin: EdgeInsets.symmetric(vertical: 50.0),
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    children: <Widget>[
+                      Container(
+                        width: tamanhoFase,
                     color: Colors.red,
                     alignment: Alignment.center,
                     child: Text("FASE 1"),
                   ),
                   Container(
-                    width: 160.0,
+                    width: tamanhoFase,
                     color: Colors.blue,
                     alignment: Alignment.center,
                     child: Text("FASE 2"),
                   ),
                   Container(
-                    width: 160.0,
+                    width: tamanhoFase,
                     color: Colors.green,
                     alignment: Alignment.center,
                     child: Text("FASE 3"),
                   ),
                   Container(
-                    width: 160.0,
+                    width: tamanhoFase,
                     color: Colors.yellow,
                     alignment: Alignment.center,
                     child: Text("FASE 4"),
                   ),
                   Container(
-                    width: 160.0,
+                    width: tamanhoFase,
                     color: Colors.orange,
                     alignment: Alignment.center,
                     child: Text("FASE 5"),
