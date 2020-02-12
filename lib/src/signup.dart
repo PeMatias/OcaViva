@@ -1,18 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/src/Usuario.dart';
 import 'package:ocaviva/src/Widget/bezierContainer.dart';
 import 'package:ocaviva/src/loginPage.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class SignUpPage extends StatefulWidget {
   SignUpPage({Key key, this.title}) : super(key: key);
 
   final String title;
+  
 
   @override
   _SignUpPageState createState() => _SignUpPageState();
 }
 
 class _SignUpPageState extends State<SignUpPage> {
+
+  
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _nome = new TextEditingController();
+  final TextEditingController _escola = new TextEditingController();
+  final TextEditingController _email = new TextEditingController();
+  final TextEditingController _senha = new TextEditingController();
+
+  
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -59,6 +74,25 @@ class _SignUpPageState extends State<SignUpPage> {
     );
   }
 
+  TextEditingController _controllerEntryField(String title)
+  {
+    switch (title) {
+      case "Nome" :
+        return _nome;
+        break;
+      case "Escola":
+        return _escola;
+        break;
+      case "Email":
+        return _email;
+        break;
+      case "Senha":
+        return _senha;
+        break;
+    }
+    return null;
+  }
+
     // Padrão de botões do App ocaviva
   Widget _padraoBotao(var texto){
     return Container(
@@ -88,14 +122,17 @@ class _SignUpPageState extends State<SignUpPage> {
       margin: EdgeInsets.symmetric(vertical: 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
+        
         children: <Widget>[
           _padraoTexto(title, 15.0),
           SizedBox(
             height: 8,
           ),
-          TextField(
-            style: TextStyle(color: Colors.white,fontSize: 18.0, fontFamily: "GoogleFonts.quantico"),
+          TextFormField(
+            style: TextStyle(color: Colors.white,fontSize: 16.0, fontFamily: "GoogleFonts.quantico"),
             obscureText: isPassword,
+            autofocus: false,
+            controller: _controllerEntryField(title) ,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(25.0)),
@@ -107,22 +144,49 @@ class _SignUpPageState extends State<SignUpPage> {
             prefixIcon: Icon(icone),
             hintStyle: TextStyle(color: Colors.white),
             )
-                )
+          )
         ],
       ),
     );
   }
 
+  void cadastraFirebase() async
+  {
+    try {
+          FirebaseUser user = (await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _email.toString(), password: _senha.toString())).user;
+          UserUpdateInfo userUpdateInfo = new UserUpdateInfo();
+          userUpdateInfo.displayName = _nome.toString();
+          user.updateProfile(userUpdateInfo).then((onValue) {
+            Navigator.of(context).pushReplacementNamed('loginPage');
+            Usuario usuarioNovo = new Usuario(
+              _nome.toString(),
+              _escola.toString(),
+              _email.toString(),
+              _senha.toString()
+            );
+
+            
+            Firestore.instance.collection('usuarios').document().setData(usuarioNovo.toJson());
+
+          });       
+
+      } catch (error) {
+      }
+
+
+  }
 // Botao de registro
   Widget _registerButton() {
     return InkWell(
       onTap: () {
+        //cadastraFirebase();
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
       },     
       child: _padraoBotao('Cadastrar')
     );
   }
+  
 
   Widget _loginAccountLabel() {
     return Container(
@@ -165,7 +229,7 @@ class _SignUpPageState extends State<SignUpPage> {
       padding: const EdgeInsets.all(8),
       children: <Widget>[
 
-        _entryField("Nome","seu nome",Icons.person),
+        _entryField("Nome","seu nome completo",Icons.person),
         _entryField("Escola","sua escola", Icons.school),
         //_entryField("Username"),// n e mais necessario
         _entryField("Email","seu email", Icons.email),
@@ -186,6 +250,7 @@ class _SignUpPageState extends State<SignUpPage> {
       body: Stack(
         children: <Widget>[
           Container(
+            key:_formKey,
             padding: EdgeInsets.symmetric(horizontal: 20),
              decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(5)),
@@ -210,4 +275,8 @@ class _SignUpPageState extends State<SignUpPage> {
       ),
     );
   }
+
+
+
+
 }

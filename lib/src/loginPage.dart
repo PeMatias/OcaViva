@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ocaviva/src/HomePage.dart';
 import 'package:ocaviva/src/signup.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import 'Widget/bezierContainer.dart';
+//import 'Widget/bezierContainer.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -15,6 +14,10 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  
+
+
+
   Widget _backButton() {
     return InkWell(
       onTap: () {
@@ -72,7 +75,7 @@ Widget _padraoTexto(var texto, var tamFonte){
           SizedBox(
             height: 8,
           ),
-          TextField(
+          TextFormField(
             style: TextStyle(color: Colors.white,fontSize: 18.0, fontFamily: "GoogleFonts.quantico"),
             obscureText: isPassword,
             decoration: InputDecoration(
@@ -85,8 +88,10 @@ Widget _padraoTexto(var texto, var tamFonte){
             hintText: "Digite aqui "+ textoDica,
             prefixIcon: Icon(icone),
             hintStyle: TextStyle(color: Colors.white),
-            )
-                )
+            ),
+            initialValue: null,
+            validator: (value) => value.isEmpty ? 'Campo não pode ficar vazio' : null,
+          )  
         ],
       ),
     );

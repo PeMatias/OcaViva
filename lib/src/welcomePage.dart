@@ -124,20 +124,6 @@ class _WelcomePageState extends State<WelcomePage> {
         ));
   }
 
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: fraseInicial,
-          style: GoogleFonts.quantico(
-            textStyle: Theme.of(context).textTheme.display1,
-            fontSize: 14,
-            fontWeight: FontWeight.w700,
-            color: Colors.white,
-          ),
-      )
-    );
-  }
   Widget _padraoTextoExterno(var texto, var tamFonte)
   {
     return Container(
