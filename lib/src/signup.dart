@@ -179,7 +179,7 @@ class _SignUpPageState extends State<SignUpPage> {
   Widget _registerButton() {
     return InkWell(
       onTap: () {
-        //cadastraFirebase();
+        cadastraFirebase();
         Navigator.push(
           context, MaterialPageRoute(builder: (context) => LoginPage()));
       },     
