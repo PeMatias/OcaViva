@@ -1,0 +1,66 @@
+[
+    {
+        "fase": 1,
+        "desafioList": [
+            {
+                "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
+                "problemaList": [
+                    {
+                        "problema": "Eles estão reclamando de alagamento nas ruas.",
+                        "respostaList": [
+                            {
+                                "resposta": "Indenizar os moradores para eles se mudarem",
+                                "ponto": -1
+                            },
+                            {
+                                "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
+                                "ponto": 1
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
+                "problemaList": [
+                    {
+                        "problema": "Eles estão reclamando de alagamento nas ruas.",
+                        "respostaList": [
+                            {
+                                "resposta": "Indenizar os moradores para eles se mudarem",
+                                "ponto": -1
+                            },
+                            {
+                                "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
+                                "ponto": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "fase": 2,
+        "desafioList": [
+            {
+                "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
+                "problemaList": [
+                    {
+                        "problema": "Eles estão reclamando de alagamento nas ruas.",
+                        "respostaList": [
+                            {
+                                "resposta": "Indenizar os moradores para eles se mudarem",
+                                "ponto": -1
+                            },
+                            {
+                                "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
+                                "ponto": 1
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
