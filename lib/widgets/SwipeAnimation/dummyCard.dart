@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/widgets/texto2.dart';
 
 Positioned cardDemoDummy(
-    DecorationImage img,
+    Texto2 img,
     double bottom,
     double right,
     double left,
@@ -30,13 +31,13 @@ Positioned cardDemoDummy(
         child: new Column(
           children: <Widget>[
             new Container(
-              width: screenSize.width / 1.2 + cardWidth,
-              height: screenSize.height / 2.2,
+              width: screenSize.width / 2.0 + cardWidth,
+              height: screenSize.height / 3.2,
               decoration: new BoxDecoration(
                 borderRadius: new BorderRadius.only(
                     topLeft: new Radius.circular(8.0),
                     topRight: new Radius.circular(8.0)),
-                image: img,
+                //image: img,
               ),
             ),
             new Container(

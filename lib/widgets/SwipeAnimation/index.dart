@@ -6,6 +6,7 @@ import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:ocaviva/widgets/SwipeAnimation/activeCard.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/data.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/dummyCard.dart';
+import 'package:ocaviva/widgets/texto2.dart';
 
 class CardDemo extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   int flag = 0;
 
   List data = imageData;
-  List selectedData = [];
+  List selectedData = [1];
   void initState() {
     super.initState();
 
@@ -83,7 +84,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<Null> _swipeAnimation() async {
+  Future<Null> swipeAnimation() async {
     try {
       await _buttonController.forward();
     } on TickerCanceled {}
@@ -107,7 +108,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
       setState(() {
         flag = 1;
       });
-    _swipeAnimation();
+    swipeAnimation();
   }
 
   swipeLeft() {
@@ -115,7 +116,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
       setState(() {
         flag = 0;
       });
-    _swipeAnimation();
+    swipeAnimation();
   }
 
   @override
@@ -125,17 +126,17 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     double initialBottom = 15.0;
     var dataLength = data.length;
     double backCardPosition = initialBottom + (dataLength - 1) * 10 + 10;
-    double backCardWidth = -10.0;
+    double backCardWidth = -50.0;
     return (new Scaffold(
         appBar: new AppBar(
           elevation: 0.0,
-          backgroundColor: new Color.fromRGBO(106, 94, 175, 1.0),
+          backgroundColor: Colors.indigo,
           centerTitle: true,
           leading: new Container(
             margin: const EdgeInsets.all(15.0),
             child: new Icon(
               Icons.equalizer,
-              color: Colors.cyan,
+              color: Colors.indigo,
               size: 30.0,
             ),
           ),
@@ -151,7 +152,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                   margin: const EdgeInsets.all(15.0),
                   child: new Icon(
                     Icons.search,
-                    color: Colors.cyan,
+                    color: Colors.blue[900],
                     size: 30.0,
                   )),
             ),
@@ -160,9 +161,9 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               new Text(
-                "EVENTS",
+                "PROBLEMAS",
                 style: new TextStyle(
-                    fontSize: 12.0,
+                    fontSize: 15.0,
                     letterSpacing: 3.5,
                     fontWeight: FontWeight.bold),
               ),
@@ -188,7 +189,8 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
               ? new Stack(
                   alignment: AlignmentDirectional.center,
                   children: data.map((item) {
-                    if (data.indexOf(item) == dataLength - 1) {
+                    print(data.indexOf(item).toString()+"\n"+dataLength.toString());
+                    if (data.indexOf(item) != null  ) {
                       return cardDemo(
                           item,
                           bottom.value,

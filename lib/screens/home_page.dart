@@ -65,7 +65,7 @@ class HomeState extends State<HomePage>
     var myNavChildren = [
       headerChild,
       getNavItem(Icons.settings, "Configurações", "/home"),
-      getNavItem(Icons.home, "Home", "/"),
+      getNavItem(Icons.home, "Home", "/problemas"),
       getNavItem(Icons.account_box, "Perfil", "AccountScreen.routeName"),
       aboutChild
     ];
