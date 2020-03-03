@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/services/jogo_service.dart';
+import 'package:ocaviva/widgets/PageReveal/page_main.dart';
+import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
+import 'package:ocaviva/widgets/texto.dart';
 
 import 'texto2.dart';
 
@@ -17,11 +20,16 @@ class DesafioRow extends StatelessWidget {
       margin: const EdgeInsets.only(left: 0.0),
       child: new Hero(
         tag: 'desafio-icon-${desafio.desafio}',
-        child: new Image(
+        child: CircleAvatar(
+          child: Texto2(conteudo: "0"+"/"+desafio.problemaList.length.toString(), tamFonte:30.0),
+          backgroundColor: Colors.orange,
+          radius: 40,
+          )
+        /*child: new Image(
           image: new AssetImage('assets/images/oca_viva-logo.png'),
           height: 110,
           width: 105,
-        ),
+        ),*/
       ),
     );
   
@@ -46,6 +54,7 @@ class DesafioRow extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             new Texto2(conteudo: desafio.desafio, tamFonte: 15.0),
+            Align(alignment: Alignment.bottomRight,child: Texto2(conteudo: "\nProblemas: "+desafio.problemaList.length.toString(), tamFonte:10.0)),
             
           ],
         ),
@@ -56,7 +65,7 @@ class DesafioRow extends StatelessWidget {
       height: 150.0,
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
-        onPressed: () => carregaJogo(),//_navigateTo(context, desafio.id),
+        onPressed: () => Navigator.push(context, new MaterialPageRoute(builder: (context) => new CardDemo())),//_navigateTo(context, desafio.id),
 
         child: new Stack(
           children: <Widget>[
@@ -68,10 +77,5 @@ class DesafioRow extends StatelessWidget {
     );
   }
 
-  /*_navigateTo(context, String id) {
-    avigateTo(
-      context, HomePage(),      
-      transition: TransitionType.fadeIn
-    );
-  }*/
+  
 }

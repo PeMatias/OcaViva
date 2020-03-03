@@ -4,7 +4,6 @@ import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/fase.dart';
 import 'package:ocaviva/widgets/texto.dart';
 
-import 'homePage2.dart';
 
 class HomePage extends StatefulWidget {
  @override
@@ -119,15 +118,15 @@ class HomeState extends State<HomePage>
                    //Fase(asset: 'assets/images/respiratorio.png', legenda: "Sistema Respiratório"),
                   //Fase(asset: 'assets/images/excretor.png', legenda: "Sistema Excretor"),
                   InkWell(
-                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => DesafioPage(fase: 1,) ) ); },
+                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => DesafioPage(fase: 3,) ) ); },
                     child: Fase(asset: 'assets/images/esqueletico.png', legenda: "Sistema \nEsquelético"),
                   ) , 
                   InkWell(
-                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => DesafioPage(fase: 1,) ) ); },
+                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => DesafioPage(fase: 4,) ) ); },
                     child:  Fase(asset: 'assets/images/muscular.png', legenda: "Sistema \nMuscular"),
                   ) ,
                   InkWell(
-                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>DesafioPage(fase: 1,)) ); },
+                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>DesafioPage(fase: 5,)) ); },
                     child: Fase(asset: 'assets/images/nervoso.png', legenda: "Sistema\nNervoso"),
                   ) ,
                   //Fase(asset: 'assets/images/endocrino.png', legenda: "Sistema Endócrino"),

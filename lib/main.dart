@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ocaviva/screens/welcomePage.dart';
+import 'package:ocaviva/widgets/PageReveal/page_main.dart';
 
 import 'screens/home_page.dart';
 import 'screens/loginPage.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
       '/login': (context) => LoginPage(),
       '/registro': (context) => RegistroPage(),
       '/home': (context)=> HomePage(),
+      '/problemas': (context)=> PageMain(),
      },
       debugShowCheckedModeBanner: false,
     );
