@@ -1,43 +1,165 @@
 [
     {
         "fase": 1,
-        "desafioList": [
-            {
-                "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
-                "problemaList": [
-                    {
-                        "problema": "Eles estão reclamando de alagamento nas ruas.",
-                        "respostaList": [
-                            {
-                                "resposta": "Indenizar os moradores para eles se mudarem",
-                                "ponto": -1
-                            },
-                            {
-                                "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
-                                "ponto": 1
-                            }
-                        ]
-                    }
+        "desc":"Políticas públicas e o acesso aos direitos sociais: saneamento, habitação, educação, segurança, emprego e saúde",
+        "desafioList":
+        [
+          {
+            "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
+            "problemaList": 
+            [
+              {
+                "problema": "Eles estão reclamando de alagamento nas ruas.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Indenizar os moradores para eles se mudarem",
+                    "ponto": -2
+                  },
+                  {
+                    "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
+                    "ponto": 2
+                  }
                 ]
-            },
-            {
-                "desafio": "A população de um básico.",
-                "problemaList": [
-                    {
-                        "problema": "Eles estão reclamando de alagamento nas ruas.",
-                        "respostaList": [
-                            {
-                                "resposta": "Indenizar os moradores para eles se mudarem",
-                                "ponto": -1
-                            },
-                            {
-                                "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
-                                "ponto": 1
-                            }
-                        ]
-                    }
+              },
+              {
+                "problema": "Um bairro da vizinhaça está sofrendo com uma endemia de Dengue e Leptospirose devido ao acúmulo de lixo em depósitos irregulares.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Realizar um multirão de saúde para tratar os afetados ",
+                    "ponto": 1
+                  },
+                  {
+                    "resposta": "Implantar um serviço de coleta seletiva em conjunto com uma revitalização da infraestrutura do bairro. ",
+                    "ponto": 2
+                  }
                 ]
-            }
+              },
+              {
+                 "problema": "O presidente da associação dos moradores de um bairro, enviou um abaixo assinado para a prefeitura reclamando do gosto da água.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Promover palestras de conscientização nas escolas, sobre o descarte incorreto de lixo que contaminam os rios e os lençóis freáticos.",
+                    "ponto": 0
+                  },
+                  {
+                    "resposta": "Investir em novos equipamentos para melhorar o tratamento de água potável.",
+                    "ponto": 1
+                  }
+                ]
+                
+              },
+              {
+                 "problema": "A cidade não está atraindo os turistas. Há muitas localidades que estão com aspecto sujo. Até os cartões postais não atraem os próprios moradores locais.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Promover, em conjunto com a  população, um mutirão de limpeza e um evento aberto ao público, com o objetivo de divulgar a revitalização dos pontos turísticos.",
+                    "ponto": 2
+                  },
+                  {
+                    "resposta": "Privatizar os espaços, para que seja realizada a revitalização e a reorganização do acesso a esses pontos.",
+                    "ponto": 1
+                  }
+                ]
+              },
+              {
+                 "problema": "Os  moradores de um bairro reclamam do acúmulo de lixo nas ruas.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Criar aterros com estrutura para o tratamento do lixo.",
+                    "ponto": 2
+                  },
+                  {
+                    "resposta": "Distribuir panfletos sobre o descarte correto do lixo.",
+                    "ponto": 1
+                  }
+                ]
+              }
+              
+            ]
+          },
+          {
+            "desafio": "Os problemas da falta de moradia estão sendo cobrados por vários representantes da sociedade civil. Você foi encarregado de cumprir a ODS 10.",
+            "problemaList": 
+            [
+              {
+                "problema": "Um terreno de propriedade do governo, será usado na construção de um conjunto habitacional  e você precisa decidir quais os materias serão utilizados.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Tecnologia Wood Frame e modular",
+                    "ponto": 2
+                  },
+                  {
+                    "resposta": "Alvenaria comum ",
+                    "ponto": -2
+                  }
+                ]
+              },
+              {
+                "problema": "A construção do conjunto habitacional  está atrasando e a populção está reclamando sobre isso.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Realizar uma coletiva de imprensa para justificar o atraso.",
+                    "ponto": -2
+                  },
+                  {
+                    "resposta": "Cobrar a empreiteira responsável pela obra.",
+                    "ponto": 1
+                  }
+                ]
+              },
+              {
+                 "problema": "Houve uma queda recente de um prédio no centro da cidade. A população reclama de negligência.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Ceder escolas para mudança temporária dos moradores.",
+                    "ponto": -1
+                  },
+                  {
+                    "resposta": "Vistoriar os prédios e punir os responsáveis.",
+                    "ponto": 2
+                  }
+                ]
+                
+              },
+              {
+                 "problema": "O jornal local mostrou grande aumento do número de invasões na cidade. A população reclama de aumento na criminalidade.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Permitir os moradores no local e providenciar  operações de combate ao crime.",
+                    "ponto": 2
+                  }, 
+                  {
+                    "resposta": "Realocar os moradores da área e reforçar a segurança na vizinhança.",
+                    "ponto": -2
+                  }
+                ]
+              },
+              {
+                 "problema": "As chuvas na cidade estão causando perigosos deslizamentos de terra.",
+                "respostaList": 
+                [
+                  {
+                    "resposta": "Retirar os moradores da área  e auxilia-los financeiramente.",
+                    "ponto": 1
+                  },
+                  {
+                    "resposta": " Providenciar uma análise dos terrenos",
+                    "ponto": -2
+                  }
+                ]
+              }
+              
+            ]
+          }
         ]
     },
     {
