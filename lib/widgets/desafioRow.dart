@@ -42,7 +42,7 @@ class DesafioRow extends StatelessWidget {
         ],
       ),
       child: new Container(
-        margin: const EdgeInsets.only(left: 68.0, right: 10.0),
+        margin: const EdgeInsets.only(left: 50.0, right: 10.0),
         constraints: new BoxConstraints.expand(),
         child: new Column(
           crossAxisAlignment: CrossAxisAlignment.center,

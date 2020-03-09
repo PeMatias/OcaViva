@@ -21,16 +21,16 @@ class DesafioList extends StatelessWidget {
             child: FutureBuilder(
               future: carregaJogo(fase),
               builder: (BuildContext context,ocaviva) {
-                print(ocaviva.data.desafioList[0].desafio);
+                //print(ocaviva.data.desafioList[0].desafio);
 
                // builder: (BuildContext context, AsyncSnapshot<Jogo> ocaviva) {
                 if (ocaviva.connectionState==null || !ocaviva.hasData)
-                  return  CircularProgressIndicator();
+                  return  const Center(child: CircularProgressIndicator(),) ;
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,
                   itemCount: ocaviva.data.desafioList.length,
-                  itemExtent: 160.0,                    
+                  itemExtent: 180.0,                    
                   itemBuilder: (_, index) => new DesafioRow( ocaviva.data.desafioList[index])
                 );
               }
