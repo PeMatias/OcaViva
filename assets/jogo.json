@@ -1,188 +1,412 @@
 [
-    {
-        "fase": 1,
-        "desc":"Políticas públicas e o acesso aos direitos sociais: saneamento, habitação, educação, segurança, emprego e saúde",
-        "desafioList":
-        [
+  {
+    "fase": 1,
+    "desafioList": [
+      {
+        "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
+        "problemaList": [
           {
-            "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
-            "problemaList": 
-            [
+            "problema": "Eles estão reclamando de alagamento nas ruas.",
+            "respostaList": [
               {
-                "problema": "Eles estão reclamando de alagamento nas ruas.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Indenizar os moradores para eles se mudarem",
-                    "ponto": -2
-                  },
-                  {
-                    "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
-                    "ponto": 2
-                  }
-                ]
+                "resposta": "Indenizar os moradores para eles se mudarem",
+                "ponto": -2
               },
               {
-                "problema": "Um bairro da vizinhaça está sofrendo com uma endemia de Dengue e Leptospirose devido ao acúmulo de lixo em depósitos irregulares.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Realizar um multirão de saúde para tratar os afetados ",
-                    "ponto": 1
-                  },
-                  {
-                    "resposta": "Implantar um serviço de coleta seletiva em conjunto com uma revitalização da infraestrutura do bairro. ",
-                    "ponto": 2
-                  }
-                ]
-              },
-              {
-                 "problema": "O presidente da associação dos moradores de um bairro, enviou um abaixo assinado para a prefeitura reclamando do gosto da água.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Promover palestras de conscientização nas escolas, sobre o descarte incorreto de lixo que contaminam os rios e os lençóis freáticos.",
-                    "ponto": 0
-                  },
-                  {
-                    "resposta": "Investir em novos equipamentos para melhorar o tratamento de água potável.",
-                    "ponto": 1
-                  }
-                ]
-                
-              },
-              {
-                 "problema": "A cidade não está atraindo os turistas. Há muitas localidades que estão com aspecto sujo. Até os cartões postais não atraem os próprios moradores locais.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Promover, em conjunto com a  população, um mutirão de limpeza e um evento aberto ao público, com o objetivo de divulgar a revitalização dos pontos turísticos.",
-                    "ponto": 2
-                  },
-                  {
-                    "resposta": "Privatizar os espaços, para que seja realizada a revitalização e a reorganização do acesso a esses pontos.",
-                    "ponto": 1
-                  }
-                ]
-              },
-              {
-                 "problema": "Os  moradores de um bairro reclamam do acúmulo de lixo nas ruas.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Criar aterros com estrutura para o tratamento do lixo.",
-                    "ponto": 2
-                  },
-                  {
-                    "resposta": "Distribuir panfletos sobre o descarte correto do lixo.",
-                    "ponto": 1
-                  }
-                ]
+                "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
+                "ponto": 2
               }
-              
             ]
           },
           {
-            "desafio": "Os problemas da falta de moradia estão sendo cobrados por vários representantes da sociedade civil. Você foi encarregado de cumprir a ODS 10.",
-            "problemaList": 
-            [
+            "problema": "Um bairro da vizinhaça está sofrendo com uma endemia de Dengue e Leptospirose devido ao acúmulo de lixo em depósitos irregulares.",
+            "respostaList": [
               {
-                "problema": "Um terreno de propriedade do governo, será usado na construção de um conjunto habitacional  e você precisa decidir quais os materias serão utilizados.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Tecnologia Wood Frame e modular",
-                    "ponto": 2
-                  },
-                  {
-                    "resposta": "Alvenaria comum ",
-                    "ponto": -2
-                  }
-                ]
+                "resposta": "Realizar um multirão de saúde para tratar os afetados ",
+                "ponto": 1
               },
               {
-                "problema": "A construção do conjunto habitacional  está atrasando e a populção está reclamando sobre isso.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Realizar uma coletiva de imprensa para justificar o atraso.",
-                    "ponto": -2
-                  },
-                  {
-                    "resposta": "Cobrar a empreiteira responsável pela obra.",
-                    "ponto": 1
-                  }
-                ]
-              },
-              {
-                 "problema": "Houve uma queda recente de um prédio no centro da cidade. A população reclama de negligência.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Ceder escolas para mudança temporária dos moradores.",
-                    "ponto": -1
-                  },
-                  {
-                    "resposta": "Vistoriar os prédios e punir os responsáveis.",
-                    "ponto": 2
-                  }
-                ]
-                
-              },
-              {
-                 "problema": "O jornal local mostrou grande aumento do número de invasões na cidade. A população reclama de aumento na criminalidade.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Permitir os moradores no local e providenciar  operações de combate ao crime.",
-                    "ponto": 2
-                  }, 
-                  {
-                    "resposta": "Realocar os moradores da área e reforçar a segurança na vizinhança.",
-                    "ponto": -2
-                  }
-                ]
-              },
-              {
-                 "problema": "As chuvas na cidade estão causando perigosos deslizamentos de terra.",
-                "respostaList": 
-                [
-                  {
-                    "resposta": "Retirar os moradores da área  e auxilia-los financeiramente.",
-                    "ponto": 1
-                  },
-                  {
-                    "resposta": " Providenciar uma análise dos terrenos",
-                    "ponto": -2
-                  }
-                ]
+                "resposta": "Implantar um serviço de coleta seletiva em conjunto com uma revitalização da infraestrutura do bairro. ",
+                "ponto": 2
               }
-              
+            ]
+          },
+          {
+            "problema": "O presidente da associação dos moradores de um bairro, enviou um abaixo assinado para a prefeitura reclamando do gosto da água.",
+            "respostaList": [
+              {
+                "resposta": "Promover palestras de conscientização nas escolas, sobre o descarte incorreto de lixo que contaminam os rios e os lençóis freáticos.",
+                "ponto": 0
+              },
+              {
+                "resposta": "Investir em novos equipamentos para melhorar o tratamento de água potável.",
+                "ponto": 1
+              }
+            ]
+          },
+          {
+            "problema": "A cidade não está atraindo os turistas. Há muitas localidades que estão com aspecto sujo. Até os cartões postais não atraem os próprios moradores locais.",
+            "respostaList": [
+              {
+                "resposta": "Promover, em conjunto com a  população, um mutirão de limpeza e um evento aberto ao público, com o objetivo de divulgar a revitalização dos pontos turísticos.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Privatizar os espaços, para que seja realizada a revitalização e a reorganização do acesso a esses pontos.",
+                "ponto": 1
+              }
+            ]
+          },
+          {
+            "problema": "Os  moradores de um bairro reclamam do acúmulo de lixo nas ruas.",
+            "respostaList": [
+              {
+                "resposta": "Criar aterros com estrutura para o tratamento do lixo.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Distribuir panfletos sobre o descarte correto do lixo.",
+                "ponto": 1
+              }
             ]
           }
         ]
-    },
-    {
-        "fase": 2,
-        "desafioList": [
-            {
-                "desafio": "População de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
-                "problemaList": [
-                    {
-                        "problema": "Eles estão reclamando de alagamento nas ruas.",
-                        "respostaList": [
-                            {
-                                "resposta": "Indenizar os moradores para eles se mudarem",
-                                "ponto": -1
-                            },
-                            {
-                                "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
-                                "ponto": 1
-                            }
-                        ]
-                    }
-                ]
-            }
+      },
+      {
+        "desafio": "Os problemas da falta de moradia estão sendo cobrados por vários representantes da sociedade civil. Você foi encarregado de cumprir a ODS 10.",
+        "problemaList": [
+          {
+            "problema": "Um terreno de propriedade do governo, será usado na construção de um conjunto habitacional  e você precisa decidir quais os materias serão utilizados.",
+            "respostaList": [
+              {
+                "resposta": "Tecnologia Wood Frame e modular",
+                "ponto": 2
+              },
+              {
+                "resposta": "Alvenaria comum ",
+                "ponto": -2
+              }
+            ]
+          },
+          {
+            "problema": "A construção do conjunto habitacional  está atrasando e a populção está reclamando sobre isso.",
+            "respostaList": [
+              {
+                "resposta": "Realizar uma coletiva de imprensa para justificar o atraso.",
+                "ponto": -2
+              },
+              {
+                "resposta": "Cobrar a empreiteira responsável pela obra.",
+                "ponto": 1
+              }
+            ]
+          },
+          {
+            "problema": "Houve uma queda recente de um prédio no centro da cidade. A população reclama de negligência.",
+            "respostaList": [
+              {
+                "resposta": "Ceder escolas para mudança temporária dos moradores.",
+                "ponto": -1
+              },
+              {
+                "resposta": "Vistoriar os prédios e punir os responsáveis.",
+                "ponto": 2
+              }
+            ]
+          },
+          {
+            "problema": "O jornal local mostrou grande aumento do número de invasões na cidade. A população reclama de aumento na criminalidade.",
+            "respostaList": [
+              {
+                "resposta": "Permitir os moradores no local e providenciar  operações de combate ao crime.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Realocar os moradores da área e reforçar a segurança na vizinhança.",
+                "ponto": -2
+              }
+            ]
+          },
+          {
+            "problema": "As chuvas na cidade estão causando perigosos deslizamentos de terra.",
+            "respostaList": [
+              {
+                "resposta": "Retirar os moradores da área  e auxilia-los financeiramente.",
+                "ponto": 1
+              },
+              {
+                "resposta": " Providenciar uma análise dos terrenos",
+                "ponto": -2
+              }
+            ]
+          }
         ]
-    }
+      },
+      {
+        "desafio": "A cada dia que passa, formam-se novos grupos de manifestantes que protestam em busca de melhorias na educação básica da cidade. Buscando o cumprimento da ODS 4.",
+        "problemaList": [
+          {
+            "problema": "O corte no repasse de verbas para as instituições de ensino têm gerado grandes protestos.",
+            "respostaList": [
+              {
+                "resposta": "Manter o corte do repasse de verbas e encaminhar a força policial para dispersar os manifestantes.",
+                "ponto": -2
+              },
+              {
+                "resposta": "Acionar a criação de emendas para o remanejo do orçamento e liberação de verbas para as intituições de ensino.",
+                "ponto": 2
+              }
+            ]
+          },
+          {
+            "problema": "Os estudantes reclamam da falta de professores qualificados para algumas matérias básicas.",
+            "respostaList": [
+              {
+                "resposta": "Criar cursos exclusivos para a formação de docentes, incuindo novas didáticas pedagógicas",
+                "ponto": 2
+              },
+              {
+                "resposta": "Ampliar as didáticas já existentes através de palestras e atividades com os docentes.",
+                "ponto": 1
+              }
+            ]
+          },
+          {
+            "problema": "Dados de Pesquisas Jornalísticas mostram que 30% dos estudantes declaram-se pouco satisfeitos com o processo de ensino.",
+            "respostaList": [
+              {
+                "resposta": "Criar programas padrões para dinamizar as aulas nas escolas púbicas ",
+                "ponto": 2
+              },
+              {
+                "resposta": "Classificar a insatisação como um problema intríseco dos estudantes, ressaltando a qualidade do ensino para as Pesuisas Jornalísticas.",
+                "ponto": -2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "desafio": "Os níveis de segurança na OcaViva estão sendo reclamados pela população. Alegam aumentos significativos da criminalidade e omissão de ações de estorvo. Afetando a execução da ODS 16.",
+        "problemaList": [
+          {
+            "problema": "A população reclama que seus direitos de possuir bens estão completamente ameaçados pela presença de criminalidade.",
+            "respostaList": [
+              {
+                "resposta": "Repassar dicas de cuidados com os bens pessoais através dos Meios de Comunicação.",
+                "ponto": -2
+              },
+              {
+                "resposta": "Exigir um planejamento dos responsáveis pela segurança, para ajustes na intervenção policial",
+                "ponto": 2
+              }
+            ]
+          },
+          {
+            "problema": "Segundo dados da Secretaria de Segurança da sua OcaViva, houve um aumento de crimes contra o patrimônio e a vida.",
+            "respostaList": [
+              {
+                "resposta": "Afirmar um engano na divulgação de dados da Secretaria da OcaViva.",
+                "ponto": -2
+              },
+              {
+                "resposta": "Afirmar que os dados foram considerados e planejamentos de seguranças serão realizados.",
+                "ponto": 1
+              }
+            ]
+          },
+          {
+            "problema": "Os Representantes de Segurança da OcaVIva afirmam uma grave crise na estabilidade da atuação policial na cidade.",
+            "respostaList": [
+              {
+                "resposta": "Convocar um briefing para efetivar a Garantia da Lei de Ordem e assegurar o trabalho da segurança pública.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Enfatizar a ilegalidade na crise de atuação policial na cidade e prender os envolvidos.",
+                "ponto": -2
+              }
+            ]
+          },
+          {
+            "problema": "Segundo os registros da Polícia Rodoviária, é crescente o número de tentativas de tráfico de drogas, por meio do transporte.",
+            "respostaList": [
+              {
+                "resposta": "Criar uma nova operação para fiscalizações intensivas com o auxílio de cães farejadores.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Apresentar a efetividade das ações já existentes e não atribuir novos gastos para novas operações.",
+                "ponto": -2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "desafio": "A população alega a existência de uma crise de desemprego em sua OcaViva. Você precisa controlar a situação e garantir o cumprimento da ODS 8.",
+        "problemaList": [
+          {
+            "problema": "Os jovens da cidade, pedem melhoria nas oportunidades de emprego oferecidas ppelas empresas.",
+            "respostaList": [
+              {
+                "resposta": "Criar políticas que auxilie a entrada dos jovens no mercado de trabalho.",
+                "ponto": 1
+              },
+              {
+                "resposta": "Fornecer programas de profissioalização para os jovens. ",
+                "ponto": 2
+              }
+            ]
+          },
+          {
+            "problema": "Grupos de desempregados alegam aumento na burocracia para a oficialização dos registros de emprego em sua OcaViva.",
+            "respostaList": [
+              {
+                "resposta": "Alegar necessidade em manter as burocracias para garantir organização em sua OcaViva.",
+                "ponto": -1
+              },
+              {
+                "resposta": "Substituir as documentações para criar melhorias na criação de empregos em sua OcaViva..",
+                "ponto": 1
+              }
+            ]
+          },
+          {
+            "problema": "Uma importante organização responsável pelos índices de geração de empregos entre as mulheres, expôs aumento no índice de desigualdade salarial em relação aos homens.",
+            "respostaList": [
+              {
+                "resposta": "Negar as informações e emitir nota de repúdio sobre as questões de desigualdade salarial.",
+                "ponto": -1
+              },
+              {
+                "resposta": "Confirmar dados e abrir espaço para diálogos de resolução.",
+                "ponto": 2
+              }
+            ]
+          },
+          {
+            "problema": "Grupos de mobilizações em defesa dos direitos infantis, protestam contra o aumento do Trabalho Infantil.",
+            "respostaList": [
+              {
+                "resposta": "Criar novos programas de conscientização para buscar diminuir a existência dos casos de Trabalho Infantil.",
+                "ponto": 1
+              },
+              {
+                "resposta": "Ampliar as políticas de fiscalizações para o combate à existência do Trabalho Infantil, investindo em programas de acolhimento para as crianças",
+                "ponto": 2
+              }
+            ]
+          },
+          {
+            "problema": "Grandes organizações influenciadoras de sua OcaViva cobram atuação governamental em defesa do emprego oara a comunidade LGBT.",
+            "respostaList": [
+              {
+                "resposta": "Implementar políticas de combate às vulnerabilidades sociais, como o preconceito, existentes em sua cidade.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Contestar a abordagem do tema e classificar como importunação cultural da população de sua OcaViva.",
+                "ponto": -2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "desafio": "Grandes problemas de saúde vêm surgindo recentemente em sua OcaViva. A população reclama da demora nos atendimentos e os profissionais de saúde denunciam a falta de materiais para o trabalho. Descumprindo a ODS 3.",
+        "problemaList": [
+          {
+            "problema": "Grupos de populares unem-se para mobilizar protestos, buscando atendimentos mais rápidos. Alegam danos morais causados pela demora nos atendimentos.",
+            "respostaList": [
+              {
+                "resposta": "Gerenciar casos de negligência e auxiliar nas investigações de denúncia contra o Sistema de Saúde.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Indenizar os pacientes que sofreram com o atraso, o descaso em seu entendimento.",
+                "ponto": 1
+              }
+            ]
+          },
+          {
+            "problema": "A Categoria de Saúde, afirma necessitar de ajustes e aumento no estoque de materiais.",
+            "respostaList": [
+              {
+                "resposta": "Examinar a falta de materiais nas unidades de saúde e multar empresas que não seguem o acordo de fornecimento.",
+                "ponto": 1
+              },
+              {
+                "resposta": "Assegurar a suficiência da distribuição de materiais e propor políticas de otimização de estoque, para economia nos ambientes de hospitalares.",
+                "ponto": 2
+              }
+            ]
+          },
+          {
+            "problema": "A população reivindica mais atenção para a segurança de saúde da cidade. Declaram preocupação com possíveis casos de infecção de uma nova doença estrangeira.",
+            "respostaList": [
+              {
+                "resposta": "Intensificar as atuações de vigilância sanitária em lugares como: Aeroportos, Hotéis, Shoppings. Para diminuir os possíveis casos da doença.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Aumentar as campanhas de preveção às infecções e declarar seguridade contra os possíveis casos da doença.",
+                "ponto": -1
+              }
+            ]
+          },
+          {
+            "problema": "Dados recentes divulgados pelo PNI (Programa Nacional de Imunização), mostram que houve grande queda no número de vacinações da sua OcaViva.",
+            "respostaList": [
+              {
+                "resposta": "Promover campanhas de conscientização para fortificar a importância da vacinação.",
+                "ponto": 1
+              },
+              {
+                "resposta": "Criar dias estratégicos para a vacinação e aumentar o horário de funcionamento das Undades de Imunizações.",
+                "ponto": 2
+              }
+            ]
+          },
+          {
+            "problema": "Os moradores de sua OcaViva estão reclamando de suuperlotação nos Hospitais da cidade.",
+            "respostaList": [
+              {
+                "resposta": "Contratar profissionais de saúde e aumentar o número de leitos.",
+                "ponto": 2
+              },
+              {
+                "resposta": "Autorizar o encaminhamento dos enfermos para hospitais mais próximos.",
+                "ponto": -2
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "desc": "Políticas públicas e o acesso aos direitos sociais: saneamento, habitação, educação, segurança, emprego e saúde"
+  },
+  {
+    "fase": 2,
+    "desafioList": [
+      {
+        "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",
+        "problemaList": [
+          {
+            "problema": "Eles estão reclamando de alagamento nas ruas.",
+            "respostaList": [
+              {
+                "resposta": "Indenizar os moradores para eles se mudarem",
+                "ponto": -1
+              },
+              {
+                "resposta": "Construção de Sistemas de Esgotamento Sanitário ",
+                "ponto": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 ]
