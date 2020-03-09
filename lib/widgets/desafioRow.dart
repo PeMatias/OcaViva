@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ocaviva/models/jogo.dart';
+import 'package:pie_chart/pie_chart.dart';
 import 'texto2.dart';
 
 class DesafioRow extends StatelessWidget {
@@ -10,16 +11,39 @@ class DesafioRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Map<String, double> dataMap = new Map();
+    dataMap.putIfAbsent("F", ()=> desafios.problemaList.length.toDouble() );
     final desafioThumbnail = new Container(
+     // alignment: Alignment.centerRight,
       alignment: new FractionalOffset(0, 0.5),
       margin: const EdgeInsets.only(left: 0.0),
       child: new Hero(
         tag: 'desafio-icon-${desafios.desafio}',
-        child: CircleAvatar(
-          child: Texto2(conteudo: "0"+"/"+desafios.problemaList.length.toString(), tamFonte:30.0),
+        child: PieChart(dataMap: dataMap,
+           showLegends: false,
+           chartValueFontSize: 10,
+           chartRadius: 78,
+           showChartValueLabel: false,
+           showChartValuesInPercentage: false,
+           showChartValues: false,
+           showChartValuesOutside: false,
+           decimalPlaces: 1,
+            ),
+       /* child: CircleAvatar(
+          child: PieChart(dataMap: dataMap,
+           showLegends: false,
+           chartValueFontSize: 10,
+           chartRadius: 30,
+           showChartValueLabel: false,
+           showChartValuesInPercentage: false,
+           showChartValues: false,
+           showChartValuesOutside: false,
+            ),
+          //child: Texto2(conteudo: "0"+"/"+desafios.problemaList.length.toString(), tamFonte:30.0),
           backgroundColor: Colors.orange,
+          //backgroundColor: Colors.transparent,
           radius: 40,
-          )
+          )*/
         /*child: new Image(
           image: new AssetImage('assets/images/oca_viva-logo.png'),
           height: 110,
@@ -65,7 +89,7 @@ class DesafioRow extends StatelessWidget {
         child: new Stack(
           children: <Widget>[
             desafioCard,
-            desafioThumbnail,
+            Positioned(top:15 ,right: 225,child: Align(alignment: Alignment.topCenter,child: desafioThumbnail,)),
           ],
         ),// onPressed: () {},
       ),

@@ -25,7 +25,7 @@ class DesafioList extends StatelessWidget {
 
                // builder: (BuildContext context, AsyncSnapshot<Jogo> ocaviva) {
                 if (ocaviva.connectionState==null || !ocaviva.hasData)
-                  return  const Center(child: CircularProgressIndicator(),) ;
+                  return  const Center(child: CircularProgressIndicator(),);
                 return ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.vertical,

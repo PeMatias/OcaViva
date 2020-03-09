@@ -46,53 +46,48 @@ class LoginState extends State<LoginPage>
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
     String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
-    return Scaffold(
-      body: Stack
-      (
-        children: <Widget>
-        [
-          BodyBackground(),
-          Center(
-            child: Column
-            (
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>
-              [
-                SizedBox(height: 42, ),
-                Image.asset('assets/images/oca_viva-logo.png',height: 187,width: 174 ,),
-                SizedBox(height: 8, ),
-                Expanded
+        return Scaffold(
+          body: Stack
+          (
+            children: <Widget>
+            [
+              BodyBackground(),
+              Center(
+                child: Column
                 (
-                  
-                  child: ListView
-                  (
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(22),
-                    children: <Widget>
-                    [ 
-                     
-                      CampoEntrada(titulo: "Email", textoDica: "seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
-                      CampoEntrada(titulo: "Senha", textoDica: "sua senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
-                      SizedBox(height: 30,),
-                      InkWell
-                      ( 
-                        
-                        onTap: () { 
-                          if (verificaCampos())
-                          {
-                            Alert(context: context, title: "Login não efetuado", desc: "Por favor verifique todos os campos, apenas quando todos forem corretamente preenchidos seu login será realizado").show();
-                          }
-                          else{
-                            userAuth.LoginEmail(_email.text, _senha.text,context);
-                            
-                            
-                          }
-                    
-                             
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>
+                  [
+                    SizedBox(height: 42, ),
+                    Image.asset('assets/images/oca_viva-logo.png',height: 187,width: 174 ,),
+                    SizedBox(height: 8, ),
+                    Expanded
+                    (
+                      
+                      child: ListView
+                      (
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(22),
+                        children: <Widget>
+                        [ 
+                         
+                          CampoEntrada(titulo: "Email", textoDica: "seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
+                          CampoEntrada(titulo: "Senha", textoDica: "sua senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
+                          SizedBox(height: 30,),
+                         InkWell(                         
+                            onTap: () { 
+                              if (verificaCampos())
+                              {
+                                Alert(context: context, title: "Login não efetuado", desc: "Por favor verifique todos os campos, apenas quando todos forem corretamente preenchidos seu login será realizado").show();
+                              }
+                              else{
+                                showDialog(context: context, child: Center(child: CircularProgressIndicator()));
+                                userAuth.LoginEmail(_email.text, _senha.text,context);
+                              }                              
                          },
                         child: Botao(conteudo: "Entrar", tamFonte: 25)
-                      ) ,   
+                      ) ,
                       Container(
                         padding: EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.centerRight,
