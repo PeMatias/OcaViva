@@ -10,21 +10,24 @@ String jogoToJson(List<Jogo> data) => json.encode(List<dynamic>.from(data.map((x
 
 class Jogo {
     int fase;
+    String desc;
     List<DesafioList> desafioList;
 
     Jogo({
         this.fase,
+        this.desc,
         this.desafioList,
     });
 
     factory Jogo.fromJson(Map<String, dynamic> json) => Jogo(
         fase: json["fase"],
+        desc: json["desc"] == null ? null : json["desc"],
         desafioList: List<DesafioList>.from(json["desafioList"].map((x) => DesafioList.fromJson(x))),
     );
- 
 
     Map<String, dynamic> toJson() => {
         "fase": fase,
+        "desc": desc == null ? null : desc,
         "desafioList": List<dynamic>.from(desafioList.map((x) => x.toJson())),
     };
 }

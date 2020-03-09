@@ -1,17 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ocaviva/models/jogo.dart';
-import 'package:ocaviva/services/jogo_service.dart';
-import 'package:ocaviva/widgets/PageReveal/page_main.dart';
-import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
-import 'package:ocaviva/widgets/texto.dart';
-
 import 'texto2.dart';
 
 class DesafioRow extends StatelessWidget {
 
-  final DesafioList desafio;
+  final DesafioList desafios;
 
-  DesafioRow(this.desafio);
+  DesafioRow(this.desafios);
 
   @override
   Widget build(BuildContext context) {
@@ -19,9 +14,9 @@ class DesafioRow extends StatelessWidget {
       alignment: new FractionalOffset(0, 0.5),
       margin: const EdgeInsets.only(left: 0.0),
       child: new Hero(
-        tag: 'desafio-icon-${desafio.desafio}',
+        tag: 'desafio-icon-${desafios.desafio}',
         child: CircleAvatar(
-          child: Texto2(conteudo: "0"+"/"+desafio.problemaList.length.toString(), tamFonte:30.0),
+          child: Texto2(conteudo: "0"+"/"+desafios.problemaList.length.toString(), tamFonte:30.0),
           backgroundColor: Colors.orange,
           radius: 40,
           )
@@ -53,8 +48,8 @@ class DesafioRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Texto2(conteudo: desafio.desafio, tamFonte: 15.0),
-            Align(alignment: Alignment.bottomRight,child: Texto2(conteudo: "\nProblemas: "+desafio.problemaList.length.toString(), tamFonte:10.0)),
+            new Texto2(conteudo: desafios.desafio, tamFonte: 13.0),
+            
             
           ],
         ),
