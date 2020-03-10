@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ocaviva/models/jogo.dart';
+import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
 import 'package:pie_chart/pie_chart.dart';
 import 'texto2.dart';
 
@@ -12,7 +13,8 @@ class DesafioRow extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Map<String, double> dataMap = new Map();
-    dataMap.putIfAbsent("F", ()=> desafios.problemaList.length.toDouble() );
+    //dataMap.putIfAbsent("F", ()=> desafios.problemaList.length.toDouble() );
+    dataMap.putIfAbsent("F", ()=> 0 );
     final desafioThumbnail = new Container(
      // alignment: Alignment.centerRight,
       alignment: new FractionalOffset(0, 0.5),
@@ -20,35 +22,17 @@ class DesafioRow extends StatelessWidget {
       child: new Hero(
         tag: 'desafio-icon-${desafios.desafio}',
         child: PieChart(dataMap: dataMap,
+           animationDuration: Duration(milliseconds: 1000),
            showLegends: false,
-           chartValueFontSize: 10,
+           chartValueFontSize: 20,
            chartRadius: 78,
            showChartValueLabel: false,
            showChartValuesInPercentage: false,
-           showChartValues: false,
+           showChartValues: true,
            showChartValuesOutside: false,
-           decimalPlaces: 1,
+           decimalPlaces: 0,
             ),
-       /* child: CircleAvatar(
-          child: PieChart(dataMap: dataMap,
-           showLegends: false,
-           chartValueFontSize: 10,
-           chartRadius: 30,
-           showChartValueLabel: false,
-           showChartValuesInPercentage: false,
-           showChartValues: false,
-           showChartValuesOutside: false,
-            ),
-          //child: Texto2(conteudo: "0"+"/"+desafios.problemaList.length.toString(), tamFonte:30.0),
-          backgroundColor: Colors.orange,
-          //backgroundColor: Colors.transparent,
-          radius: 40,
-          )*/
-        /*child: new Image(
-          image: new AssetImage('assets/images/oca_viva-logo.png'),
-          height: 110,
-          width: 105,
-        ),*/
+
       ),
     );
   
@@ -84,7 +68,8 @@ class DesafioRow extends StatelessWidget {
       height: 150.0,
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
-        onPressed: () => Navigator.of(context).pushNamed("/problemas"),//_navigateTo(context, desafio.id),
+       // onPressed: () => Navigator.of(context).pushNamed("/problemas"),//_navigateTo(context, desafio.id),
+       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CardDemo(problemaList: desafios.problemaList,) ) ),
 
         child: new Stack(
           children: <Widget>[

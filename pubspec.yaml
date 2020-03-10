@@ -74,6 +74,7 @@ flutter:
   - assets/images/esqueletico.png
   - assets/images/muscular.png
   - assets/images/nervoso.png
+  - assets/images/fundo-1.png
   - assets/jogo.json
 
   # An image asset can refer to one or more resolution-specific "variants", see

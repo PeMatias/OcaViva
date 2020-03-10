@@ -1,14 +1,16 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/detail.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
+import 'package:ocaviva/widgets/texto.dart';
 
 import '../texto2.dart';
 
 
 Positioned cardDemo(
-    Texto2 img,
+    ProblemaList img,
     double bottom,
     double right,
     double left,
@@ -55,7 +57,7 @@ Positioned cardDemo(
                   /*turns: new AlwaysStoppedAnimation(
                       flag == 0 ? rotation / 360 : -rotation / 360),*/
                   child: new Hero(
-                    tag: img.conteudo.toString(),
+                    tag: img.problema.toString(),
                     child: new GestureDetector(
                       onTap: () {/*
                          Navigator.push(
@@ -71,31 +73,36 @@ Positioned cardDemo(
                         elevation: 4.0,
                         child: new Container(
                           alignment: Alignment.center,
-                          width: screenSize.width / 1.2 + cardWidth,
-                          height: screenSize.height / 1.7,
+                          width: screenSize.width  + cardWidth,
+                          height: screenSize.height /1.5,
                           decoration: new BoxDecoration(
-                            color: new Color.fromRGBO(121, 114, 173, 1.0),
+                            color: Colors.blueAccent,
                             borderRadius: new BorderRadius.circular(8.0),
+                            image: new DecorationImage(
+                                          image: new ExactAssetImage('assets/images/fundo-1.png'),
+                                          fit: BoxFit.cover,
+                                        ),
                           ),
                           child: new Column(
                             children: <Widget>[
                               new Container(
                                 width: screenSize.width / 1.2 + cardWidth,
-                                height: screenSize.height / 2.2,
+                                height: screenSize.height /4,
                                 decoration: new BoxDecoration(
                                   borderRadius: new BorderRadius.only(
                                       topLeft: new Radius.circular(8.0),
                                       topRight: new Radius.circular(8.0)),
-                                 // image: img,
+                                      
                                 ),
-                                child: img,
+                                child: Texto(conteudo: img.problema.toString(), tamFonte: 18), 
+                                margin: EdgeInsets.all(10)
                               ),
                               new Container(
-                                  width: screenSize.width / 1.2 + cardWidth,
+                                  width: screenSize.width /0.8 + cardWidth,
                                   height:
-                                      screenSize.height / 1.7 - screenSize.height / 2.2,
+                                      screenSize.height / 1.5 - screenSize.height /2.5,
                                   alignment: Alignment.center,
-                                  child: new Row(
+                                  child: new Column(
                                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                     children: <Widget>[
                                       new FlatButton(
@@ -104,8 +111,8 @@ Positioned cardDemo(
                                             swipeLeft();
                                           },
                                           child: new Container(
-                                            height: 60.0,
-                                            width: 130.0,
+                                            height: 75.0,
+                                            width: screenSize.width/1.3,
                                             alignment: Alignment.center,
                                             decoration: new BoxDecoration(
                                               color: Colors.red,
@@ -113,7 +120,7 @@ Positioned cardDemo(
                                                   new BorderRadius.circular(60.0),
                                             ),
                                             child: new Text(
-                                              "RESPOSTA 1",
+                                              img.respostaList[0].resposta,
                                               style: new TextStyle(color: Colors.white),
                                             ),
                                           )),
@@ -132,7 +139,7 @@ Positioned cardDemo(
                                                   new BorderRadius.circular(60.0),
                                             ),
                                             child: new Text(
-                                              "RESPOSTA 2",
+                                              img.respostaList[1].resposta,
                                               style: new TextStyle(color: Colors.white),
                                             ),
                                           ))

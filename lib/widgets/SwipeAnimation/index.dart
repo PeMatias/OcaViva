@@ -3,12 +3,17 @@ import 'dart:async';
 //import 'package:animation_exp/PageReveal/page_main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/activeCard.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/data.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/dummyCard.dart';
 import 'package:ocaviva/widgets/texto2.dart';
 
 class CardDemo extends StatefulWidget {
+  CardDemo({this.problemaList});
+   List<ProblemaList> problemaList;
+
+
   @override
   CardDemoState createState() => new CardDemoState();
 }
@@ -130,7 +135,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     return (new Scaffold(
         appBar: new AppBar(
           elevation: 0.0,
-          backgroundColor: Colors.indigo,
+          backgroundColor: Colors.blue[800],
           centerTitle: true,
           leading: new Container(
             margin: const EdgeInsets.all(15.0),
@@ -152,7 +157,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                   margin: const EdgeInsets.all(15.0),
                   child: new Icon(
                     Icons.search,
-                    color: Colors.blue[900],
+                    color: Colors.indigo,
                     size: 30.0,
                   )),
             ),
@@ -173,7 +178,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                 margin: new EdgeInsets.only(bottom: 20.0),
                 alignment: Alignment.center,
                 child: new Text(
-                  dataLength.toString(),
+                  widget.problemaList.length.toString(),
                   style: new TextStyle(fontSize: 10.0),
                 ),
                 decoration: new BoxDecoration(
@@ -183,12 +188,20 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
           ),
         ),
         body: new Container(
-          color: new Color.fromRGBO(106, 94, 175, 1.0),
+          //color: Colors.blue[800],
+          //color: Colors.blueAccent[200],
           alignment: Alignment.center,
+          decoration:new BoxDecoration(
+             image: new DecorationImage(
+                                          image: new ExactAssetImage('assets/images/fundo-1.png'),
+                                          fit: BoxFit.cover,
+                                        ),
+          ),
           child: dataLength > 0
               ? new Stack(
                   alignment: AlignmentDirectional.center,
-                  children: data.map((item) {
+                  //children: data.map((item) {
+                    children: widget.problemaList.map((item) {
                     print(data.indexOf(item).toString()+"\n"+dataLength.toString());
                     if (data.indexOf(item) != null  ) {
                       return cardDemo(
