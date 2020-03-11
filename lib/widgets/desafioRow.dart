@@ -72,7 +72,7 @@ class DesafioRow extends StatelessWidget {
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
        // onPressed: () => Navigator.of(context).pushNamed("/problemas"),//_navigateTo(context, desafio.id),
-       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CardDemo(data: desafios.problemaList,) ) ),
+       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CardDemo(problemas: desafios.problemaList,) ) ),
 
         child: new Stack(
           children: <Widget>[

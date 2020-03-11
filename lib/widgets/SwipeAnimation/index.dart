@@ -8,11 +8,12 @@ import 'package:ocaviva/widgets/SwipeAnimation/activeCard.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/data.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/dummyCard.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
+import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/texto2.dart';
 
 class CardDemo extends StatefulWidget {
-  CardDemo({this.data});
-   List<ProblemaList> data;
+  CardDemo({this.problemas});
+   List<ProblemaList> problemas;
 
 
   @override
@@ -27,10 +28,13 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   Animation<double> width;
   int flag = 0;
 
+   List<ProblemaList> data;
+
  
   List selectedData = [1];
   void initState() {
     super.initState();
+    data = widget.problemas;
 
     _buttonController = new AnimationController(
         duration: new Duration(milliseconds: 1000), vsync: this);
@@ -47,8 +51,8 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     rotate.addListener(() {
       setState(() {
         if (rotate.isCompleted) {
-          var i = widget.data.removeLast();
-          widget.data.insert(0, i);
+          var i = data.removeLast();
+          data.insert(0, i);
 
           _buttonController.reset();
         }
@@ -96,15 +100,15 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     } on TickerCanceled {}
   }
 
-  dismissImg(DecorationImage img) {
+  dismissImg(ProblemaList img) {
     setState(() {
-      widget.data.remove(img);
+      data.remove(img);
     });
   }
 
-  addImg(DecorationImage img) {
+  addImg(ProblemaList img) {
     setState(() {
-      widget.data.remove(img);
+      data.remove(img);
       //selectedData.add(img);
     });
   }
@@ -127,10 +131,10 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 0.4;
+    timeDilation = 0.5;
 
     double initialBottom = 15.0;
-    var dataLength = widget.data.length;
+    var dataLength = data.length;
     double backCardPosition = initialBottom + (dataLength - 1) * 10 + 10;
     double backCardWidth = -50.0;
     return (new Scaffold(
@@ -149,10 +153,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
           actions: <Widget>[
             new GestureDetector(
               onTap: () {
-                // Navigator.push(
-                //     context,
-                //     new MaterialPageRoute(
-                //         builder: (context) => new PageMain()));
+
               },
               child: new Container(
                   margin: const EdgeInsets.all(15.0),
@@ -172,7 +173,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                 height: 21.0,
                 margin: new EdgeInsets.only(bottom: 20.0),
                 alignment: Alignment.center,
-                child: new Texto2( conteudo: widget.data.length.toString(), tamFonte: 15.0),
+                child: new Texto2( conteudo: data.length.toString(), tamFonte: 15.0),
                 decoration: new BoxDecoration(
                     color: Colors.red, shape: BoxShape.circle),
               )
@@ -187,19 +188,13 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
           //color: Colors.blue[800],
           //color: Colors.blueAccent[200],
           alignment: Alignment.center,
-         /* decoration:new BoxDecoration(
-             image: new DecorationImage(
-              image: new ExactAssetImage('assets/images/fundo-1.png'),
-              fit: BoxFit.cover,
-            ),
-          ),*/
           child: dataLength > 0
               ? new Stack(
                   alignment: AlignmentDirectional.center,
                   //children: data.map((item) {
-                    children: widget.data.map((item) {
-                    print(widget.data.indexOf(item).toString()+"\n"+dataLength.toString());
-                    if (widget.data.indexOf(item) != null  ) {
+                    children: data.map((item) {
+                    //print(widget.data.indexOf(item).toString()+"\n"+dataLength.toString());
+                    if (data.indexOf(item) != null  ) {
                       return cardDemo(
                           item,
                           bottom.value,
@@ -209,23 +204,21 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                           rotate.value,
                           rotate.value < -10 ? 0.1 : 0.0,
                           context,
-                          //dismissImg,
-                          swipeLeft,
+                          dismissImg,
+                          //swipeLeft,
                           flag,
-                          //addImg,
-                          swipeRight,
+                          addImg,
+                          //swipeRight,
                           swipeRight,
                           swipeLeft);
                     } else {
-                      backCardPosition = backCardPosition - 10;
-                      backCardWidth = backCardWidth + 10;
-
-                      return cardDemoDummy(item, backCardPosition, 0.0, 0.0,
-                          backCardWidth, 0.0, 0.0, context);
+                      //backCardPosition = backCardPosition - 10;
+                      //backCardWidth = backCardWidth + 10;
+                     // return cardDemoDummy(item, backCardPosition, 0.0, 0.0,backCardWidth, 0.0, 0.0, context);
                     }
                   }).toList())
               : new Text("Fim do desafio",
-                  style: new TextStyle(color: Colors.white, fontSize: 50.0)),
+                  style: new TextStyle(color: Colors.white, fontSize: 45.0)),
         ),],)));
   }
 }

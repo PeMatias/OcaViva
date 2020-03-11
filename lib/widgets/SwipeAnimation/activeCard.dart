@@ -2,12 +2,18 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:ocaviva/models/jogo.dart';
+import 'package:ocaviva/models/pontos.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/detail.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
+import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/texto.dart';
+
+
 
 import '../texto2.dart';
 
+
+AnimatedRadialChartExample score = AnimatedRadialChartExample();
 
 Positioned cardDemo(
     ProblemaList img,
@@ -22,7 +28,8 @@ Positioned cardDemo(
     int flag,
     Function addImg,
     Function swipeRight,
-    Function swipeLeft) {
+    Function swipeLeft
+    ) {
   Size screenSize = MediaQuery.of(context).size;
   // print("Card");
   return new Positioned(
@@ -30,7 +37,7 @@ Positioned cardDemo(
     right: flag == 0 ? right != 0.0 ? right : null : null,
     left: flag == 1 ? right != 0.0 ? right : null : null,
     child: new Dismissible(
-      key: new Key(new Random().toString()),
+      key: new Key( img.problema.toString()),
       crossAxisEndOffset: -0.3,
       onResize: () {
         //print("here");
@@ -42,10 +49,17 @@ Positioned cardDemo(
       },
       onDismissed: (DismissDirection direction) {
         //swipeAnimation();
-                if (direction == DismissDirection.endToStart)
-                  dismissImg(img);
-                else
-                  addImg(img);
+        
+        if (direction == DismissDirection.endToStart)
+        {
+          dismissImg(img);
+          print("Pontos: "+img.respostaList[0].ponto.toString());
+        }
+        else
+        {
+          addImg(img);
+         print("Pontos: "+img.respostaList[1].ponto.toString());
+        }
               },
               child: new Transform(
                 alignment: flag == 0 ? Alignment.bottomRight : Alignment.bottomLeft,
@@ -58,32 +72,29 @@ Positioned cardDemo(
                       flag == 0 ? rotation / 360 : -rotation / 360),*/
                   child: new Hero(
                     tag: img.problema.toString(),
-                    child: new GestureDetector(
-                      onTap: () {/*
-                         Navigator.push(
-                             context,
-                             new MaterialPageRoute(
-                                 builder: (context) => new DetailPage(type: img)));
-                        Navigator.of(context).push(new PageRouteBuilder(
-                              pageBuilder: (_, __, ___) => new DetailPage(type: img),
-                            ));*/
-                      },
+                    child: Column(
+                      children: <Widget>[
+                         Container(child: score,),
+                    new GestureDetector(
+
                       child: new Card(
-                        color: Colors.transparent,
+                        
                         elevation: 4.0,
-                        child: Stack(
+                        child: Column(
+                          //alignment: Alignment.bottomCenter,
                         children: <Widget>[
-                      
+                       
+                       
                         new Container(
                           alignment: Alignment.center,
                           width: screenSize.width  + cardWidth,
-                          height: screenSize.height /1.3,
+                          height: screenSize.height /1.4,
                           decoration: new BoxDecoration(
                             color: Colors.blueAccent[900],
                             borderRadius: new BorderRadius.circular(8.0),
                             image: new DecorationImage(
                                           image: new ExactAssetImage('assets/images/fundo-1.png'),
-                                          //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
+                                          colorFilter: new ColorFilter.mode(Colors.blue[300].withOpacity(1), BlendMode.dstATop),
                                           fit: BoxFit.cover,
                                         ),
                           ),
@@ -110,7 +121,7 @@ Positioned cardDemo(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                  Container(
+                                                                 Container(
                                     width: screenSize.width,
                                     decoration: new BoxDecoration(
                                            color: Colors.orange[100],
@@ -122,7 +133,10 @@ Positioned cardDemo(
                                       color: Colors.transparent,
                                       padding: new EdgeInsets.all(8.0),
                                       onPressed: () {
+                                        //score.createState()
+                                        dismissImg(img);
                                         swipeLeft();
+                                       
                                       },
                                       child: new Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -137,7 +151,9 @@ Positioned cardDemo(
                                       color: Colors.transparent,
                                       padding: new EdgeInsets.all(8.0),
                                       onPressed: () {
-                                        swipeLeft();
+                                        addImg(img);
+                                        swipeRight();
+                                        
                                       },
                                       child: new Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -158,6 +174,8 @@ Positioned cardDemo(
                         )
                       ),
                     ),
+                      ]
+                    )
                   ),
                 ),
               ),

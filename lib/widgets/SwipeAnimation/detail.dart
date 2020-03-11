@@ -62,7 +62,7 @@ class _DetailPageState extends State<DetailPage> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     timeDilation = 0.7;
     int img = data.indexOf(type);
-    print("detail");
+    //print("detail");
     return new Theme(
       data: new ThemeData(
         brightness: Brightness.light,
