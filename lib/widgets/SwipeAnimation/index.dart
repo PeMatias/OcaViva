@@ -7,11 +7,12 @@ import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/activeCard.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/data.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/dummyCard.dart';
+import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/texto2.dart';
 
 class CardDemo extends StatefulWidget {
-  CardDemo({this.problemaList});
-   List<ProblemaList> problemaList;
+  CardDemo({this.data});
+   List<ProblemaList> data;
 
 
   @override
@@ -26,7 +27,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   Animation<double> width;
   int flag = 0;
 
-  List data = imageData;
+ 
   List selectedData = [1];
   void initState() {
     super.initState();
@@ -46,8 +47,8 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     rotate.addListener(() {
       setState(() {
         if (rotate.isCompleted) {
-          var i = data.removeLast();
-          data.insert(0, i);
+          var i = widget.data.removeLast();
+          widget.data.insert(0, i);
 
           _buttonController.reset();
         }
@@ -97,14 +98,14 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
 
   dismissImg(DecorationImage img) {
     setState(() {
-      data.remove(img);
+      widget.data.remove(img);
     });
   }
 
   addImg(DecorationImage img) {
     setState(() {
-      data.remove(img);
-      selectedData.add(img);
+      widget.data.remove(img);
+      //selectedData.add(img);
     });
   }
 
@@ -129,13 +130,13 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     timeDilation = 0.4;
 
     double initialBottom = 15.0;
-    var dataLength = data.length;
+    var dataLength = widget.data.length;
     double backCardPosition = initialBottom + (dataLength - 1) * 10 + 10;
     double backCardWidth = -50.0;
     return (new Scaffold(
         appBar: new AppBar(
           elevation: 0.0,
-          backgroundColor: Colors.blue[800],
+           backgroundColor: Colors.transparent,
           centerTitle: true,
           leading: new Container(
             margin: const EdgeInsets.all(15.0),
@@ -165,45 +166,40 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
           title: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Text(
-                "PROBLEMAS",
-                style: new TextStyle(
-                    fontSize: 15.0,
-                    letterSpacing: 3.5,
-                    fontWeight: FontWeight.bold),
-              ),
+              new Texto2(conteudo: "PROBLEMAS", tamFonte: 18),
               new Container(
-                width: 15.0,
-                height: 15.0,
+                width: 21.0,
+                height: 21.0,
                 margin: new EdgeInsets.only(bottom: 20.0),
                 alignment: Alignment.center,
-                child: new Text(
-                  widget.problemaList.length.toString(),
-                  style: new TextStyle(fontSize: 10.0),
-                ),
+                child: new Texto2( conteudo: widget.data.length.toString(), tamFonte: 15.0),
                 decoration: new BoxDecoration(
                     color: Colors.red, shape: BoxShape.circle),
               )
             ],
           ),
         ),
-        body: new Container(
+        extendBodyBehindAppBar: true,
+        body: Stack(
+        children: <Widget>[
+          BodyBackground(),
+         new Container(
           //color: Colors.blue[800],
           //color: Colors.blueAccent[200],
           alignment: Alignment.center,
-          decoration:new BoxDecoration(
+         /* decoration:new BoxDecoration(
              image: new DecorationImage(
-                                          image: new ExactAssetImage('assets/images/fundo-1.png'),
-                                          fit: BoxFit.cover,
-                                        ),
-          ),
+              image: new ExactAssetImage('assets/images/fundo-1.png'),
+              fit: BoxFit.cover,
+            ),
+          ),*/
           child: dataLength > 0
               ? new Stack(
                   alignment: AlignmentDirectional.center,
                   //children: data.map((item) {
-                    children: widget.problemaList.map((item) {
-                    print(data.indexOf(item).toString()+"\n"+dataLength.toString());
-                    if (data.indexOf(item) != null  ) {
+                    children: widget.data.map((item) {
+                    print(widget.data.indexOf(item).toString()+"\n"+dataLength.toString());
+                    if (widget.data.indexOf(item) != null  ) {
                       return cardDemo(
                           item,
                           bottom.value,
@@ -213,9 +209,11 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                           rotate.value,
                           rotate.value < -10 ? 0.1 : 0.0,
                           context,
-                          dismissImg,
+                          //dismissImg,
+                          swipeLeft,
                           flag,
-                          addImg,
+                          //addImg,
+                          swipeRight,
                           swipeRight,
                           swipeLeft);
                     } else {
@@ -226,8 +224,8 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                           backCardWidth, 0.0, 0.0, context);
                     }
                   }).toList())
-              : new Text("No Event Left",
+              : new Text("Fim do desafio",
                   style: new TextStyle(color: Colors.white, fontSize: 50.0)),
-        )));
+        ),],)));
   }
 }

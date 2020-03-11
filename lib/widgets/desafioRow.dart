@@ -14,24 +14,27 @@ class DesafioRow extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, double> dataMap = new Map();
     //dataMap.putIfAbsent("F", ()=> desafios.problemaList.length.toDouble() );
-    dataMap.putIfAbsent("F", ()=> 0 );
+    dataMap.putIfAbsent("F", ()=> 1 );
+    dataMap.putIfAbsent("T", ()=> 4 );
     final desafioThumbnail = new Container(
      // alignment: Alignment.centerRight,
       alignment: new FractionalOffset(0, 0.5),
       margin: const EdgeInsets.only(left: 0.0),
       child: new Hero(
         tag: 'desafio-icon-${desafios.desafio}',
+        child: Container(
         child: PieChart(dataMap: dataMap,
            animationDuration: Duration(milliseconds: 1000),
            showLegends: false,
-           chartValueFontSize: 20,
+           chartValueFontSize: 12,
            chartRadius: 78,
            showChartValueLabel: false,
-           showChartValuesInPercentage: false,
-           showChartValues: true,
+           showChartValuesInPercentage: true,
+           showChartValues: false,
            showChartValuesOutside: false,
            decimalPlaces: 0,
             ),
+        )
 
       ),
     );
@@ -69,12 +72,12 @@ class DesafioRow extends StatelessWidget {
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
        // onPressed: () => Navigator.of(context).pushNamed("/problemas"),//_navigateTo(context, desafio.id),
-       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CardDemo(problemaList: desafios.problemaList,) ) ),
+       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CardDemo(data: desafios.problemaList,) ) ),
 
         child: new Stack(
           children: <Widget>[
             desafioCard,
-            Positioned(top:15 ,right: 225,child: Align(alignment: Alignment.topCenter,child: desafioThumbnail,)),
+            Positioned(top:20,left: -20,child: Align(alignment: Alignment.center,child: desafioThumbnail,)),
           ],
         ),// onPressed: () {},
       ),

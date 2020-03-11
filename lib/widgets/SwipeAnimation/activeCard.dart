@@ -26,7 +26,7 @@ Positioned cardDemo(
   Size screenSize = MediaQuery.of(context).size;
   // print("Card");
   return new Positioned(
-    bottom: 100.0 + bottom,
+    bottom: 10.0 + bottom,
     right: flag == 0 ? right != 0.0 ? right : null : null,
     left: flag == 1 ? right != 0.0 ? right : null : null,
     child: new Dismissible(
@@ -71,83 +71,91 @@ Positioned cardDemo(
                       child: new Card(
                         color: Colors.transparent,
                         elevation: 4.0,
-                        child: new Container(
+                        child: Stack(
+                        children: <Widget>[
+                      
+                        new Container(
                           alignment: Alignment.center,
                           width: screenSize.width  + cardWidth,
-                          height: screenSize.height /1.5,
+                          height: screenSize.height /1.3,
                           decoration: new BoxDecoration(
-                            color: Colors.blueAccent,
+                            color: Colors.blueAccent[900],
                             borderRadius: new BorderRadius.circular(8.0),
                             image: new DecorationImage(
                                           image: new ExactAssetImage('assets/images/fundo-1.png'),
+                                          //colorFilter: new ColorFilter.mode(Colors.black.withOpacity(0.5), BlendMode.dstATop),
                                           fit: BoxFit.cover,
                                         ),
                           ),
-                          child: new Column(
+                          child: new Stack(
                             children: <Widget>[
                               new Container(
-                                width: screenSize.width / 1.2 + cardWidth,
-                                height: screenSize.height /4,
+                                width: screenSize.width,
+                                //height: 125,
                                 decoration: new BoxDecoration(
                                   borderRadius: new BorderRadius.only(
                                       topLeft: new Radius.circular(8.0),
                                       topRight: new Radius.circular(8.0)),
-                                      
+                                      //color: Colors.cyan[100]
                                 ),
-                                child: Texto(conteudo: img.problema.toString(), tamFonte: 18), 
-                                margin: EdgeInsets.all(10)
+                                child: 
+                                Texto(conteudo: img.problema.toString(), tamFonte: 18), 
+                                //Text(img.problema.toString(),,),
+                                 //margin: EdgeInsets.only(),
+                                 margin: EdgeInsets.only(left: 10, right: 10,top: 5) ,
+                               // margin: EdgeInsets.all(30)
                               ),
-                              new Container(
-                                  width: screenSize.width /0.8 + cardWidth,
-                                  height:
-                                      screenSize.height / 1.5 - screenSize.height /2.5,
-                                  alignment: Alignment.center,
-                                  child: new Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                    children: <Widget>[
-                                      new FlatButton(
-                                          padding: new EdgeInsets.all(0.0),
-                                          onPressed: () {
-                                            swipeLeft();
-                                          },
-                                          child: new Container(
-                                            height: 75.0,
-                                            width: screenSize.width/1.3,
-                                            alignment: Alignment.center,
-                                            decoration: new BoxDecoration(
-                                              color: Colors.red,
-                                              borderRadius:
-                                                  new BorderRadius.circular(60.0),
-                                            ),
-                                            child: new Text(
-                                              img.respostaList[0].resposta,
-                                              style: new TextStyle(color: Colors.white),
-                                            ),
-                                          )),
-                                      new FlatButton(
-                                          padding: new EdgeInsets.all(0.0),
-                                          onPressed: () {
-                                            swipeRight();
-                                          },
-                                          child: new Container(
-                                            height: 60.0,
-                                            width: 130.0,
-                                            alignment: Alignment.center,
-                                            decoration: new BoxDecoration(
-                                              color: Colors.cyan,
-                                              borderRadius:
-                                                  new BorderRadius.circular(60.0),
-                                            ),
-                                            child: new Text(
-                                              img.respostaList[1].resposta,
-                                              style: new TextStyle(color: Colors.white),
-                                            ),
-                                          ))
-                                    ],
-                                  ))
+                             
+                              new Column(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: <Widget>[
+                                  Container(
+                                    width: screenSize.width,
+                                    decoration: new BoxDecoration(
+                                           color: Colors.orange[100],
+                                    ),
+                                    child: Texto2(conteudo: "Como você resolverá isso?", tamFonte: 15),
+                                  ),
+                                  SizedBox(height: 30,),
+                                  new RaisedButton(
+                                      color: Colors.transparent,
+                                      padding: new EdgeInsets.all(8.0),
+                                      onPressed: () {
+                                        swipeLeft();
+                                      },
+                                      child: new Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                           Icon(Icons.arrow_back, color: Colors.white,size: 50,),
+                                          Expanded(child: Texto3(conteudo:img.respostaList[0].resposta,tamFonte: 16.0,)),                                               
+                                        ],
+                                      )
+                                      ),
+                                      SizedBox(height: 30,),
+                                    new RaisedButton(
+                                      color: Colors.transparent,
+                                      padding: new EdgeInsets.all(8.0),
+                                      onPressed: () {
+                                        swipeLeft();
+                                      },
+                                      child: new Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: <Widget>[
+                                         
+                                          Expanded(child: Texto3(conteudo:img.respostaList[1].resposta,tamFonte: 16.0,)),
+                                          Icon(Icons.arrow_forward, color: Colors.white,size: 50,),                                               
+                                        ],
+                                      )
+                                      ),
+                                    SizedBox(height: 30,),
+                                ]
+                              ),
                             ],
                           ),
                         ),
+                        ]
+                        )
                       ),
                     ),
                   ),
