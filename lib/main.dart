@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:ocaviva/screens/welcomePage.dart';
 import 'package:ocaviva/widgets/PageReveal/page_main.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
+import 'package:ocaviva/widgets/circular_chart.dart';
 
 import 'screens/home_page.dart';
 import 'screens/loginPage.dart';

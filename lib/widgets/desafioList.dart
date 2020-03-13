@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ocaviva/models/desafio.dart';
 import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/services/jogo_service.dart';
+import 'package:ocaviva/widgets/circular_chart.dart';
 
 import 'desafioRow.dart';
 
@@ -10,8 +11,10 @@ import 'desafioRow.dart';
 
 
 class DesafioList extends StatelessWidget {
+  AnimatedRadialChartExample score;
+
   final int fase;
-  DesafioList({this.fase});
+  DesafioList({this.fase, this.score});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +34,7 @@ class DesafioList extends StatelessWidget {
                   scrollDirection: Axis.vertical,
                   itemCount: ocaviva.data.desafioList.length,
                   itemExtent: 180.0,                    
-                  itemBuilder: (_, index) => new DesafioRow( ocaviva.data.desafioList[index])
+                  itemBuilder: (_, index) => new DesafioRow( ocaviva.data.desafioList[index],score)
                 );
               }
             ),

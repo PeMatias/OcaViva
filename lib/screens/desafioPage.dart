@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/desafioList.dart';
 
 import '../widgets/bodyBackground.dart';
 
 class DesafioPage extends StatefulWidget
 {
-  DesafioPage({this.fase});
+  AnimatedRadialChartExample score;
+
+  DesafioPage({this.fase, this.score});
   final int fase;
 
   @override
@@ -33,7 +36,7 @@ class DesafioState extends State<DesafioPage>
         BodyBackground(),
         Column(
         children: <Widget>[
-          new DesafioList(fase:widget.fase),
+          new DesafioList(fase:widget.fase, score: widget.score,),
       ]
     ),
     ]

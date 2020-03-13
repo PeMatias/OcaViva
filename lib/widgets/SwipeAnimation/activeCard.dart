@@ -13,9 +13,9 @@ import 'package:ocaviva/widgets/texto.dart';
 import '../texto2.dart';
 
 
-AnimatedRadialChartExample score = AnimatedRadialChartExample();
 
 Positioned cardDemo(
+    AnimatedRadialChartExample score,
     ProblemaList img,
     double bottom,
     double right,
@@ -28,7 +28,7 @@ Positioned cardDemo(
     int flag,
     Function addImg,
     Function swipeRight,
-    Function swipeLeft
+    Function swipeLeft,
     ) {
   Size screenSize = MediaQuery.of(context).size;
   // print("Card");
@@ -46,6 +46,7 @@ Positioned cardDemo(
 
         //   data.insert(0, i);
         // });
+        
       },
       onDismissed: (DismissDirection direction) {
         //swipeAnimation();
@@ -74,35 +75,42 @@ Positioned cardDemo(
                     tag: img.problema.toString(),
                     child: Column(
                       children: <Widget>[
-                         Container(child: score,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Texto2(conteudo: "Estado de saúde\n da OcaViva:", tamFonte: 16),
+                              Container(child: score,),
+                          ],
+                        ),
+                     
+                   
+
                     new GestureDetector(
 
                       child: new Card(
                         
                         elevation: 4.0,
                         child: Column(
-                          //alignment: Alignment.bottomCenter,
                         children: <Widget>[
-                       
                        
                         new Container(
                           alignment: Alignment.center,
                           width: screenSize.width  + cardWidth,
-                          height: screenSize.height /1.4,
+                          height: screenSize.height /1.5,
                           decoration: new BoxDecoration(
-                            color: Colors.blueAccent[900],
+                            color: Colors.deepPurple,
                             borderRadius: new BorderRadius.circular(8.0),
                             image: new DecorationImage(
                                           image: new ExactAssetImage('assets/images/fundo-1.png'),
-                                          colorFilter: new ColorFilter.mode(Colors.blue[300].withOpacity(1), BlendMode.dstATop),
+                                          colorFilter: new ColorFilter.mode(Colors.deepPurple.withOpacity(0.8), BlendMode.dstATop),
                                           fit: BoxFit.cover,
                                         ),
                           ),
                           child: new Stack(
                             children: <Widget>[
-                              new Container(
-                                width: screenSize.width,
-                                //height: 125,
+                                new Container(
+                                width: screenSize.width  + cardWidth,
+                              
                                 decoration: new BoxDecoration(
                                   borderRadius: new BorderRadius.only(
                                       topLeft: new Radius.circular(8.0),
@@ -110,39 +118,42 @@ Positioned cardDemo(
                                       //color: Colors.cyan[100]
                                 ),
                                 child: 
-                                Texto(conteudo: img.problema.toString(), tamFonte: 18), 
-                                //Text(img.problema.toString(),,),
-                                 //margin: EdgeInsets.only(),
-                                 margin: EdgeInsets.only(left: 10, right: 10,top: 5) ,
+                                Texto(conteudo: img.problema.toString(), tamFonte: 16), 
+                                margin: EdgeInsets.only(left: 10, right: 10,top: 5) ,
                                // margin: EdgeInsets.all(30)
                               ),
+                              
                              
                               new Column(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                                                 Container(
+                                Container(
                                     width: screenSize.width,
                                     decoration: new BoxDecoration(
-                                           color: Colors.orange[100],
+                                           color: Colors.yellow[100],
                                     ),
-                                    child: Texto2(conteudo: "Como você resolverá isso?", tamFonte: 15),
+                                    child: Text("Como você resolverá isso?",
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      color: Colors.black
+                                    ),),
                                   ),
                                   SizedBox(height: 30,),
                                   new RaisedButton(
                                       color: Colors.transparent,
                                       padding: new EdgeInsets.all(8.0),
                                       onPressed: () {
-                                        //score.createState()
-                                        dismissImg(img);
-                                        swipeLeft();
+                                        
+                                        //dismissImg(img);
+                                        swipeLeft(img);
                                        
                                       },
                                       child: new Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                            Icon(Icons.arrow_back, color: Colors.white,size: 50,),
-                                          Expanded(child: Texto3(conteudo:img.respostaList[0].resposta,tamFonte: 16.0,)),                                               
+                                          Expanded(child: Texto3(conteudo:img.respostaList[0].resposta,tamFonte: 14.0,)),                                               
                                         ],
                                       )
                                       ),
@@ -151,15 +162,16 @@ Positioned cardDemo(
                                       color: Colors.transparent,
                                       padding: new EdgeInsets.all(8.0),
                                       onPressed: () {
-                                        addImg(img);
-                                        swipeRight();
+                                        //scoreKey.currentState.atualiza(10);
+                                        //addImg(img);
+                                        swipeRight(img);
                                         
                                       },
                                       child: new Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                          
-                                          Expanded(child: Texto3(conteudo:img.respostaList[1].resposta,tamFonte: 16.0,)),
+                                          Expanded(child: Texto3(conteudo:img.respostaList[1].resposta,tamFonte: 14.0,)),
                                           Icon(Icons.arrow_forward, color: Colors.white,size: 50,),                                               
                                         ],
                                       )

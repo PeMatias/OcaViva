@@ -9,11 +9,20 @@ import 'package:ocaviva/widgets/SwipeAnimation/data.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/dummyCard.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
+import 'package:ocaviva/widgets/texto.dart';
 import 'package:ocaviva/widgets/texto2.dart';
+import 'package:webview_flutter/webview_flutter.dart';
+
+
+AnimatedRadialChartExample score =  new AnimatedRadialChartExample(value: 50,);
+
+
+
 
 class CardDemo extends StatefulWidget {
-  CardDemo({this.problemas});
+  CardDemo({this.problemas , this.desafios});
    List<ProblemaList> problemas;
+   DesafioList desafios;
 
 
   @override
@@ -37,7 +46,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     data = widget.problemas;
 
     _buttonController = new AnimationController(
-        duration: new Duration(milliseconds: 1000), vsync: this);
+        duration: new Duration(milliseconds: 400), vsync: this);
 
     rotate = new Tween<double>(
       begin: -0.0,
@@ -94,44 +103,60 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     super.dispose();
   }
 
-  Future<Null> swipeAnimation() async {
+  Future<Null> swipeAnimation(ProblemaList img) async {
+   
     try {
       await _buttonController.forward();
     } on TickerCanceled {}
+    
+
   }
 
   dismissImg(ProblemaList img) {
     setState(() {
       data.remove(img);
+      var valor = score.value + img.respostaList[0].ponto*10;
+      score = new AnimatedRadialChartExample(value:valor);
+
     });
   }
 
   addImg(ProblemaList img) {
     setState(() {
       data.remove(img);
+      var valor = score.value + img.respostaList[1].ponto*10;
+      score = new AnimatedRadialChartExample(value:valor);
+      //score =  new AnimatedRadialChartExample(value: 50,);
+      
       //selectedData.add(img);
     });
   }
 
-  swipeRight() {
+  swipeRight(ProblemaList img) {
+    
     if (flag == 0)
       setState(() {
+         
         flag = 1;
+       
       });
-    swipeAnimation();
+       addImg(img);
+    swipeAnimation(img);
   }
 
-  swipeLeft() {
+  swipeLeft(ProblemaList img) {
     if (flag == 1)
       setState(() {
         flag = 0;
+       
       });
-    swipeAnimation();
+       dismissImg(img);
+    swipeAnimation(img);
   }
 
   @override
   Widget build(BuildContext context) {
-    timeDilation = 0.5;
+    timeDilation = 0.35;
 
     double initialBottom = 15.0;
     var dataLength = data.length;
@@ -142,26 +167,50 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
           elevation: 0.0,
            backgroundColor: Colors.transparent,
           centerTitle: true,
-          leading: new Container(
+          leading: InkWell(
+            child: new Container(
             margin: const EdgeInsets.all(15.0),
             child: new Icon(
-              Icons.equalizer,
-              color: Colors.indigo,
+              Icons.description,
+              color:Colors.yellow[700],
               size: 30.0,
             ),
+          ),
+          onTap: (){
+            showDialog(context: context,
+            builder: (BuildContext context)
+            {
+              return AlertDialog(
+                title: Text("Descrição do desafio", style: TextStyle(fontSize: 18, color: Colors.deepPurple),),
+                content: Text(widget.desafios.desafio, style: TextStyle(fontSize: 14),),
+                actions: <Widget>[
+                  FlatButton(onPressed: (){ Navigator.pop(context);} , child: Text("OK"))
+                ],
+              );
+            }
+            );
+          },
           ),
           actions: <Widget>[
             new GestureDetector(
               onTap: () {
 
               },
-              child: new Container(
+              child: new InkWell(
+                child:Container(
                   margin: const EdgeInsets.all(15.0),
                   child: new Icon(
                     Icons.search,
                     color: Colors.indigo,
                     size: 30.0,
-                  )),
+                  ),
+                ),
+                onTap: (){
+                   Navigator.push(context, new MaterialPageRoute(builder: (context) => new WebView(initialUrl: 'https://www.google.com.br',
+                    javascriptMode: JavascriptMode.unrestricted, ))); 
+                                     
+                } 
+                ),
             ),
           ],
           title: new Row(
@@ -196,6 +245,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                     //print(widget.data.indexOf(item).toString()+"\n"+dataLength.toString());
                     if (data.indexOf(item) != null  ) {
                       return cardDemo(
+                          score,
                           item,
                           bottom.value,
                           right.value,
@@ -210,15 +260,21 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                           addImg,
                           //swipeRight,
                           swipeRight,
-                          swipeLeft);
+                          swipeLeft,
+                          );
                     } else {
                       //backCardPosition = backCardPosition - 10;
                       //backCardWidth = backCardWidth + 10;
                      // return cardDemoDummy(item, backCardPosition, 0.0, 0.0,backCardWidth, 0.0, 0.0, context);
                     }
                   }).toList())
-              : new Text("Fim do desafio",
-                  style: new TextStyle(color: Colors.white, fontSize: 45.0)),
+              : new Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text("Fim do desafio",style: new TextStyle(color: Colors.white, fontSize: 45.0)),
+                  Container(child:score),
+                ]
+              )
         ),],)));
   }
 }

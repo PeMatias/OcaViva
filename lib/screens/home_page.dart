@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:ocaviva/screens/desafioPage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
+import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/fase.dart';
 import 'package:ocaviva/widgets/texto.dart';
+
+AnimatedRadialChartExample score =  new AnimatedRadialChartExample(value: 50,);
 
 
 class HomePage extends StatefulWidget {
@@ -108,11 +111,11 @@ class HomeState extends State<HomePage>
                 scrollDirection: Axis.horizontal,
                 children: <Widget>[
                   InkWell(
-                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => DesafioPage(fase: 1,) ) ); },
+                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => DesafioPage(fase: 1,score: score,) ) ); },
                     child: Fase(asset: 'assets/images/digestorio.png', legenda: "Sistema \nDigestório"),
                   ) ,
                    InkWell(
-                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => DesafioPage(fase: 2,) ) ); },
+                    onTap: () { Navigator.push(context, MaterialPageRoute(builder: (context) => DesafioPage(fase: 2,score: score,) ) ); },
                     child: Fase(asset: 'assets/images/circulatorio.png', legenda: "Sistema \nCirculatório"),
                   ) ,                     
                    //Fase(asset: 'assets/images/respiratorio.png', legenda: "Sistema Respiratório"),

@@ -36,11 +36,11 @@
             "respostaList": [
               {
                 "resposta": "Promover palestras de conscientização nas escolas, sobre o descarte incorreto de lixo que contaminam os rios e os lençóis freáticos.",
-                "ponto": 0
+                "ponto": 1
               },
               {
                 "resposta": "Investir em novos equipamentos para melhorar o tratamento de água potável.",
-                "ponto": 1
+                "ponto": 2
               }
             ]
           },
@@ -53,7 +53,7 @@
               },
               {
                 "resposta": "Privatizar os espaços, para que seja realizada a revitalização e a reorganização do acesso a esses pontos.",
-                "ponto": 1
+                "ponto": -1
               }
             ]
           },
@@ -66,7 +66,7 @@
               },
               {
                 "resposta": "Distribuir panfletos sobre o descarte correto do lixo.",
-                "ponto": 1
+                "ponto": -1
               }
             ]
           }
@@ -299,7 +299,7 @@
             ]
           },
           {
-            "problema": "Grandes organizações influenciadoras de sua OcaViva cobram atuação governamental em defesa do emprego oara a comunidade LGBT.",
+            "problema": "Grandes organizações influenciadoras de sua OcaViva cobram atuação governamental em defesa do emprego para a comunidade LGBT.",
             "respostaList": [
               {
                 "resposta": "Implementar políticas de combate às vulnerabilidades sociais, como o preconceito, existentes em sua cidade.",

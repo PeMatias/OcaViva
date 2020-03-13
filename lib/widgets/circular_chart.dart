@@ -2,40 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 
 class AnimatedRadialChartExample extends StatefulWidget {
+  double value = 50.0;
+  AnimatedRadialChartExample({this.value});
+  
+
   @override
   AnimatedRadialChartExampleState createState() =>
       new AnimatedRadialChartExampleState();
+  
 }
 
 class AnimatedRadialChartExampleState
     extends State<AnimatedRadialChartExample> {
   final GlobalKey<AnimatedCircularChartState> _chartKey =
       new GlobalKey<AnimatedCircularChartState>();
-  final _chartSize = const Size(100.0, 100.0);
+  final _chartSize = const Size(110.0, 110.0);
 
-  double value = 50.0;
-  Color labelColor = Colors.blue[200];
+  
+  Color labelColor = Colors.blue[300];
 
-   void atualiza(int valor) {
-    setState(() {
-      value += 5*valor;
-      List<CircularStackEntry> data = _generateChartData(value);
-      _chartKey.currentState.updateData(data);
-    });
-  }
+
 
   void increment() {
     setState(() {
-      value += 10;
-      List<CircularStackEntry> data = _generateChartData(value);
+      widget.value += 10;
+      List<CircularStackEntry> data = _generateChartData(widget.value);
       _chartKey.currentState.updateData(data);
     });
   }
 
   void decrement() {
     setState(() {
-      value -= 10;
-      List<CircularStackEntry> data = _generateChartData(value);
+      widget.value -= 10;
+      List<CircularStackEntry> data = _generateChartData(widget.value);
       _chartKey.currentState.updateData(data);
     });
   }
@@ -93,11 +92,11 @@ class AnimatedRadialChartExampleState
             child: new AnimatedCircularChart(
               key: _chartKey,
               size: _chartSize,
-              initialChartData: _generateChartData(value),
+              initialChartData: _generateChartData(widget.value),
               chartType: CircularChartType.Radial,
               edgeStyle: SegmentEdgeStyle.round,
               percentageValues: true,
-              holeLabel: '$value',
+              holeLabel: widget.value.toString(),
               labelStyle: _labelStyle,
             ),
           ),/*

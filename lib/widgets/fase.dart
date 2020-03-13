@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/texto.dart';
 
 class Fase extends StatelessWidget 
 {
+  
+
   final String asset;
   final String legenda;
   const Fase

@@ -2,13 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
 import 'package:pie_chart/pie_chart.dart';
+import 'circular_chart.dart';
 import 'texto2.dart';
 
 class DesafioRow extends StatelessWidget {
 
+  AnimatedRadialChartExample score;
+
+
   final DesafioList desafios;
 
-  DesafioRow(this.desafios);
+  DesafioRow(this.desafios, this.score);
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +63,7 @@ class DesafioRow extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            new Texto2(conteudo: desafios.desafio, tamFonte: 13.0),
+            new Texto2(conteudo: desafios.desafio, tamFonte: 13),
             
             
           ],
@@ -72,7 +76,8 @@ class DesafioRow extends StatelessWidget {
       margin: const EdgeInsets.only(top: 16.0, bottom: 8.0),
       child: new FlatButton(
        // onPressed: () => Navigator.of(context).pushNamed("/problemas"),//_navigateTo(context, desafio.id),
-       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => CardDemo(problemas: desafios.problemaList,) ) ),
+       onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => 
+        CardDemo(problemas: desafios.problemaList, desafios: desafios,) ) ),
 
         child: new Stack(
           children: <Widget>[
