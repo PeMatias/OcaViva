@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/widgets/PageReveal/page_main.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/desafioList.dart';
 
@@ -34,11 +35,13 @@ class DesafioState extends State<DesafioPage>
     (
       children: <Widget>[
         BodyBackground(),
-        Column(
-        children: <Widget>[
-          new DesafioList(fase:widget.fase, score: widget.score,),
-      ]
-    ),
+        new PageMain(fase:widget.fase),
+        //Column(
+        //children: <Widget>[
+          //new DesafioList(fase:widget.fase, score: widget.score,),
+          
+     // ]
+    //),
     ]
 
     );

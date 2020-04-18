@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hive/hive.dart';
+import 'package:ocaviva/models/usuario.dart';
+import 'package:ocaviva/models/users.dart';
 import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/screens/registroPage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
@@ -12,9 +15,13 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/firestore.dart';
 import '../widgets/botao.dart';
+import '../services/jogo_service.dart';
 
 
 final Mobxfirestore userAuth = Mobxfirestore();
+List<Usuario> listUsers ;
+Box<Usuario> boxUsers = Hive.box<Usuario>('users');
+
 
 
 class LoginPage extends StatefulWidget
@@ -27,10 +34,16 @@ class LoginPage extends StatefulWidget
 
 class LoginState extends State<LoginPage>
 {
+  
+
   @override
   void initState() 
   {
-    super.initState();
+    userAuth.getFromFirestore();    
+    super.initState();  
+    
+    
+    
   }
 
   final TextEditingController _email = TextEditingController();
@@ -46,7 +59,11 @@ class LoginState extends State<LoginPage>
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
     String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
-        return Scaffold(
+    // print(listUsers.length);
+    
+    
+    //print("Tamanho: " + userAuth.fullNamesFromFirestore.length.toString());
+     return Scaffold(
           body: Stack
           (
             children: <Widget>
@@ -59,6 +76,7 @@ class LoginState extends State<LoginPage>
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>
                   [
+                  
                     SizedBox(height: 42, ),
                     Image.asset('assets/images/oca_viva-logo.png',height: 187,width: 174 ,),
                     SizedBox(height: 8, ),
@@ -82,8 +100,30 @@ class LoginState extends State<LoginPage>
                                 Alert(context: context, title: "Login não efetuado", desc: "Por favor verifique todos os campos, apenas quando todos forem corretamente preenchidos seu login será realizado").show();
                               }
                               else{
-                                showDialog(context: context, child: Center(child: CircularProgressIndicator()));
-                                userAuth.LoginEmail(_email.text, _senha.text,context);
+                                showDialog(context: context, child: Center(child: CircularProgressIndicator())); 
+                                bool armazenado = false;
+                               
+                               
+                                
+                                //boxUsers = Hive.box<Usuario>('users');
+                                var indice =  0;
+                                for (Usuario item in boxUsers.values.toList()) {
+                                  print(_email.text + " "+_senha.text );
+                                  print(item.email == _email.text && item.senha == _senha.text);
+                                  if (item.email == _email.text && item.senha == _senha.text) {
+                                    armazenado = true;
+                                    userAuth.usuario = item;
+                                    userAuth.indice = indice;
+                                    return Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
+                                  }
+                                  indice++;
+        
+        
+                                }
+                                if(!armazenado)
+                                  userAuth.LoginEmail(_email.text, _senha.text,context);
+                                
+
                               }                              
                          },
                         child: Botao(conteudo: "Entrar", tamFonte: 25)

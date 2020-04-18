@@ -1,9 +1,16 @@
 import 'dart:async';
 
 //import 'package:animation_exp/PageReveal/page_main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:hive/hive.dart';
 import 'package:ocaviva/models/jogo.dart';
+import 'package:ocaviva/models/usuario.dart';
+import 'package:ocaviva/screens/loginPage.dart';
+import 'package:ocaviva/widgets/PageReveal/page_dragger.dart';
+import 'package:ocaviva/widgets/PageReveal/page_indicator.dart';
+import 'package:ocaviva/widgets/PageReveal/page_main.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/activeCard.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/data.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/dummyCard.dart';
@@ -15,7 +22,8 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 
 AnimatedRadialChartExample score =  new AnimatedRadialChartExample(value: 50,);
-
+Box<Usuario> boxUsers = Hive.box<Usuario>('users');
+bool proxDesafio;
 
 
 
@@ -39,11 +47,20 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
 
    List<ProblemaList> data;
 
- 
+  Box database;    
   List selectedData = [1];
   void initState() {
     super.initState();
     data = widget.problemas;
+    bool proxDesafio = false;
+   // database = Hive.box('jogo');
+   // var valor = database.get('score',defaultValue: 50.0);
+   if( boxUsers.getAt(userAuth.indice).score == null)
+      userAuth.usuario.score = 50.0;
+    else
+       userAuth.usuario.score = boxUsers.getAt(userAuth.indice).score;
+    score = new AnimatedRadialChartExample(value: userAuth.usuario.score);
+    
 
     _buttonController = new AnimationController(
         duration: new Duration(milliseconds: 400), vsync: this);
@@ -115,8 +132,13 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   dismissImg(ProblemaList img) {
     setState(() {
       data.remove(img);
-      var valor = score.value + img.respostaList[0].ponto*10;
-      score = new AnimatedRadialChartExample(value:valor);
+      //var valor = database.get('score',defaultValue: 50.0) + img.respostaList[0].ponto*10;
+      //var valor = score.value + img.respostaList[0].ponto*5;
+      userAuth.usuario.score+= img.respostaList[0].ponto*5;
+      boxUsers.putAt(userAuth.indice, userAuth.usuario);
+      userAuth.updateFromFirestore(userAuth.usuario);
+      //database.put('score',valor);
+      score = new AnimatedRadialChartExample(value:userAuth.usuario.score);
 
     });
   }
@@ -124,8 +146,13 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   addImg(ProblemaList img) {
     setState(() {
       data.remove(img);
-      var valor = score.value + img.respostaList[1].ponto*10;
-      score = new AnimatedRadialChartExample(value:valor);
+      //var valor = database.get('score',defaultValue: 50.0) + img.respostaList[1].ponto*10;
+      //database.put('score',valor);
+      // var valor = score.value + img.respostaList[1].ponto*5;
+      userAuth.usuario.score+= img.respostaList[1].ponto*5;
+      score = new AnimatedRadialChartExample(value: userAuth.usuario.score);
+      boxUsers.putAt(userAuth.indice, userAuth.usuario);
+      userAuth.updateFromFirestore(userAuth.usuario);
       //score =  new AnimatedRadialChartExample(value: 50,);
       
       //selectedData.add(img);
@@ -156,6 +183,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    AnimatedRadialChartExample score_novo =  new AnimatedRadialChartExample(value: score.value,);
     timeDilation = 0.35;
 
     double initialBottom = 15.0;
@@ -172,7 +200,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
             margin: const EdgeInsets.all(15.0),
             child: new Icon(
               Icons.description,
-              color:Colors.yellow[700],
+              color:Colors.amberAccent,
               size: 30.0,
             ),
           ),
@@ -201,7 +229,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                   margin: const EdgeInsets.all(15.0),
                   child: new Icon(
                     Icons.search,
-                    color: Colors.indigo,
+                    color: Colors.amberAccent,
                     size: 30.0,
                   ),
                 ),
@@ -224,7 +252,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                 alignment: Alignment.center,
                 child: new Texto2( conteudo: data.length.toString(), tamFonte: 15.0),
                 decoration: new BoxDecoration(
-                    color: Colors.red, shape: BoxShape.circle),
+                    color: Colors.amberAccent, shape: BoxShape.circle),
               )
             ],
           ),
@@ -234,8 +262,6 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
         children: <Widget>[
           BodyBackground(),
          new Container(
-          //color: Colors.blue[800],
-          //color: Colors.blueAccent[200],
           alignment: Alignment.center,
           child: dataLength > 0
               ? new Stack(
@@ -243,9 +269,11 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                   //children: data.map((item) {
                     children: data.map((item) {
                     //print(widget.data.indexOf(item).toString()+"\n"+dataLength.toString());
-                    if (data.indexOf(item) != null  ) {
+                    if (data.indexOf(item) != null   ) {
                       return cardDemo(
-                          score,
+                          database,
+                          widget.desafios.imagem,
+                          score_novo,
                           item,
                           bottom.value,
                           right.value,
@@ -263,16 +291,91 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                           swipeLeft,
                           );
                     } else {
+                      
                       //backCardPosition = backCardPosition - 10;
                       //backCardWidth = backCardWidth + 10;
                      // return cardDemoDummy(item, backCardPosition, 0.0, 0.0,backCardWidth, 0.0, 0.0, context);
                     }
                   }).toList())
               : new Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Text("Fim do desafio",style: new TextStyle(color: Colors.white, fontSize: 45.0)),
-                  Container(child:score),
+                  Texto(conteudo:"Fim do desafio",tamFonte:45),
+                  Container(child:score), 
+                  SizedBox(height: 20,),
+                   FlatButton(
+                     onPressed: (){ Navigator.pop(context); score = score_novo;} , 
+                     child: Row(  
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.center,
+                       children: <Widget>[  
+                         Container(
+                           child:Icon(Icons.menu, color: Colors.amberAccent,size: 45, ),
+                           decoration: new  BoxDecoration(
+                            border: Border.all(color: Colors.amberAccent, width: 3),
+                            shape: BoxShape.circle,
+                           ),
+                         ),             
+                         SizedBox(width: 20,),
+                         Texto3(conteudo: "Menu de desafios",tamFonte: 18),
+                       ],
+
+                     ),
+                   ),
+                   SizedBox(height: 15,),
+                   FlatButton(
+                     onPressed: (){ Navigator.pop(context ); activeIndex+=1; proxDesafio = true;} , 
+                     child: Row(  
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.center,
+                       children: <Widget>[  
+                         Container(
+                           child:Icon(Icons.skip_next, color: Colors.amberAccent,size: 45, ),
+                           decoration: new  BoxDecoration(
+                            border: Border.all(color: Colors.amberAccent, width: 3),
+                            shape: BoxShape.circle,
+                           ),
+                         ),             
+                         SizedBox(width: 20,),
+                         Texto3(conteudo: "Próximo desafio",tamFonte: 18),
+                       ],
+
+                     ),
+                   ),
+                   SizedBox(height: 15,),
+                   FlatButton(
+                     onPressed: (){ 
+                          //data = widget.problemas;
+                          //score_novo = score;
+
+                          setState(() {
+                            data = widget.problemas;
+                            this.build(context);
+                            
+                          });
+                          this.build(context);
+                          
+                       // CardDemo(problemas: widget.desafios.problemaList, desafios: widget.desafios)));
+                          
+                           } , 
+                     child: Row(  
+                       mainAxisAlignment: MainAxisAlignment.start,
+                       crossAxisAlignment: CrossAxisAlignment.center,
+                       children: <Widget>[  
+                         Container(
+                           child:Icon(Icons.refresh, color: Colors.amberAccent,size: 45, ),
+                           decoration: new  BoxDecoration(
+                            border: Border.all(color: Colors.amberAccent, width: 3),
+                            shape: BoxShape.circle,
+                           ),
+                         ),             
+                         SizedBox(width: 20,),
+                         Texto3(conteudo: "Refazer esse desafio",tamFonte: 18),
+                       ],
+
+                     ),
+                   ),
                 ]
               )
         ),],)));

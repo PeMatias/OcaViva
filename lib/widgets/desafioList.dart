@@ -24,9 +24,6 @@ class DesafioList extends StatelessWidget {
             child: FutureBuilder(
               future: carregaJogo(fase),
               builder: (BuildContext context,ocaviva) {
-                //print(ocaviva.data.desafioList[0].desafio);
-
-               // builder: (BuildContext context, AsyncSnapshot<Jogo> ocaviva) {
                 if (ocaviva.connectionState==null || !ocaviva.hasData)
                   return  const Center(child: CircularProgressIndicator(),);
                 return ListView.builder(
@@ -38,30 +35,7 @@ class DesafioList extends StatelessWidget {
                 );
               }
             ),
-            /*
-            child: new ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.vertical,
-              itemExtent: 10.0,
-              itemCount: carregaDesafio(fase).length,
-              itemBuilder: (_, index) => new DesafioRow(carregaDesafio(fase)[index]),
-        ),*/
 
-        /*child: new ListView(
-          children: <Widget>
-          [
-            /*
-            DesafioRow(d1),
-            DesafioRow(d2),
-            DesafioRow(d3),
-            DesafioRow(d4),
-            DesafioRow(d5),
-            DesafioRow(d6),
-            DesafioRow(d7),*/
-        
-          ],
-          
-        ),*/
       ),
     );
   }

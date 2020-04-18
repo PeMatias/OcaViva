@@ -3,7 +3,7 @@ import 'dart:developer';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
-import 'package:ocaviva/models/Usuario.dart';
+import 'package:ocaviva/models/usuario.dart';
 import 'package:ocaviva/models/firestore.dart';
 import 'package:ocaviva/screens/loginPage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';

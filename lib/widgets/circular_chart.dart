@@ -16,7 +16,7 @@ class AnimatedRadialChartExampleState
     extends State<AnimatedRadialChartExample> {
   final GlobalKey<AnimatedCircularChartState> _chartKey =
       new GlobalKey<AnimatedCircularChartState>();
-  final _chartSize = const Size(110.0, 110.0);
+  final _chartSize = const Size(100.0, 100.0);
 
   
   Color labelColor = Colors.blue[300];

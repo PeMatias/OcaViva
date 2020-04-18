@@ -2,12 +2,15 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hive/hive.dart';
+import 'package:ocaviva/models/usuario.dart';
 import 'package:ocaviva/screens/loginPage.dart';
 import 'package:ocaviva/screens/registroPage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/texto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/botao.dart';
+import '../services/jogo_service.dart';
 
 class WelcomePage extends StatefulWidget
 {
@@ -46,7 +49,40 @@ class WelcomeState extends State<WelcomePage>
               children: <Widget>
               [
                 Image.asset('assets/images/oca_viva-logo.png',height: 187,width: 174,),
-                Texto(conteudo: fraseInicial, tamFonte: 20),
+                FutureBuilder(
+                  future: abrirCaixa(),
+                  builder: (context, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.done) {
+                      if (snapshot.error != null) {
+                        return Scaffold(
+                          body: Center(
+                            child: Text('Algo deu errado :('),
+                          ),
+                        );
+                      } else {
+                        print("abri a caixa Hive");
+                        /*FutureBuilder(
+                        future: caixaUsuarios(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState == ConnectionState.done) {
+                            if (snapshot.error != null) {
+                              //var boxUsers = Hive.box<Usuario>('users'); 
+                              Hive.registerAdapter(UsuarioAdapter());
+                              var box = await Hive.openBox<Usuario>('users');
+                              */
+                               
+                              return LoginPage();
+                            /*}
+                          }
+                        });
+                        */
+                      }
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  },
+                ),
+                /*Texto(conteudo: fraseInicial, tamFonte: 20),
                 InkWell
                 (
                   onTap: () {
@@ -65,7 +101,7 @@ class WelcomeState extends State<WelcomePage>
                     );
                   },
                   child: Botao(conteudo: "Login", tamFonte: 25)
-                ) , 
+                ) , */
 
               ]
 
@@ -84,7 +120,10 @@ class WelcomeState extends State<WelcomePage>
     {
       Navigator.of(context).pushReplacement(
         new MaterialPageRoute(builder: (context) => new LoginPage()));
-      log("Tela de Login");
+        //abrirCaixa();    
+        //userAuth.getFromFirestore();    
+        log("Tela de Login");
+        
     }
     else
     {

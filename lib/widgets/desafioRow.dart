@@ -5,12 +5,15 @@ import 'package:pie_chart/pie_chart.dart';
 import 'circular_chart.dart';
 import 'texto2.dart';
 
+
+
 class DesafioRow extends StatelessWidget {
 
   AnimatedRadialChartExample score;
 
 
   final DesafioList desafios;
+  
 
   DesafioRow(this.desafios, this.score);
 
@@ -18,7 +21,7 @@ class DesafioRow extends StatelessWidget {
   Widget build(BuildContext context) {
     Map<String, double> dataMap = new Map();
     //dataMap.putIfAbsent("F", ()=> desafios.problemaList.length.toDouble() );
-    dataMap.putIfAbsent("F", ()=> 1 );
+    dataMap.putIfAbsent("F", ()=> 0 );
     dataMap.putIfAbsent("T", ()=> 4 );
     final desafioThumbnail = new Container(
      // alignment: Alignment.centerRight,

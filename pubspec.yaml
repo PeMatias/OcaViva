@@ -14,7 +14,7 @@ description: A new Flutter project.
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: ">=2.2.2 <3.0.0"
 
 dependencies:
   intl: ^0.15.2
@@ -26,6 +26,13 @@ dependencies:
   flutter:
     sdk: flutter
   rflutter_alert: ^1.0.2
+  hive: ^1.4.1+1
+  hive_flutter: ^0.3.0+2
+  path_provider: ^1.2.0
+  flutter_offline: "^0.3.0"
+  connectivity: ^0.4.8+2
+  random_color: ^1.0.5
+
   #rflutter_alert:
   #  git: git://github.com/RatelHub/rflutter_alert.git
 
@@ -43,15 +50,17 @@ dependencies:
   charts_common: ^0.4.0
   flutter_circular_chart: ^0.1.0
   webview_flutter: ^0.3.19
+  
  
 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  build_runner: ^1.6.5
+  build_runner: ^1.8.0
   mobx_codegen: ^0.3.3+1
   json_serializable: ^2.2.0
+  hive_generator: ^0.7.0+2
 
   
 
@@ -79,6 +88,12 @@ flutter:
   - assets/images/nervoso.png
   - assets/images/fundo-1.png
   - assets/jogo.json
+  - assets/users.json
+  - assets/images/fase_1/desafio_1.png
+  - assets/images/fase_1/desafio_2.png
+  - assets/images/fase_1/desafio_3.png
+  - assets/images/fase_1/desafio_.png
+ 
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

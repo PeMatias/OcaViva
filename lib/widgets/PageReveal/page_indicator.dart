@@ -1,7 +1,11 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:ocaviva/widgets/PageReveal/pages.dart';
+import 'package:ocaviva/widgets/texto.dart';
+
+int indice;
 
 class PagerIndicator extends StatelessWidget {
   final PagerIndicatorViewModel viewModel;
@@ -10,6 +14,7 @@ class PagerIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<PageBubble> bubbles = [];
+    indice = viewModel.activeIndex;
 
     for (var i = 0; i < viewModel.pages.length; ++i) {
       final page = viewModel.pages[i];
@@ -36,7 +41,7 @@ class PagerIndicator extends StatelessWidget {
       ));
     }
 
-    final BUBBLE_WIDTH = 55.0;
+    final BUBBLE_WIDTH = 10.0;
     final baseTranslation =
         ((viewModel.pages.length * BUBBLE_WIDTH) / 2) - (BUBBLE_WIDTH / 2);
     var translation = baseTranslation - (viewModel.activeIndex * BUBBLE_WIDTH);
@@ -82,7 +87,7 @@ class PageBubble extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return new Container(
-      width: 55.0,
+      width: 45.0,
       height: 65.0,
       child: new Center(
         child: new Container(
@@ -101,10 +106,15 @@ class PageBubble extends StatelessWidget {
                       : Colors.transparent)),
           child: new Opacity(
               opacity: viewModel.activePercent,
-              child: new Icon(
-                viewModel.iconPath,
+              child: CircleAvatar(
+                backgroundColor: viewModel.color,
+                child: Texto(conteudo: (indice+1).toString(), tamFonte: 10)
+              )
+              ),/*new Icon(
+                
+                //viewModel.iconPath,
                 color: viewModel.color,
-              )),
+              )),*/
         ),
       ),
     );

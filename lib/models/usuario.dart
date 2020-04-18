@@ -1,13 +1,26 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hive/hive.dart';
 
-class Usuario
+part 'usuario.g.dart';
+
+
+@HiveType(typeId: 1)
+class Usuario 
 {
+  @HiveField(0)
   String nome;
+  @HiveField(1)
   String escola;
+  @HiveField(2)
   String email;
+  @HiveField(5)
   String senha;
+  @HiveField(6)
   bool aluno = true;
+  @HiveField(7)
   String documentID;
+  @HiveField(8)
+  double score = 50.0;
 
   Usuario(this.nome, this.escola, this.email, this.senha);
 
@@ -19,7 +32,8 @@ class Usuario
     escola = snap.data['escola'],
     email = snap.data['email'],
     senha = snap.data['senha'],
-    aluno = snap.data['aluno'];
+    aluno = snap.data['aluno'],
+    score = snap.data['score'];
 
   toJson()
   {
@@ -30,6 +44,7 @@ class Usuario
       'email': email,
       'senha': senha,
       'aluno': aluno,
+      'score': score,
     };
   }
 

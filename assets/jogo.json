@@ -4,6 +4,7 @@
     "desafioList": [
       {
         "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o saneamanto básico.",
+        "imagem": "assets/images/fase_1/desafio_1.png",
         "problemaList": [
           {
             "problema": "Eles estão reclamando de alagamento nas ruas.",
@@ -69,11 +70,25 @@
                 "ponto": -1
               }
             ]
+          },
+          {
+            "problema": " ",
+            "respostaList": [
+              {
+                "resposta": "A equipe técnica da sua OcaViva irá  apresentar propostas",
+                "ponto": 0
+              },
+              {
+                "resposta": "E você foi escolhido para decidir",
+                "ponto": 0
+              }
+            ]
           }
         ]
       },
       {
         "desafio": "Os problemas da falta de moradia estão sendo cobrados por vários representantes da sociedade civil. Você foi encarregado de cumprir a ODS 10.",
+        "imagem": "assets/images/fase_1/desafio_2.png",
         "problemaList": [
           {
             "problema": "Um terreno de propriedade do governo, será usado na construção de um conjunto habitacional  e você precisa decidir quais os materias serão utilizados.",
@@ -139,11 +154,25 @@
                 "ponto": -2
               }
             ]
+          },
+          {
+            "problema": "Os problemas da falta de moradia estão sendo cobrados por vários representantes da sociedade civil. Você foi encarregado de cumprir a ODS 10.",
+            "respostaList": [
+              {
+                "resposta": "A equipe técnica da sua OcaViva irá  apresentar propostas",
+                "ponto": 0
+              },
+              {
+                "resposta": "E você foi escolhido para decidir",
+                "ponto": 0
+              }
+            ]
           }
         ]
       },
       {
         "desafio": "A cada dia que passa, formam-se novos grupos de manifestantes que protestam em busca de melhorias na educação básica da cidade. Buscando o cumprimento da ODS 4.",
+        "imagem": "assets/images/fase_1/desafio_3.png",
         "problemaList": [
           {
             "problema": "O corte no repasse de verbas para as instituições de ensino têm gerado grandes protestos.",
@@ -183,11 +212,25 @@
                 "ponto": -2
               }
             ]
+          },
+          {
+            "problema": "A cada dia que passa, formam-se novos grupos de manifestantes que protestam em busca de melhorias na educação básica da cidade. Buscando o cumprimento da ODS 4.",
+            "respostaList": [
+              {
+                "resposta": "A equipe técnica da sua OcaViva irá  apresentar propostas",
+                "ponto": 0
+              },
+              {
+                "resposta": "E você foi escolhido para decidir",
+                "ponto": 0
+              }
+            ]
           }
         ]
       },
       {
         "desafio": "Os níveis de segurança na OcaViva estão sendo reclamados pela população. Alegam aumentos significativos da criminalidade e omissão de ações de estorvo. Afetando a execução da ODS 16.",
+        "imagem": "assets/images/fase_1/desafio_.png",
         "problemaList": [
           {
             "problema": "A população reclama que seus direitos de possuir bens estão completamente ameaçados pela presença de criminalidade.",
@@ -240,11 +283,25 @@
                 "ponto": -2
               }
             ]
+          },
+          {
+            "problema": "Os níveis de segurança na OcaViva estão sendo reclamados pela população. Alegam aumentos significativos da criminalidade e omissão de ações de estorvo. Afetando a execução da ODS 16.",
+            "respostaList": [
+              {
+                "resposta": "A equipe técnica da sua OcaViva irá  apresentar propostas",
+                "ponto": 0
+              },
+              {
+                "resposta": "E você foi escolhido para decidir",
+                "ponto": 0
+              }
+            ]
           }
         ]
       },
       {
         "desafio": "A população alega a existência de uma crise de desemprego em sua OcaViva. Você precisa controlar a situação e garantir o cumprimento da ODS 8.",
+        "imagem": "assets/images/fase_1/desafio_.png",
         "problemaList": [
           {
             "problema": "Os jovens da cidade, pedem melhoria nas oportunidades de emprego oferecidas ppelas empresas.",
@@ -310,11 +367,25 @@
                 "ponto": -2
               }
             ]
+          },
+          {
+            "problema": "A população alega a existência de uma crise de desemprego em sua OcaViva. Você precisa controlar a situação e garantir o cumprimento da ODS 8.",
+            "respostaList": [
+              {
+                "resposta": "A equipe técnica da sua OcaViva irá  apresentar propostas",
+                "ponto": 0
+              },
+              {
+                "resposta": "E você foi escolhido para decidir",
+                "ponto": 0
+              }
+            ]
           }
         ]
       },
       {
         "desafio": "Grandes problemas de saúde vêm surgindo recentemente em sua OcaViva. A população reclama da demora nos atendimentos e os profissionais de saúde denunciam a falta de materiais para o trabalho. Descumprindo a ODS 3.",
+        "imagem": "assets/images/fase_1/desafio_.png",
         "problemaList": [
           {
             "problema": "Grupos de populares unem-se para mobilizar protestos, buscando atendimentos mais rápidos. Alegam danos morais causados pela demora nos atendimentos.",
@@ -380,6 +451,19 @@
                 "ponto": -2
               }
             ]
+          },
+          {
+            "problema": "Grandes problemas de saúde vêm surgindo recentemente em sua OcaViva. A população reclama da demora nos atendimentos e os profissionais de saúde denunciam a falta de materiais para o trabalho. Descumprindo a ODS 3.",
+            "respostaList": [
+              {
+                "resposta": "A equipe técnica da sua OcaViva irá  apresentar propostas",
+                "ponto": 0
+              },
+              {
+                "resposta": "E você foi escolhido para decidir",
+                "ponto": 0
+              }
+            ]
           }
         ]
       }
@@ -388,6 +472,7 @@
   },
   {
     "fase": 2,
+    "imagem": "assets/images/fase_1/desafio_.png",
     "desafioList": [
       {
         "desafio": "A população de um bairro está reivindicando o acesso a um direito fundamental que é o sanemanto básico.",

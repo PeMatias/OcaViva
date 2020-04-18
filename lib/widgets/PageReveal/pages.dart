@@ -1,14 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/models/jogo.dart';
+import 'package:ocaviva/screens/desafioPage.dart';
+import 'package:ocaviva/services/jogo_service.dart';
+import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
+import 'package:ocaviva/widgets/botao.dart';
+import 'package:ocaviva/widgets/texto.dart';
+import 'package:random_color/random_color.dart';
 
 
-final pages=[
-   new PageViewModel(Colors.blue, Icons.phone, Icons.contacts, "This is subtitle", "Contact"),
+List<DesafioList> desafioPages;
 
-   new PageViewModel(Colors.red, Icons.chat_bubble, Icons.chat, "This is subtitle", "Chat"),
+//var ocaviva = carregaJogo(1);
 
-  new PageViewModel(Colors.green, Icons.hotel, Icons.home, "This is subtitle", "Home"),
 
-];
+//final pages=[
+   //new PageViewModel(Colors.blue, Icons.phone, Icons.contacts, desafioPages.last.desafio , "Contact"),
+
+   //new PageViewModel(Colors.red, Icons.chat_bubble, Icons.chat, desafioPages[1].desafio, "Chat"),
+
+  //new PageViewModel(Colors.green, Icons.hotel, Icons.home, desafioPages[2].desafio, "Home"),
+
+//];
+
+
 
 class Page extends StatelessWidget {
 
@@ -18,9 +32,13 @@ Page({this.viewModel,this.percentVisible=1.0});
 
   @override
   Widget build(BuildContext context) {
+     RandomColor _randomColor = RandomColor();
+
+      Color _color = _randomColor.randomColor(colorHue: ColorHue.blue);
     return new Container(
       width: double.infinity,
-      color: viewModel.color,
+      //color: viewModel.color,
+      //color: _color,
       child: new Opacity(
         opacity: percentVisible,
         child: new Column(
@@ -29,17 +47,23 @@ Page({this.viewModel,this.percentVisible=1.0});
 
            new Transform(
              child: new Padding(
-                padding: const EdgeInsets.only(bottom:25.0),
-                child: new Icon(
+                padding: const EdgeInsets.only(bottom:10.0),
+                child: CircleAvatar(
+                    backgroundImage: ExactAssetImage(viewModel.desafioList.imagem),
+                    minRadius: 50,
+                    maxRadius: 90,
+                  ),
+                
+                /*child: new Icon(
                   viewModel.iconName,
                   size: 150.0,
                   color: Colors.white,
-                ),
+                ),*/
               ),
              transform: new Matrix4.translationValues(0.0, 50.0*(1.0-percentVisible), 0.0),
            ),
 
-            new Transform(
+            /*new Transform(
               transform: new Matrix4.translationValues(0.0, 30.0*(1.0-percentVisible), 0.0),
               child: new Padding(
                 padding: const EdgeInsets.only(top:10.0,bottom: 10.0),
@@ -48,17 +72,26 @@ Page({this.viewModel,this.percentVisible=1.0});
                   style: new TextStyle(fontSize: 34.0, color: Colors.white,fontWeight: FontWeight.bold),
                 ),
               ),
-            ),
+            ),*/
             new Transform(
               transform: new Matrix4.translationValues(0.0, 30.0*(1.0-percentVisible), 0.0),
 
               child: new Padding(
-                padding: const EdgeInsets.only(bottom:75.0),
-                child: new Text(
-                  viewModel.subtitle,
-                  textAlign: TextAlign.center,
-                  style: new TextStyle(fontSize: 18.0, color: Colors.white),
-                ),
+                //padding: const EdgeInsets.only(bottom:75.0),
+                padding:  EdgeInsets.all(22),
+                child: new Column(
+                  children: <Widget>[
+                        new Texto(conteudo: viewModel.desafioList.desafio ,tamFonte: 18.0),
+                        new SizedBox(height: 15,),
+                        new FlatButton(
+                          onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => 
+                          CardDemo(problemas: viewModel.desafioList.problemaList, desafios: viewModel.desafioList,) ) ),
+                          child: Botao(conteudo: "INICIAR O DESAFIO", tamFonte: 18.0),)
+                         
+                        
+                  ],
+                )
+                
               ),
             )
           ],
@@ -73,7 +106,7 @@ class PageViewModel{
   final Color color;
   final IconData iconName;
   final String title;
-  final String subtitle;
   final IconData iconAssetIcon;
-  PageViewModel(this.color,this.iconAssetIcon,this.iconName,this.subtitle,this.title);
+  final DesafioList desafioList;
+  PageViewModel(this.color,this.iconAssetIcon,this.iconName,this.title,this.desafioList);
 }

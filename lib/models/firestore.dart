@@ -2,24 +2,32 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 import 'package:mobx/mobx.dart';
+import 'package:ocaviva/services/jogo_service.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
 import '../screens/home_page.dart';
-import 'Usuario.dart';
+import 'usuario.dart';
 
 part 'firestore.g.dart';
 
 final Firestore _firestore = Firestore.instance;
 final FirebaseAuth auth = FirebaseAuth.instance;
 
+Box<Usuario> boxUsers = Hive.box<Usuario>('users');
+
 class Mobxfirestore = MobxfirestoreBase with _$Mobxfirestore;
 
 abstract class MobxfirestoreBase with Store {
+
   MobxfirestoreBase();
 
   @observable
   Usuario usuario;
+
+  int indice;
 
   @observable
   ObservableFuture<List<Usuario>> usuarios =
@@ -27,26 +35,36 @@ abstract class MobxfirestoreBase with Store {
 
   @computed
   List<Usuario> get fullNamesFromFirestore => usuarios.value;
-
+  
   @action
   Future<bool> getFromFirestore() async {
-    List<Usuario> usuarios = List();
+    
+    List<Usuario> usuarios_aux = List();
+   
     var query = _firestore.collection('usuarios').getDocuments();
     await query.then((snap) {
-      print('snap length: ${snap.documents.length}');
+      print('snap length ==: ${snap.documents.length}');
 
       if (snap.documents.length > 0) {
         for (var doc in snap.documents) {
-          usuarios.add(Usuario.fromfirestoresnapshot(doc));
-          // print('fullname docID: ${doc.documentID}');
+          usuarios_aux.add(Usuario.fromfirestoresnapshot(doc));
+          //print('fullname docID: ${doc.documentID}');
+          //print('fullname data: ${doc.data}');
         }
 
         //print('fullnames length: ${fullnames.length}');
 
-        usuarios = ObservableFuture<List<Usuario>>.value(usuarios) as List<Usuario>;
+        usuarios = ObservableFuture<List<Usuario>>.value(usuarios_aux);
+        
+        for (Usuario user in fullNamesFromFirestore) {
+          print('user ==: ${user.nome}');
+          boxUsers.add(user);
+
+          
+        }
       }
     });
-
+    print(fullNamesFromFirestore.length);
     return Future.value(true);
   }
 
@@ -54,6 +72,14 @@ abstract class MobxfirestoreBase with Store {
   Future<bool> delFromFirestore(Usuario usuario) async {
     if (usuario != null) {
       _firestore.collection('usuarios').document(usuario.documentID).delete();
+    }
+
+    return Future.value(true);
+  }
+  @action
+  Future<bool> updateFromFirestore(Usuario usuario) async {
+    if (usuario != null) {
+      _firestore.collection('usuarios').document(usuario.documentID).updateData(usuario.toJson());
     }
 
     return Future.value(true);
@@ -115,7 +141,7 @@ abstract class MobxfirestoreBase with Store {
     try {
       AuthResult result = await auth.signInWithEmailAndPassword(email: email, password: senha);
       user = result.user;
-      
+
     } catch (error) {
     switch (error.code) {
       case "ERROR_INVALID_EMAIL":

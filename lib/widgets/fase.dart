@@ -18,9 +18,13 @@ class Fase extends StatelessWidget
 
   @override
   Widget build(BuildContext context) {
-    return  Container
+    return  Column(
+      children: <Widget>[
+
+    Container
     (
-      width: 130.0,
+      width: 100.0,
+      height: 310,
       decoration: BoxDecoration(
         image: DecorationImage(image: AssetImage(asset), fit: BoxFit.fitHeight,),
       ),
@@ -28,6 +32,8 @@ class Fase extends StatelessWidget
       child: Align(alignment: Alignment.bottomCenter,
         child: Texto(conteudo: legenda, tamFonte:15.0),
       ),
-    );
+    ),
+    new AnimatedRadialChartExample(value: 50.0),
+    ]);
   }
 }
