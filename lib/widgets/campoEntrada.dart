@@ -41,7 +41,7 @@ class CampoEntrada extends StatelessWidget
           TextFormField(
             controller: controller,
             focusNode: focusNode,
-            style: TextStyle(color: Colors.white,fontSize: 18.0, fontFamily: "GoogleFonts.quantico",fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.white,fontSize: 16.0, fontFamily: "GoogleFonts.quantico",fontWeight: FontWeight.bold),
             obscureText: isPassword,
             decoration: InputDecoration(
               border: OutlineInputBorder(
@@ -50,7 +50,7 @@ class CampoEntrada extends StatelessWidget
               ),
             fillColor: Colors.yellow[700],
             filled: true,
-            hintText: "Digite aqui "+ textoDica,
+            hintText: "Digite "+ textoDica,
             prefixIcon: Icon(icone),
             hintStyle: TextStyle(color: Colors.white),
             ),

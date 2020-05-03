@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ocaviva/models/jogo.dart';
+import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/texto.dart';
 
@@ -34,7 +35,7 @@ Positioned cardDemo(
   Size screenSize = MediaQuery.of(context).size;
   // print("Card");
   return new Positioned(
-    bottom: 10.0 + bottom,
+    bottom: 9.0 ,
     right: flag == 0 ? right != 0.0 ? right : null : null,
     left: flag == 1 ? right != 0.0 ? right : null : null,
     child: new Dismissible(
@@ -79,69 +80,35 @@ Positioned cardDemo(
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            Texto2(conteudo: "Estado de saúde\n da OcaViva:", tamFonte: 16),
-                            Container(child: score,),
+                            //Texto2(conteudo: "Estado de saúde\n da OcaViva:", tamFonte: 12),
+                            //Container(child: score,),
                           ],
                         ),
                      
-                   
-
+                    
                     new GestureDetector(
 
                       child: new Card(
                         
-                        elevation: 10.0,
-                        child: Column(
-                        children: <Widget>[
-                       
-                        new Container(
+                        elevation: 30.0,
+                        child: Container(
                           alignment: Alignment.center,
-                          width: screenSize.width  + cardWidth,
-                          height: screenSize.height /1.47,
-                          decoration: new BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: new BorderRadius.circular(8.0),
-                            image: new DecorationImage(
-                                          image: new ExactAssetImage(imagem),
-                                          colorFilter: new ColorFilter.mode(Colors.deepPurple.withOpacity(0.8), BlendMode.dstATop),
-                                          fit: BoxFit.fill
-                                        ),
-                          ),
-                          child: new Stack(
-                            children: <Widget>[
-                                new Container(
-                                width: screenSize.width  + cardWidth,
-                              
-                                decoration: new BoxDecoration(
-                                  borderRadius: new BorderRadius.only(
-                                      topLeft: new Radius.circular(8.0),
-                                      topRight: new Radius.circular(8.0)),
-                                      //color: Colors.cyan[100]
-                                      //color: Colors.transparent,
-                                ),
-                                child: 
-                                Texto(conteudo: img.problema.toString(), tamFonte: 16), 
-                                margin: EdgeInsets.only(left: 10, right: 10,top: 5) ,
-                               // margin: EdgeInsets.all(30)
-                              ),
-                              
-                             
-                              new Column(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                          width: MediaQuery.of(context).size.width,
+                          height: screenSize.height*0.435,
+                          //color: Colors.transparent,
+                          child:                              
+                              new Stack(
+                                //mainAxisAlignment: MainAxisAlignment.end,
+                                //crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
-                                /*Container(
-                                    width: screenSize.width,
-                                    decoration: new BoxDecoration(
-                                           color: Colors.yellow[100],
-                                    ),
-                                    child: Text("Como você resolverá isso?",
-                                    textAlign: TextAlign.center,
-                                    style: TextStyle(
-                                      color: Colors.black
-                                    ),),
-                                  ),*/
-                                  SizedBox(height: 30,),
+                                  BodyBackground(),
+                                  Column(
+                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      
+
+                                  Texto(conteudo: img.problema.toString(), tamFonte: 15), 
                                   new RaisedButton(
                                      color: Colors.black45,
                                      highlightColor: Colors.deepPurple,
@@ -158,11 +125,10 @@ Positioned cardDemo(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Icon(Icons.arrow_back_ios, color: Colors.white,size: 45,),
-                                          Expanded(child: Texto3(conteudo:img.respostaList[0].resposta,tamFonte: 14.0,)),                                               
+                                          Expanded(child: Texto3(conteudo:img.respostaList[0].resposta,tamFonte: 12.0,)),                                               
                                         ],
                                       )
                                       ),
-                                      SizedBox(height: 30,),
                                     new RaisedButton(
                                       color: Colors.black45,
                                      highlightColor: Colors.deepPurple,
@@ -181,7 +147,7 @@ Positioned cardDemo(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                          
-                                          Expanded(child: Texto3(conteudo:img.respostaList[1].resposta,tamFonte: 14.0,)),
+                                          Expanded(child: Texto3(conteudo:img.respostaList[1].resposta,tamFonte: 12.0,)),
                                           Icon(Icons.arrow_forward_ios, color: Colors.white,size: 45,),                                               
                                         ],
                                       )
@@ -189,11 +155,10 @@ Positioned cardDemo(
                                     SizedBox(height: 15,),
                                 ]
                               ),
-                            ],
-                          ),
+                                ]
+                              )
+                           
                         ),
-                        ]
-                        )
                       ),
                     ),
                       ]

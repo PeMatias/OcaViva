@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
       '/registro': (context) => RegistroPage(),
       '/home': (context)=> HomePage(),
       '/problemas': (context)=> PageMain()   ,
+      //'/tinder': (context)=> SwipeFeedPage(),
      },
       debugShowCheckedModeBanner: false,
     );

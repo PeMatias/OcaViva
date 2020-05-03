@@ -1,9 +1,11 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hive/hive.dart';
 import 'package:ocaviva/models/usuario.dart';
+import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/screens/loginPage.dart';
 import 'package:ocaviva/screens/registroPage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
@@ -11,6 +13,8 @@ import 'package:ocaviva/widgets/texto.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/botao.dart';
 import '../services/jogo_service.dart';
+import 'package:path_provider/path_provider.dart';
+
 
 class WelcomePage extends StatefulWidget
 {
@@ -70,7 +74,7 @@ class WelcomeState extends State<WelcomePage>
                               Hive.registerAdapter(UsuarioAdapter());
                               var box = await Hive.openBox<Usuario>('users');
                               */
-                               
+                              Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new LoginPage()));
                               return LoginPage();
                             /*}
                           }
@@ -114,12 +118,14 @@ class WelcomeState extends State<WelcomePage>
 
   Future checkFirstSeen() async 
   {
+ 
     SharedPreferences prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
     if (_seen)
     {
       Navigator.of(context).pushReplacement(
-        new MaterialPageRoute(builder: (context) => new LoginPage()));
+        (userAuth.usuario != null) ? new MaterialPageRoute(builder: (context) => new HomePage())
+        : new MaterialPageRoute(builder: (context) => new LoginPage()));
         //abrirCaixa();    
         //userAuth.getFromFirestore();    
         log("Tela de Login");
@@ -129,7 +135,7 @@ class WelcomeState extends State<WelcomePage>
     {
         await prefs.setBool('seen', true);
         Navigator.of(context).pushReplacement(
-            new MaterialPageRoute(builder: (context) => new WelcomePage()));
+            new MaterialPageRoute(builder: (context) => new LoginPage()));
         log("Tela de welcome");
     }
   }

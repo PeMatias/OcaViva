@@ -21,16 +21,17 @@ class UsuarioAdapter extends TypeAdapter<Usuario> {
       fields[1] as String,
       fields[2] as String,
       fields[5] as String,
+      fields[6] as bool,
     )
-      ..aluno = fields[6] as bool
       ..documentID = fields[7] as String
-      ..score = fields[8] as double;
+      ..score = (fields[8] as List)?.cast<dynamic>()
+      ..desempenho = (fields[9] as List)?.cast<dynamic>();
   }
 
   @override
   void write(BinaryWriter writer, Usuario obj) {
     writer
-      ..writeByte(7)
+      ..writeByte(8)
       ..writeByte(0)
       ..write(obj.nome)
       ..writeByte(1)
@@ -44,6 +45,8 @@ class UsuarioAdapter extends TypeAdapter<Usuario> {
       ..writeByte(7)
       ..write(obj.documentID)
       ..writeByte(8)
-      ..write(obj.score);
+      ..write(obj.score)
+      ..writeByte(9)
+      ..write(obj.desempenho);
   }
 }

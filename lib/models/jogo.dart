@@ -10,53 +10,85 @@ String jogoToJson(List<Jogo> data) => json.encode(List<dynamic>.from(data.map((x
 
 class Jogo {
     int fase;
+    String habilidades;
     List<DesafioList> desafioList;
     String desc;
-    String imagem;
 
     Jogo({
         this.fase,
+        this.habilidades,
         this.desafioList,
         this.desc,
-        this.imagem,
     });
 
     factory Jogo.fromJson(Map<String, dynamic> json) => Jogo(
         fase: json["fase"],
+        habilidades: json["habilidades"],
         desafioList: List<DesafioList>.from(json["desafioList"].map((x) => DesafioList.fromJson(x))),
-        desc: json["desc"] == null ? null : json["desc"],
-        imagem: json["imagem"] == null ? null : json["imagem"],
+        desc: json["desc"],
     );
 
     Map<String, dynamic> toJson() => {
         "fase": fase,
+        "habilidades": habilidades,
         "desafioList": List<dynamic>.from(desafioList.map((x) => x.toJson())),
-        "desc": desc == null ? null : desc,
-        "imagem": imagem == null ? null : imagem,
+        "desc": desc,
     };
 }
 
 class DesafioList {
     String desafio;
     String imagem;
+    String imagemfeedback;
+    String desc;
+    String ods;
+    List<FeedbackList> feedbackList;
     List<ProblemaList> problemaList;
 
     DesafioList({
         this.desafio,
         this.imagem,
+        this.imagemfeedback,
+        this.desc,
+        this.ods,
+        this.feedbackList,
         this.problemaList,
     });
 
     factory DesafioList.fromJson(Map<String, dynamic> json) => DesafioList(
         desafio: json["desafio"],
-        imagem: json["imagem"] == null ? null : json["imagem"],
+        imagem: json["imagem"],
+        imagemfeedback: json["imagemfeedback"],
+        desc: json["desc"],
+        ods: json["ods"],
+        feedbackList: List<FeedbackList>.from(json["feedbackList"].map((x) => FeedbackList.fromJson(x))),
         problemaList: List<ProblemaList>.from(json["problemaList"].map((x) => ProblemaList.fromJson(x))),
     );
 
     Map<String, dynamic> toJson() => {
         "desafio": desafio,
-        "imagem": imagem == null ? null : imagem,
+        "imagem": imagem,
+        "imagemfeedback": imagemfeedback,
+        "desc": desc,
+        "ods": ods,
+        "feedbackList": List<dynamic>.from(feedbackList.map((x) => x.toJson())),
         "problemaList": List<dynamic>.from(problemaList.map((x) => x.toJson())),
+    };
+}
+
+class FeedbackList {
+    String resposta;
+
+    FeedbackList({
+        this.resposta,
+    });
+
+    factory FeedbackList.fromJson(Map<String, dynamic> json) => FeedbackList(
+        resposta: json["resposta"],
+    );
+
+    Map<String, dynamic> toJson() => {
+        "resposta": resposta,
     };
 }
 

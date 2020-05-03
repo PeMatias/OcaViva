@@ -24,6 +24,7 @@ Box<Usuario> boxUsers = Hive.box<Usuario>('users');
 
 
 
+
 class LoginPage extends StatefulWidget
 {
   @override
@@ -39,7 +40,10 @@ class LoginState extends State<LoginPage>
   @override
   void initState() 
   {
-    userAuth.getFromFirestore();    
+    //boxUsers.deleteFromDisk();
+    //boxUsers.clear();
+    //boxUsers.close();
+    userAuth.getFromFirestore();
     super.initState();  
     
     
@@ -59,10 +63,7 @@ class LoginState extends State<LoginPage>
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
     String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
-    // print(listUsers.length);
-    
-    
-    //print("Tamanho: " + userAuth.fullNamesFromFirestore.length.toString());
+
      return Scaffold(
           body: Stack
           (
@@ -77,8 +78,8 @@ class LoginState extends State<LoginPage>
                   children: <Widget>
                   [
                   
-                    SizedBox(height: 42, ),
-                    Image.asset('assets/images/oca_viva-logo.png',height: 187,width: 174 ,),
+                    SizedBox(height: 40, ),
+                    Image.asset('assets/images/oca_viva-logo.png',height: 167,width: 154 ,),
                     SizedBox(height: 8, ),
                     Expanded
                     (
@@ -86,42 +87,43 @@ class LoginState extends State<LoginPage>
                       child: ListView
                       (
                         shrinkWrap: true,
-                        padding: const EdgeInsets.all(22),
+                        padding: const EdgeInsets.all(18),
                         children: <Widget>
                         [ 
                          
                           CampoEntrada(titulo: "Email", textoDica: "seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
                           CampoEntrada(titulo: "Senha", textoDica: "sua senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
-                          SizedBox(height: 30,),
+                          SizedBox(height: 25,),
                          InkWell(                         
-                            onTap: () { 
+                            onTap: () async { 
                               if (verificaCampos())
                               {
                                 Alert(context: context, title: "Login não efetuado", desc: "Por favor verifique todos os campos, apenas quando todos forem corretamente preenchidos seu login será realizado").show();
                               }
                               else{
-                                showDialog(context: context, child: Center(child: CircularProgressIndicator())); 
-                                bool armazenado = false;
-                               
-                               
+                                //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
                                 
-                                //boxUsers = Hive.box<Usuario>('users');
+                                bool armazenado = false;        
                                 var indice =  0;
                                 for (Usuario item in boxUsers.values.toList()) {
-                                  print(_email.text + " "+_senha.text );
-                                  print(item.email == _email.text && item.senha == _senha.text);
+                                  //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
                                   if (item.email == _email.text && item.senha == _senha.text) {
                                     armazenado = true;
                                     userAuth.usuario = item;
                                     userAuth.indice = indice;
+                                      
+                                    
+                                    showDialog(context: context, child: Center(child: CircularProgressIndicator()));
                                     return Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
                                   }
                                   indice++;
         
         
                                 }
-                                if(!armazenado)
+                                if(!armazenado){
                                   userAuth.LoginEmail(_email.text, _senha.text,context);
+                                  showDialog(context: context, child: Center(child: CircularProgressIndicator()));
+                                }
                                 
 
                               }                              

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_circular_chart/flutter_circular_chart.dart';
 
-class AnimatedRadialChartExample extends StatefulWidget {
-  var value = 50;
-  AnimatedRadialChartExample({this.value});
+class AnimatedRadialChartExampleDouble extends StatefulWidget {
+  var value = 50.0;
+  AnimatedRadialChartExampleDouble({this.value});
   
 
   @override
-  AnimatedRadialChartExampleState createState() =>
-      new AnimatedRadialChartExampleState();
+  AnimatedRadialChartExampleStateDouble createState() =>
+      new AnimatedRadialChartExampleStateDouble();
   
 }
 
-class AnimatedRadialChartExampleState
-    extends State<AnimatedRadialChartExample> {
+class AnimatedRadialChartExampleStateDouble
+    extends State<AnimatedRadialChartExampleDouble> {
   final GlobalKey<AnimatedCircularChartState> _chartKey =
       new GlobalKey<AnimatedCircularChartState>();
-  final _chartSize = const Size(74.0, 70.0);
+  final _chartSize = const Size(85.0, 85.0);
 
   
   Color labelColor = Colors.white;
@@ -86,14 +86,10 @@ class AnimatedRadialChartExampleState
         .textTheme
         .title
         .merge(new TextStyle(
-          color: labelColor,fontSize: 14.0,
-          fontWeight: FontWeight.w700,
-          decorationThickness: 12.85,
-          
-          
-          
-                   ));
-
+          color: labelColor,fontSize: 15.0,
+          decorationStyle: TextDecorationStyle.solid,
+          fontWeight: FontWeight.w900
+          ));
     return new Center(
       child: new Container(
             child: new AnimatedCircularChart(
@@ -129,4 +125,5 @@ class AnimatedRadialChartExampleState
     );
   }
 }
+
 

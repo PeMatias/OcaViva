@@ -1,8 +1,10 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_mobx/flutter_mobx.dart';
+import 'package:hive/hive.dart';
 import 'package:ocaviva/models/usuario.dart';
 import 'package:ocaviva/models/firestore.dart';
 import 'package:ocaviva/screens/loginPage.dart';
@@ -15,6 +17,7 @@ import '../widgets/botao.dart';
 
 
 final Mobxfirestore firestore = Mobxfirestore();
+Box<Usuario> boxUsers;
 
 class RegistroPage extends StatefulWidget
 {
@@ -30,12 +33,15 @@ class RegistroState extends State<RegistroPage>
   void initState() 
   {
     super.initState();
+    boxUsers = Hive.box<Usuario>('users');
   }
 
   final TextEditingController _nome = TextEditingController();
   final TextEditingController _escola = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _senha = TextEditingController();
+
+   bool _radioValue = true;
 
   FocusNode _nomeFocusNode = new FocusNode();
   FocusNode _escolaFocusNode = new FocusNode();
@@ -48,6 +54,8 @@ class RegistroState extends State<RegistroPage>
     Size screenSize = MediaQuery.of(context).size;
     double screenWidth = screenSize.width;
     String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
+    var radioValor = -1;
+    bool aluno = true;
     return Scaffold(
       body: Stack
       (
@@ -72,11 +80,29 @@ class RegistroState extends State<RegistroPage>
                     padding: const EdgeInsets.all(25),
                     children: <Widget>
                     [ 
-                      CampoEntrada(titulo: "Nome", textoDica: "o nome completo",icone: Icons.person, isPassword: false,controller: _nome, focusNode: _nomeFocusNode,),
-                      CampoEntrada(titulo: "Escola", textoDica: "sua escola",icone: Icons.school, isPassword: false, controller: _escola, focusNode: _escolaFocusNode,),
+                      CampoEntrada(titulo: "Nome", textoDica: "o nome da sua ocaviva",icone: Icons.person, isPassword: false,controller: _nome, focusNode: _nomeFocusNode,),
+                      CampoEntrada(titulo: "Escola", textoDica: "o nome da comunidade",icone: Icons.school, isPassword: false, controller: _escola, focusNode: _escolaFocusNode,),
                       CampoEntrada(titulo: "Email", textoDica: "seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
-                      CampoEntrada(titulo: "Senha", textoDica: "sua senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
-                      SizedBox(height: 30,),
+                      CampoEntrada(titulo: "Senha", textoDica: "uma senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                        new Radio(
+                          activeColor: Colors.amber,
+                          value: true,
+                          groupValue: _radioValue,
+                          onChanged: _handleRadioValueChange,
+                        ),
+                        Texto(conteudo: "Aluno", tamFonte: 18,),
+                        new Radio(
+                           activeColor: Colors.amber,
+                          value: false,
+                          groupValue: _radioValue,
+                          onChanged: _handleRadioValueChange,
+                        ),
+                       Texto(conteudo: "Professor", tamFonte: 18,),
+                        ])
+,                      SizedBox(height: 10,),
                       InkWell
                       ( 
                         onTap: () { 
@@ -86,7 +112,7 @@ class RegistroState extends State<RegistroPage>
                           }
                           else
                           {
-                            var usuario = Usuario(_nome.text, _escola.text,  _email.text, _senha.text);
+                            var usuario = Usuario(_nome.text, _escola.text,  _email.text, _senha.text, _radioValue);
                             firestore.pushToFirestore(usuario);
                             firestore.CadastraEmail(usuario);
                             _nome.clear();
@@ -97,17 +123,18 @@ class RegistroState extends State<RegistroPage>
                             _escolaFocusNode.unfocus();
                             _emailFocusNode.unfocus();
                             _senhaFocusNode.unfocus();
+                            boxUsers.add(usuario);
                             Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage() ) );
                           }                          
                            },
                         child: Botao(conteudo: "Cadastrar", tamFonte: 25)
                       ) ,   
-                      Container(
+                     /* Container(
                         padding: EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.centerRight,
                         child: Text('Esqueceu sua senha?\t',
                         style:  TextStyle(fontSize: 16, fontWeight: FontWeight.w500)),
-                      ),
+                      ),*/
                       SizedBox(height:10),
                       Align(alignment: Alignment.bottomCenter,child: _loginAccountLabel(), ),
                     ],
@@ -123,6 +150,7 @@ class RegistroState extends State<RegistroPage>
       )
     );
   }
+  
 
   Widget _loginAccountLabel() {
     return Container(
@@ -203,6 +231,12 @@ class RegistroState extends State<RegistroPage>
       return false;
       
     }
+
+    void _handleRadioValueChange(bool value) {
+    setState(() {
+      _radioValue = value;
+    });
+  }
 
 
 }

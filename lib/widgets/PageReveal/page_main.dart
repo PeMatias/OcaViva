@@ -15,10 +15,13 @@ import 'package:ocaviva/widgets/desafioRow.dart';
 import 'package:ocaviva/widgets/texto.dart';
 import 'package:ocaviva/widgets/texto2.dart';
 import 'package:random_color/random_color.dart';
+import 'package:toast/toast.dart';
 
 SlideUpdate event;
 int activeIndex2;
 int activeIndex = 0;
+int maxDesafio = 0;
+String habilidade="";
 
 class PageMain extends StatefulWidget {
   PageMain({this.fase});
@@ -113,6 +116,7 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
   Widget build(BuildContext context) {
     List<PageViewModel> pages=[];
     RandomColor _randomColor = RandomColor();
+   
 
     Color _color = _randomColor.randomColor(colorHue: ColorHue.blue);
    
@@ -145,13 +149,15 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
                 //pages.addAll(ocaviva.data.desafioList)  ;
                 while(item < ocaviva.data.desafioList.length) {
                         
-                  pages.insert(item, new PageViewModel(_color, Icons.timer, Icons.contacts, "Desafio", ocaviva.data.desafioList[item]));
+                  pages.insert(item, new PageViewModel(widget.fase, _color, Icons.timer, Icons.contacts, "Desafio", ocaviva.data.desafioList[item]));
                   item++;
                 }
                 print(pages.length);
                 while(ocaviva.data.desafioList.length != pages.length)
                   pages.removeLast();
                 print(pages.length);
+                maxDesafio = pages.length;
+                habilidade = ocaviva.data.habilidades;
                
                 /*pages = [
                   new PageViewModel(Colors.blue, Icons.timer, Icons.contacts,  "Desafio", ocaviva.data.desafioList[0]),
@@ -164,12 +170,13 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
                 ];*/
                 
                 return new Stack(
+                      alignment: Alignment.center,
                       children: <Widget>[
                         BodyBackground(),
                         new Page(
                           viewModel: pages[activeIndex],
                           percentVisible: 1.0,
-                        ),
+                        ),             
                         new PageReveal(
                           revealPercent: slidePercent,
                           child: new Page(

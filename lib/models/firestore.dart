@@ -33,17 +33,44 @@ abstract class MobxfirestoreBase with Store {
   ObservableFuture<List<Usuario>> usuarios =
       ObservableFuture<List<Usuario>>.value([]);
 
+  @observable
+  ObservableFuture<List<Usuario>> usuariosLocais =
+      ObservableFuture<List<Usuario>>.value([]);
+
   @computed
   List<Usuario> get fullNamesFromFirestore => usuarios.value;
+
+  @computed
+  List<Usuario> get fullUsuariosLocais => usuariosLocais.value;
+
+   @observable
+  bool logIn = false;
+
+  @observable
+  bool logOut = false;
+
+  @observable
+  ObservableFuture<bool> loginStatus = ObservableFuture<bool>.value(false);
+
+  @action
+  void changeLoginStatus(dynamic status) {
+    loginStatus = status;
+  }
+
+  @computed
+  bool get updatedLoginStatus => loginStatus.value;
   
   @action
   Future<bool> getFromFirestore() async {
+    if(!Hive.isBoxOpen("users") )
+      var abrindo = await abrirCaixa();
     
-    List<Usuario> usuarios_aux = List();
+    List<Usuario> usuarios_aux = List<Usuario>();
+    //List<Usuario> usuarios_aux = <Usuario>[];
    
     var query = _firestore.collection('usuarios').getDocuments();
     await query.then((snap) {
-      print('snap length ==: ${snap.documents.length}');
+      //print('snap length ==: ${snap.documents.length}');
 
       if (snap.documents.length > 0) {
         for (var doc in snap.documents) {
@@ -57,7 +84,7 @@ abstract class MobxfirestoreBase with Store {
         usuarios = ObservableFuture<List<Usuario>>.value(usuarios_aux);
         
         for (Usuario user in fullNamesFromFirestore) {
-          print('user ==: ${user.nome}');
+          //print('user ==: ${user.nome}');
           boxUsers.add(user);
 
           
@@ -68,6 +95,7 @@ abstract class MobxfirestoreBase with Store {
     return Future.value(true);
   }
 
+ 
   @action
   Future<bool> delFromFirestore(Usuario usuario) async {
     if (usuario != null) {
@@ -180,8 +208,17 @@ abstract class MobxfirestoreBase with Store {
     final FirebaseUser currentUser = await auth.currentUser();
     assert(user.uid == currentUser.uid);
     print('Login sucesso: $user');
+    loginStatus = ObservableFuture.value(true);
     Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
     return user;
+  }
+
+    @action
+  Future<bool> logoutAccount() async {
+    auth.signOut();
+    print('Google logged out');
+    loginStatus = ObservableFuture.value(false);
+    return await Future.value(true);
   }
 
   
