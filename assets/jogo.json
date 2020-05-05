@@ -11,10 +11,10 @@
         "ods":"https://nacoesunidas.org/pos2015/ods3/",
         "feedbackList": [
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "A boca é a porta de entrada de nutrientes do corpo, também se expande para além dos sentidos e necessita de diversos órgão para realizar suas atividades. Assim como a boca, a o Sistema de Saúde da sua OcaViva depende de investimentos, insumos de qualidade e uma gerência eficiente.\n Parabéns suas decisões tomadas estão fortalecendo o sistema de saúde, deixando sua Ocaviva mais saudável."
           },
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "A boca é a porta de entrada de nutrientes do corpo, também se expande para além dos sentidos e necessita de diversos órgão para realizar suas atividades. Assim como a boca, a o Sistema de Saúde da sua OcaViva depende de investimentos, insumos de qualidade e uma gerência eficiente.\n Infelizmente sua OcaViva está doente, você precisa revisar,estudar e tomar melhores decisões."
           }
         ],
         "problemaList": [
@@ -36,7 +36,7 @@
             "respostaList": [
               {
                 "resposta": "Examinar a falta de materiais nas unidades de saúde e multar empresas que não seguem o acordo de fornecimento.",
-                "ponto": -1
+                "ponto": -2
               },
               {
                 "resposta": "Assegurar a suficiência da distribuição de materiais e propor políticas de otimização de estoque, para economia nos ambientes de hospitalares.",
@@ -49,7 +49,7 @@
             "respostaList": [
               {
                 "resposta": "Intensificar as ações de vigilância sanitária em lugares como: Aeroportos, Hotéis, Shoppings. Para diminuir os possíveis casos da doença.",
-                "ponto": 2
+                "ponto": 1
               },
               {
                 "resposta": "Aumentar as campanhas de prevenção às infecções e declarar seguridade contra os possíveis casos da doença.",
@@ -71,14 +71,14 @@
             ]
           },
           {
-            "problema": "Os moradores de sua OcaViva estão reclamando de superlotação nos Hospitais da cidade.",
+            "problema": "Os moradores de sua OcaViva estão reclamando de superlotação nos Hospitais da OcaViva.",
             "respostaList": [
               {
                 "resposta": "Contratar profissionais de saúde e aumentar o número de leitos.",
-                "ponto": 2
+                "ponto": 1
               },
               {
-                "resposta": "Autorizar o encaminhamento dos enfermos para hospitais mais próximos.",
+                "resposta": "Autorizar o encaminhamento dos enfermos para hospitais de outra OcaViva mais próxima.",
                 "ponto": -2
               }
             ]
@@ -97,7 +97,7 @@
             ]
           }
         ]
-      },   
+      },  
       {
         "desafio": "A cada dia que passa, formam-se novos grupos de manifestantes que protestam em busca de melhorias na educação básica da cidade. Buscando o cumprimento da ODS 4.",
         "imagem": "assets/images/fase_1/desafio_3.png",
@@ -106,10 +106,10 @@
         "ods":"https://nacoesunidas.org/pos2015/ods4/",
         "feedbackList": [
           {
-            "resposta": "Seu relatorio é"
+            "resposta": "A faringe tem a função de fazer a passagem do ar inalado e dos alimentos ingeridos até os outros órgãos dos sistemas respiratório e digestório. Na sua OcaViva todo alimento que percorre a faringe representa uma política pública para a Educação.\n Suas decisões foram assertivas aos problemas da Educação e sua OcaViva está ficando saudável."
           },
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "A faringe tem a função de fazer a passagem do ar inalado e dos alimentos ingeridos até os outros órgãos dos sistemas respiratório e digestório.a sua OcaViva todo alimento que percorre a faringe representa uma política pública para a Educação.\n Você precisar revisar suas decisões, fez com sua OcaViva se engasgar isso deixou ela pior."
           }
         ],
         "problemaList": [
@@ -122,7 +122,7 @@
               },
               {
                 "resposta": "Acionar a criação de emendas para o remanejo do orçamento e liberação de verbas para as instituições de ensino.",
-                "ponto": 2
+                "ponto": 1
               }
             ]
           },
@@ -135,7 +135,7 @@
               },
               {
                 "resposta": "Ampliar as didáticas já existentes através de palestras e atividades com os docentes.",
-                "ponto": 1
+                "ponto": -1
               }
             ]
           },
@@ -175,10 +175,10 @@
         "ods":"https://nacoesunidas.org/pos2015/ods16/",
         "feedbackList": [
           {
-            "resposta": "Seu relatorio"
+            "resposta": "O esôfago é um órgão tubular que tem como função conduzir o alimento da faringe até o estômago. Na OcaViva ele representa a condução de políticas públicas na área da Segurança.\n Suas decisões permitiram que sua OcaViva ficasse saudável e segura, parabéns! está no caminho certo."
           },
           {
-            "resposta": "Voce esta melhorando"
+            "resposta": "O esôfago é um órgão tubular que tem como função conduzir o alimento da faringe até o estômago. Na OcaViva ele representa a condução de políticas públicas na área da Segurança.\n Suas decisões deixou sua OcaViva mais insegura e doente, por favor revise suas decisões."
           }
         ],
         "problemaList": [
@@ -257,10 +257,10 @@
         "ods":"https://nacoesunidas.org/pos2015/ods8/",
         "feedbackList": [
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "No estômago faz-se o armazenamento dos nutrientes e a liberação de uma substância denominada suco gástrico para transformar esses nutrientes. Na sua OcaViva esse orǵão representa as políticas públicas contra o Desemprego.\n Suas decisões garantiram empregos de qualidade, proporcionando o crescimento econômico e saúde para sua OcaViva, continue assim."
           },
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "No estômago faz-se o armazenamento dos nutrientes e a liberação de uma substância denominada suco gástrico para transformar esses nutrientes. Na sua OcaViva esse orǵão representa as políticas públicas contra o Desemprego.\n As decisões que você tomou não melhorou a situação do desemprego causado problemas até mesmo para a segurança, deixando sua Ocaviva mais enferma, por favor estude e revise essas decisões."
           }
         ],
         "problemaList": [
@@ -352,10 +352,10 @@
         "ods":"https://nacoesunidas.org/pos2015/ods10/",
         "feedbackList": [
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "A principal função do intestino delgado é absorver os nutrientes necessários para o corpo humano. Na sua OcaViva não é diferente ela representa as políticas públicas aplicadas à Moradia.\n É com um lar que a pessoa tem acesso a saneamento, higiene pessoal, endereço, isto é, todos os nutrientes que sua Ocaviva está absorvendo com suas boas práticas, bom trabalho!"
           },
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "A principal função do intestino delgado é absorver os nutrientes necessários para o corpo humano. Na sua OcaViva não é diferente ela representa as políticas públicas aplicadas à Moradia.\n Suas decisões não estão surtindo efeito na saúde da OcaViva, repense alguma ações e corrija!, sua população tem o direito à moradia digna."
           }
         ],
         "problemaList": [
@@ -447,10 +447,10 @@
         "ods":"https://nacoesunidas.org/pos2015/ods6/",
         "feedbackList": [
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "No intestino grosso ficam armazenados os alimentos não digeríveis pelo organismo e as fezes a serem evacuadas, além de absorver a água deste conteúdo. Na sua OcaViva representa as políticas públicas direcionadas ao Saneamento Básico (água e esgoto).\n Suas práticas foram necessárias e estão proporcionando melhores condições de saúde, muito bem você pode avançar de fase."
           },
           {
-            "resposta": "Voce foi muito bem"
+            "resposta": "No intestino grosso ficam armazenados os alimentos não digeríveis pelo organismo e as fezes a serem evacuadas, além de absorver a água deste conteúdo. Na sua OcaViva representa as políticas públicas direcionadas ao Saneamento Básico (água e esgoto).\n Suas práticas não estão surtindo efeito, revise suas ações e estude para a próxima fase para que suas decisões sejam mais efetivas."
           }
         ],
         "problemaList": [
@@ -466,7 +466,7 @@
                 "ponto": 2
               }
             ]
-           
+          
           },
           {
             "problema": "Um bairro da vizinhança está sofrendo com uma endemia de Dengue e Leptospirose devido ao acúmulo de lixo em depósitos irregulares.",
@@ -522,7 +522,7 @@
           }
         ]
       }
-     
+    
     ],
     "desc": "Políticas públicas e o acesso aos direitos sociais: saneamento, habitação, educação, segurança, emprego e saúde"
   }

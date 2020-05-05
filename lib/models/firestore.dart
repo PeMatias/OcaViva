@@ -4,11 +4,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:mobx/mobx.dart';
+import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/services/jogo_service.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 
-import '../screens/home_page.dart';
 import 'usuario.dart';
 
 part 'firestore.g.dart';
@@ -16,7 +15,7 @@ part 'firestore.g.dart';
 final Firestore _firestore = Firestore.instance;
 final FirebaseAuth auth = FirebaseAuth.instance;
 
-Box<Usuario> boxUsers = Hive.box<Usuario>('users');
+Box<Usuario> boxUsers; 
 
 class Mobxfirestore = MobxfirestoreBase with _$Mobxfirestore;
 
@@ -63,14 +62,15 @@ abstract class MobxfirestoreBase with Store {
   @action
   Future<bool> getFromFirestore() async {
     if(!Hive.isBoxOpen("users") )
-      var abrindo = await abrirCaixa();
-    
+      await abrirCaixa();
+    boxUsers = Hive.box<Usuario>('users');
+
     List<Usuario> usuarios_aux = List<Usuario>();
     //List<Usuario> usuarios_aux = <Usuario>[];
    
     var query = _firestore.collection('usuarios').getDocuments();
     await query.then((snap) {
-      //print('snap length ==: ${snap.documents.length}');
+      print('snap length ==: ${snap.documents.length}');
 
       if (snap.documents.length > 0) {
         for (var doc in snap.documents) {
@@ -82,16 +82,26 @@ abstract class MobxfirestoreBase with Store {
         //print('fullnames length: ${fullnames.length}');
 
         usuarios = ObservableFuture<List<Usuario>>.value(usuarios_aux);
-        
-        for (Usuario user in fullNamesFromFirestore) {
-          //print('user ==: ${user.nome}');
-          boxUsers.add(user);
 
-          
-        }
+       //boxUsers
+       var list = Iterable<int>.generate(boxUsers.length).toList();
+        print("Tamanho box "+ boxUsers.length.toString());
+       if(fullNamesFromFirestore.length != boxUsers.length)
+       {
+         boxUsers.deleteAll(list);
+         boxUsers.clear();
+       }
+       print("Tamanho box values  "+ boxUsers.values.length.toString());
+       if(boxUsers.isEmpty)
+       {
+         boxUsers.addAll(fullNamesFromFirestore);
+       }
+       print("Tamanho box values  "+ boxUsers.values.length.toString());
+       
       }
     });
-    print(fullNamesFromFirestore.length);
+    print("Fulname tam: "+fullNamesFromFirestore.length.toString());
+    print("Tamanho usuarios  "+ usuarios.value.length.toString());
     return Future.value(true);
   }
 
@@ -209,6 +219,7 @@ abstract class MobxfirestoreBase with Store {
     assert(user.uid == currentUser.uid);
     print('Login sucesso: $user');
     loginStatus = ObservableFuture.value(true);
+    getFromFirestore();
     Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
     return user;
   }

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ocaviva/widgets/PageReveal/page_main.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
-import 'package:ocaviva/widgets/desafioList.dart';
 
 import '../widgets/bodyBackground.dart';
 

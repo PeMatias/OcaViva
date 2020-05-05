@@ -3,8 +3,10 @@ import 'dart:async';
 //import 'package:animation_exp/PageReveal/page_main.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
 import 'package:hive/hive.dart';
+import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/models/usuario.dart';
 import 'package:ocaviva/screens/loginPage.dart';
@@ -52,11 +54,10 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     data = widget.problemas;
-    bool proxDesafio = false;
    // database = Hive.box('jogo');
    // var valor = database.get('score',defaultValue: 50.0);
    if( boxUsers.getAt(userAuth.indice).score == null)
-      userAuth.usuario.score[fase] = 50;
+      userAuth.usuario.score[fase] = 30;
     else
        userAuth.usuario.score = boxUsers.getAt(userAuth.indice).score;
     score = new AnimatedRadialChartExample(value: userAuth.usuario.score[fase]);
@@ -138,20 +139,19 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
       //var valor = score.value + img.respostaList[0].ponto*5;
       userAuth.usuario.score[fase]+= img.respostaList[0].ponto*5;
       boxUsers.putAt(userAuth.indice, userAuth.usuario);
-      userAuth.updateFromFirestore(userAuth.usuario);
+      //userAuth.updateFromFirestore(userAuth.usuario);
       //database.put('score',valor);
       score = new AnimatedRadialChartExample(value:userAuth.usuario.score[fase]);
      if(lido == false)
       {
-         Timer(Duration(seconds: 5), () {
+        
         var esquerdo = "No canto superior esquerdo temos uma breve descrição das habilidades da BNCC e do ODS correspondente ao desafio";
-        showToast(esquerdo, gravity: Toast.TOP, duration: Toast.LENGTH_LONG)  ;
+        showToast(esquerdo, gravity: Toast.TOP, duration: Toast.LENGTH_SHORT)  ;
         Timer(Duration(seconds: 3), () {
           var direito = "No canto direito temos uma aba de pesquisa para ajudar nas dúvidas";
-          showToast(direito, gravity: Toast.TOP, duration: Toast.LENGTH_LONG)  ;
+          showToast(direito, gravity: Toast.TOP, duration: Toast.LENGTH_SHORT)  ;
           lido = true;
         });
-         });
       }
 
     });
@@ -166,7 +166,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
       userAuth.usuario.score[fase]+= img.respostaList[1].ponto*5;
       score = new AnimatedRadialChartExample(value: userAuth.usuario.score[fase]);
       boxUsers.putAt(userAuth.indice, userAuth.usuario);
-      userAuth.updateFromFirestore(userAuth.usuario);
+      //userAuth.updateFromFirestore(userAuth.usuario);
       //score =  new AnimatedRadialChartExample(value: 50,);
       if(lido == false)
       {
@@ -231,10 +231,11 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
               Icons.description,
               color:Colors.amber,
               size: 30.0,
+              semanticLabel: "Descrição da BNCC e da ODS",
             ),
           ),
           
-          onTap: (){
+          onTap: (){ 
             showDialog(context: context,
             builder: (BuildContext context)
             {
@@ -272,6 +273,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                     Icons.search,
                     color: Colors.amber,
                     size: 30.0,
+                    semanticLabel: "Pesquisar no Google",
                   ),
                 ),
                 onTap: (){
@@ -337,7 +339,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                       cardDemo(
                           database,
                           widget.desafios.imagem,
-                          score_novo,
+                          score,
                           item,
                           bottom.value,
                           right.value,
@@ -358,31 +360,35 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                     } 
                   }).toList())
                   ])
-              : new Column(
+              : new SingleChildScrollView(
+                    scrollDirection: Axis.vertical,
+                    child:
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Texto(conteudo:"Fim do desafio",tamFonte:28),
+                  Texto(conteudo:"Fim do desafio",tamFonte:18),
                   Container(child: Row(
                     mainAxisAlignment:  MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Texto2(conteudo: "Saúde da sua ocaviva:", tamFonte: 18),
-                      score_novo
+                      Texto2(conteudo: "Saúde desse sistema\nna OcaViva:", tamFonte: 18),
+                      score
                     ],
                   )
                   ), 
+                  
                   Container(
                     color: Colors.black12,
                     child: Column(children: <Widget>[
                       Align(alignment: Alignment.centerLeft, child: Texto(conteudo: "Relatório do desafio:", tamFonte: 16),),
 
                       SizedBox.fromSize(
-                        size: Size(180,150),
+                        size: Size(200,150),
                         child: Image.asset(widget.desafios.imagemfeedback,fit:BoxFit.cover),),
-                        (score_novo.value > 50) ? 
-                        Texto(conteudo:widget.desafios.feedbackList[0].resposta,tamFonte:16)
-                        : Texto(conteudo:widget.desafios.feedbackList[1].resposta,tamFonte:16),
+                        (score.value > 50) ? 
+                        Texto(conteudo:widget.desafios.feedbackList[0].resposta,tamFonte:14)
+                        : Texto(conteudo:widget.desafios.feedbackList[1].resposta,tamFonte:14),
                     ],
                     )
                   ),
@@ -395,7 +401,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                   ),*/                  
                   SizedBox(height: 10,),
                    FlatButton(
-                     onPressed: (){ Navigator.pop(context); score = score_novo;} , 
+                     onPressed: (){ userAuth.updateFromFirestore(userAuth.usuario); Navigator.pop(context);} , 
                      child: Row(  
                        mainAxisAlignment: MainAxisAlignment.start,
                        crossAxisAlignment: CrossAxisAlignment.center,
@@ -416,9 +422,9 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                    SizedBox(height: 15,),
                    FlatButton(
                      onPressed: (){
+                       userAuth.updateFromFirestore(userAuth.usuario);
                         if(activeIndex+1< maxDesafio)
                         {
-                          score = score_novo;
                           Navigator.pop(context ); 
                           activeIndex+=1 ;
                           proxDesafio = true;
@@ -450,6 +456,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
 
                      ),
                    ),
+                    SizedBox(height: 15,),
                    //SizedBox(height: 15,),
                    /*FlatButton(
                      onPressed: (){ 
@@ -478,7 +485,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                      ),
                    ),*/
                 ]
-              )
+              ))
         ),],)));
   }
 }

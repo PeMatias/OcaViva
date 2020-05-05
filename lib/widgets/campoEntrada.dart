@@ -3,13 +3,13 @@ import 'package:ocaviva/widgets/texto.dart';
 
 class CampoEntrada extends StatelessWidget 
 {
-  final String titulo;
+  String titulo;
   //final double tamFonte;
-  final String textoDica;
-  final IconData icone;
+  String textoDica;
+  IconData icone;
   bool isPassword = false;
-  final TextEditingController controller;
-  final FocusNode focusNode;
+  TextEditingController controller;
+  FocusNode focusNode;
   CampoEntrada
   ({
     Key key,

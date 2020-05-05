@@ -1,24 +1,20 @@
+import 'dart:async';
 import 'dart:developer';
 
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hive/hive.dart';
+import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/usuario.dart';
-import 'package:ocaviva/models/users.dart';
 import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/screens/registroPage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/campoEntrada.dart';
-import 'package:ocaviva/widgets/texto.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../models/firestore.dart';
 import '../widgets/botao.dart';
-import '../services/jogo_service.dart';
 
 
-final Mobxfirestore userAuth = Mobxfirestore();
 List<Usuario> listUsers ;
 Box<Usuario> boxUsers = Hive.box<Usuario>('users');
 
@@ -40,9 +36,9 @@ class LoginState extends State<LoginPage>
   @override
   void initState() 
   {
-    //boxUsers.deleteFromDisk();
-    //boxUsers.clear();
-    //boxUsers.close();
+    /*boxUsers.deleteFromDisk();
+    boxUsers.clear();
+    boxUsers.close();*/
     userAuth.getFromFirestore();
     super.initState();  
     
@@ -101,28 +97,39 @@ class LoginState extends State<LoginPage>
                                 Alert(context: context, title: "Login não efetuado", desc: "Por favor verifique todos os campos, apenas quando todos forem corretamente preenchidos seu login será realizado").show();
                               }
                               else{
-                                //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
                                 
-                                bool armazenado = false;        
+                              showDialog(context: context, child: Center(child: CircularProgressIndicator()));
+                              
+                                
+                                bool armazenado = true;        
                                 var indice =  0;
+                                
                                 for (Usuario item in boxUsers.values.toList()) {
                                   //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
                                   if (item.email == _email.text && item.senha == _senha.text) {
                                     armazenado = true;
+                                    print("esse é o indice:"+indice.toString());
                                     userAuth.usuario = item;
                                     userAuth.indice = indice;
+                                    SharedPreferences prefs = await SharedPreferences.getInstance();
+                                    prefs.setString('email', userAuth.usuario.email);
+                                    prefs.setString('senha', userAuth.usuario.senha);
                                       
-                                    
-                                    showDialog(context: context, child: Center(child: CircularProgressIndicator()));
+                                    if(userAuth.usuario.nome == null)
+                                      print("null");
+                                    //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
                                     return Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
                                   }
                                   indice++;
         
         
                                 }
+                                armazenado = false;       
                                 if(!armazenado){
                                   userAuth.LoginEmail(_email.text, _senha.text,context);
-                                  showDialog(context: context, child: Center(child: CircularProgressIndicator()));
+                                  if(userAuth.usuario.nome == null)
+                                      print("null");
+                                  //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
                                 }
                                 
 

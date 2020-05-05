@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,6 +15,8 @@ import 'package:ocaviva/widgets/texto.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/botao.dart';
+import 'package:ocaviva/main.dart';
+
 
 
 final Mobxfirestore firestore = Mobxfirestore();
@@ -80,8 +83,8 @@ class RegistroState extends State<RegistroPage>
                     padding: const EdgeInsets.all(25),
                     children: <Widget>
                     [ 
-                      CampoEntrada(titulo: "Nome", textoDica: "o nome da sua ocaviva",icone: Icons.person, isPassword: false,controller: _nome, focusNode: _nomeFocusNode,),
-                      CampoEntrada(titulo: "Escola", textoDica: "o nome da comunidade",icone: Icons.school, isPassword: false, controller: _escola, focusNode: _escolaFocusNode,),
+                      CampoEntrada(titulo: "OcaViva", textoDica: "o nome da ocaviva",icone: Icons.person, isPassword: false,controller: _nome, focusNode: _nomeFocusNode,),
+                      CampoEntrada(titulo: "Comunidade", textoDica: "o nome da turma",icone: Icons.school, isPassword: false, controller: _escola, focusNode: _escolaFocusNode,),
                       CampoEntrada(titulo: "Email", textoDica: "seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
                       CampoEntrada(titulo: "Senha", textoDica: "uma senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
                       Row(
@@ -112,6 +115,8 @@ class RegistroState extends State<RegistroPage>
                           }
                           else
                           {
+                            showDialog(context: context, child: Center(child: CircularProgressIndicator()));
+                              
                             var usuario = Usuario(_nome.text, _escola.text,  _email.text, _senha.text, _radioValue);
                             firestore.pushToFirestore(usuario);
                             firestore.CadastraEmail(usuario);
@@ -124,7 +129,9 @@ class RegistroState extends State<RegistroPage>
                             _emailFocusNode.unfocus();
                             _senhaFocusNode.unfocus();
                             boxUsers.add(usuario);
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage() ) );
+                            userAuth.usuario = usuario;
+                            //Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage() ) );
+                            userAuth.LoginEmail(_email.text, _senha.text,context);
                           }                          
                            },
                         child: Botao(conteudo: "Cadastrar", tamFonte: 25)

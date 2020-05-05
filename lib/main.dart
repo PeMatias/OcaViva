@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ocaviva/models/usuario.dart';
+import 'package:ocaviva/screens/perfil.dart';
 import 'package:ocaviva/screens/welcomePage.dart';
 import 'package:ocaviva/services/jogo_service.dart';
 import 'package:ocaviva/widgets/PageReveal/page_main.dart';
-import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
-import 'package:ocaviva/widgets/circular_chart.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:hive/hive.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
+import 'models/firestore.dart';
 import 'screens/home_page.dart';
 import 'screens/loginPage.dart';
 import 'screens/registroPage.dart';
@@ -19,20 +19,25 @@ import 'screens/welcomePage.dart';
 
 
 
-
+Mobxfirestore userAuth = Mobxfirestore();
 
 void main() async 
 {
   
   WidgetsFlutterBinding.ensureInitialized();
+
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
     .then((_) async {
       runApp(new MyApp());
      Hive.registerAdapter(UsuarioAdapter());
+     abrirCaixa();
+     
     
       
      
     });  
+        
+
 
 }
 
@@ -62,9 +67,13 @@ class MyApp extends StatelessWidget {
       '/registro': (context) => RegistroPage(),
       '/home': (context)=> HomePage(),
       '/problemas': (context)=> PageMain()   ,
+      '/perfil': (context)=> Perfil(),
+   
       //'/tinder': (context)=> SwipeFeedPage(),
      },
       debugShowCheckedModeBanner: false,
     );
   }
 }
+
+

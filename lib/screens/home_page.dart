@@ -1,20 +1,18 @@
+import 'dart:async';
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:bottom_navy_bar/bottom_navy_bar.dart';
-import 'package:connectivity/connectivity.dart';
+
 import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_offline/flutter_offline.dart';
 import 'package:hive/hive.dart';
-import 'package:ocaviva/models/firestore.dart';
+import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/usuario.dart';
 import 'package:ocaviva/screens/desafioPage.dart';
-import 'package:ocaviva/screens/loginPage.dart';
-import 'package:ocaviva/widgets/SwipeAnimation/detail.dart';
+import 'package:ocaviva/screens/welcomePage.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/circular_chart_copy.dart';
-import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/fase.dart';
 import 'package:ocaviva/widgets/texto.dart';
 import 'package:ocaviva/widgets/texto2.dart';
@@ -32,8 +30,7 @@ int currentPage = 0;
 
 final avatar = Avataaar.random();
 
-Box<Usuario> boxUsers = Hive.box<Usuario>('users');
-
+Box<Usuario> boxUsers2 = Hive.box<Usuario>('users');
 
 
 
@@ -53,13 +50,15 @@ class HomeState extends State<HomePage>
 
   @override
   void initState() 
-   {
-       
-    super.initState();
-    _pageController = PageController();
+  {
      
+    
 
     
+ 
+        
+    super.initState();
+    _pageController = PageController();    
 
   }
 
@@ -126,7 +125,8 @@ class HomeState extends State<HomePage>
             Navigator.of(context).pushNamed(routeName);
             if(sair == true){
               userAuth.logoutAccount();
-              await Future.delayed(Duration(milliseconds: 900), userAuth.usuario = null);
+              Timer(Duration(seconds: 3), () {
+                userAuth.usuario = null;});
             }
           });
         },
@@ -139,9 +139,10 @@ class HomeState extends State<HomePage>
       estado,
       //getNavItem(Icons.settings, "Configurações", "/home"),
       //getNavItem(Icons.home, "Home", "/tinder"),
-      getNavItem(Icons.account_box, "Perfil", "/home",false),
+      getNavItem(Icons.account_box, "Perfil", "/perfil",false),
       getNavItem(Icons.person_add, "Novo Usuário", "/registro", false),
-      getNavItem(Icons.exit_to_app, "Encerrar sessão", "/", true),
+      getNavItem(Icons.exit_to_app, "Encerrar sessão", "/login", true),
+
       ListTile(
         leading: Icon(Icons.rate_review),
         title: Text("Avaliação"),
@@ -247,7 +248,7 @@ class HomeState extends State<HomePage>
   //if(userAuth.fullNamesFromFirestore.length == 0)
   userAuth.getFromFirestore(); 
   List<Usuario> comunidade = [];
-  List<double> comunidade_score=[];
+  List<double> comunidadeScore=[];
   for (var item in userAuth.fullNamesFromFirestore) {
     if(item.escola == userAuth.usuario.escola)
     {
@@ -257,7 +258,7 @@ class HomeState extends State<HomePage>
         aux+=score;
       }
       aux = aux/item.score.length;
-      comunidade_score.add(aux);
+      comunidadeScore.add(aux);
     }
 
     
@@ -305,19 +306,19 @@ class HomeState extends State<HomePage>
                           Container(
                             //width: MediaQuery.of(context).size.width*0.2,
                             alignment: Alignment.center,
-                            color: (comunidade_score[index]< 0)? Colors.red:(comunidade_score[index]<50) ? Colors.amber
-                              : (comunidade_score[index]<100)? Colors.lightBlue : Colors.lightGreen,
+                            color: (comunidadeScore[index]< 0)? Colors.red:(comunidadeScore[index]<50) ? Colors.amber
+                              : (comunidadeScore[index]<100)? Colors.lightBlue : Colors.lightGreen,
 
-                            child:Texto(conteudo: "\t"+comunidade_score[index].toString()+"\t",tamFonte: 13,)
+                            child:Texto(conteudo: "\t"+comunidadeScore[index].toString()+"\t",tamFonte: 13,)
                          ),
                          SizedBox(width: 5,),
                          Container(
                            alignment: Alignment.centerLeft,
                             //width: MediaQuery.of(context).size.width*0.2,
                             child: 
-                          (comunidade_score[index]< 0)? Texto3(conteudo: "Está internado",tamFonte: 10,)
-                              :(comunidade_score[index]<50) ?Texto3(conteudo: "Está Doente",tamFonte: 10,)
-                              : (comunidade_score[index]<100)?Texto3(conteudo: "Melhorando,\nimunidade baixa",tamFonte: 10,)
+                          (comunidadeScore[index]< 0)? Texto3(conteudo: "Está internado",tamFonte: 10,)
+                              :(comunidadeScore[index]<50) ?Texto3(conteudo: "Está Doente",tamFonte: 10,)
+                              : (comunidadeScore[index]<100)?Texto3(conteudo: "Melhorando,\nimunidade baixa",tamFonte: 10,)
                               : Texto3(conteudo: "Está Saudável",tamFonte: 10,),
                          )
                         ],
@@ -433,9 +434,9 @@ class HomeState extends State<HomePage>
           print(currentPage);
         currentPage = position;
         if(currentPage == 0)
-          showToast("Menu das fases da OcaViva", duration: Toast.LENGTH_LONG,gravity: Toast.TOP);
+          showToast("Menu das fases da OcaViva", duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
         else
-          showToast("OcaVivas que fazem parte da sua comunidade", duration: Toast.LENGTH_LONG,gravity: Toast.TOP);
+          showToast("OcaVivas que fazem parte da sua comunidade", duration: Toast.LENGTH_SHORT,gravity: Toast.TOP);
         });
     },
 )
@@ -471,6 +472,9 @@ class HomeState extends State<HomePage>
 
 Future<bool> conectividade2() async
 {
+    prefs.setString('email', userAuth.usuario.email);
+    prefs.setString('senha', userAuth.usuario.senha);
+
   try {
     final result = await InternetAddress.lookup('google.com');
     if (result.isNotEmpty && result[0].rawAddress.isNotEmpty) {

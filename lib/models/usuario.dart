@@ -22,7 +22,7 @@ class Usuario
   @HiveField(7)
   String documentID;
   @HiveField(8)
-  List score = [35,35,35,35,35] ;
+  List score = [20,35,35,35,35] ;
   @HiveField(9)
   List desempenho = [0,0,0,0,0];
 

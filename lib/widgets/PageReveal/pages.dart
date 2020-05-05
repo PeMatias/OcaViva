@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/screens/desafioPage.dart';
 import 'package:ocaviva/screens/loginPage.dart';
