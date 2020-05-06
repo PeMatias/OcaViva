@@ -17,8 +17,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../services/jogo_service.dart';
 import 'package:path_provider/path_provider.dart';
 
-final GlobalKey<State> _keyLoader = new GlobalKey<State>();
-SharedPreferences prefs;
 class WelcomePage extends StatefulWidget
 {
   @override
@@ -35,7 +33,7 @@ class WelcomeState extends State<WelcomePage>
     super.initState();
     userAuth = Mobxfirestore();
     //checkFirstSeen();
-    new Timer(new Duration(milliseconds: 200), () {
+    new Timer(new Duration(milliseconds: 300), () {
     checkFirstSeen();
     });
   }
@@ -44,6 +42,8 @@ class WelcomeState extends State<WelcomePage>
   Widget build(BuildContext context) 
   {
     Size screenSize = MediaQuery.of(context).size;
+    final GlobalKey<State> _keyLoader = new GlobalKey<State>();
+
     double screenWidth = screenSize.width;
     String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
     return  FutureBuilder(
@@ -130,39 +130,11 @@ class WelcomeState extends State<WelcomePage>
 
   Future checkFirstSeen() async 
   {
-    Box<Usuario> boxUsers2 = Hive.box<Usuario>('users');
     prefs = await SharedPreferences.getInstance();
     bool _seen = (prefs.getBool('seen') ?? false);
     if (_seen)
     {
-      if(userAuth.usuario == null){
-      var indice =  0;
-      var email = prefs.getString('email');
-      var senha = prefs.getString('email');
-      for (Usuario item in boxUsers2.values.toList()) {
-        //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
-        if (item.email == email && item.senha == senha) {
-          print("esse é o indice:"+indice.toString());
-          userAuth.usuario = item;
-          userAuth.indice = indice;
-          SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setString('email', item.email);
-          prefs.setString('senha', item.senha);
-           Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new HomePage()));
-        //abrirCaixa();    
-        //userAuth.getFromFirestore();    
-          log("Tela de Home Page");
-            
-          
-          //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
-          //return Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
-        }
-        indice++;
-
-
-       }
-     }
-     else
+      await prefs.setBool('seen', true);
        Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (context) => new LoginPage()));
      
         

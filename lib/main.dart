@@ -20,17 +20,20 @@ import 'screens/welcomePage.dart';
 
 
 Mobxfirestore userAuth = Mobxfirestore();
+SharedPreferences prefs;
 
 void main() async 
 {
   
   WidgetsFlutterBinding.ensureInitialized();
-
+  prefs = await SharedPreferences.getInstance();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp])
     .then((_) async {
       runApp(new MyApp());
      Hive.registerAdapter(UsuarioAdapter());
      abrirCaixa();
+   
+
      
     
       
@@ -58,7 +61,7 @@ class MyApp extends StatelessWidget {
         ),
       ),
       //home: WelcomePage() ,
-      initialRoute: '/',
+      initialRoute:( prefs.getBool('seen')!= null && prefs.getBool('seen')==true )?'/login' : '/',
       routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
       '/': (context) => WelcomePage(),

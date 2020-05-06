@@ -7,6 +7,7 @@ import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/usuario.dart';
 import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/screens/registroPage.dart';
+import 'package:ocaviva/screens/welcomePage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/campoEntrada.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -40,16 +41,17 @@ class LoginState extends State<LoginPage>
     boxUsers.clear();
     boxUsers.close();*/
     userAuth.getFromFirestore();
-    super.initState();  
+    super.initState(); 
+    
     
     
     
   }
 
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _senha = TextEditingController();
+  TextEditingController _email = TextEditingController(text:prefs.getString('email'));
+  TextEditingController _senha = TextEditingController(text:prefs.getString('senha'));
 
-
+  
   FocusNode _emailFocusNode = new FocusNode();
   FocusNode _senhaFocusNode = new FocusNode();
 
@@ -114,10 +116,8 @@ class LoginState extends State<LoginPage>
                                     SharedPreferences prefs = await SharedPreferences.getInstance();
                                     prefs.setString('email', userAuth.usuario.email);
                                     prefs.setString('senha', userAuth.usuario.senha);
-                                      
-                                    if(userAuth.usuario.nome == null)
-                                      print("null");
-                                    //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
+                                    prefs.setBool('seen', true);
+  
                                     return Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
                                   }
                                   indice++;
@@ -127,9 +127,6 @@ class LoginState extends State<LoginPage>
                                 armazenado = false;       
                                 if(!armazenado){
                                   userAuth.LoginEmail(_email.text, _senha.text,context);
-                                  if(userAuth.usuario.nome == null)
-                                      print("null");
-                                  //showDialog(context: context, child: Center(child: CircularProgressIndicator()));
                                 }
                                 
 

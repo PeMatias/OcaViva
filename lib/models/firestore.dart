@@ -7,6 +7,7 @@ import 'package:mobx/mobx.dart';
 import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/services/jogo_service.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'usuario.dart';
 
@@ -220,6 +221,23 @@ abstract class MobxfirestoreBase with Store {
     print('Login sucesso: $user');
     loginStatus = ObservableFuture.value(true);
     getFromFirestore();
+    var indice =  0;
+                                
+    for (Usuario item in fullNamesFromFirestore) {
+      if (item.email == email && item.senha == senha) {
+        print("esse é o indice:"+indice.toString());
+        this.usuario = item;
+        this.indice = indice;
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('email', this.usuario.email);
+        prefs.setString('senha', this.usuario.senha);
+          
+        break;
+      }
+      indice++;
+
+
+    }
     Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
     return user;
   }

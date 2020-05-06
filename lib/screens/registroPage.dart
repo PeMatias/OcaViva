@@ -130,8 +130,8 @@ class RegistroState extends State<RegistroPage>
                             _senhaFocusNode.unfocus();
                             boxUsers.add(usuario);
                             userAuth.usuario = usuario;
-                            //Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage() ) );
-                            userAuth.LoginEmail(_email.text, _senha.text,context);
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage() ) );
+                            //userAuth.LoginEmail(_email.text, _senha.text,context);
                           }                          
                            },
                         child: Botao(conteudo: "Cadastrar", tamFonte: 25)

@@ -51,6 +51,7 @@ class HomeState extends State<HomePage>
   @override
   void initState() 
   {
+    
      
     
 
@@ -182,6 +183,8 @@ class HomeState extends State<HomePage>
     }
     score_geral = score_geral/userAuth.usuario.score.length;
   }
+  prefs.setString('email', userAuth.usuario.email);
+   prefs.setString('senha', userAuth.usuario.senha); 
    return Stack(
         children: <Widget>[
           BodyBackground(),        
