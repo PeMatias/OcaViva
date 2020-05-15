@@ -48,7 +48,7 @@ android {
         applicationId "com.ocaviva"
         versionCode 2
         versionName "2.0.1"
-        minSdkVersion 16
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

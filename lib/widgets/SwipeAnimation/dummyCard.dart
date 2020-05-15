@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ocaviva/models/jogo.dart';
-import 'package:ocaviva/widgets/texto2.dart';
 
 Positioned cardDemoDummy(
     ProblemaList img,

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:ocaviva/models/desafio.dart';
-import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/services/jogo_service.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
 

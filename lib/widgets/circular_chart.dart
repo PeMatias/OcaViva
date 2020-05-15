@@ -44,7 +44,7 @@ class AnimatedRadialChartExampleState
     if (value < 0) {
       dialColor = Colors.red[300];
     } else if (value < 50) {
-      dialColor = Colors.amber;
+      dialColor = Colors.yellow[800] ;
     }
     labelColor = dialColor;
 

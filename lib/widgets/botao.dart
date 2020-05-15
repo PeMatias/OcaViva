@@ -17,6 +17,7 @@ class Botao extends StatelessWidget
   Widget build(BuildContext context) {
     return Container
     (
+      
       width: MediaQuery.of(context).size.width /1.2,
       padding: EdgeInsets.symmetric(vertical: 13),
       //padding: EdgeInsets.all(18.0),
@@ -24,19 +25,12 @@ class Botao extends StatelessWidget
       decoration: BoxDecoration
       (
         borderRadius: BorderRadius.all( Radius.circular(28.0) ),
-        border: Border.all(color: Colors.yellow[700], width: 2),
-        color: Colors.yellow[700],
-        boxShadow: <BoxShadow>
-        [
-          BoxShadow
-          (
-            color: Colors.yellow[700],
-            blurRadius: 3,
-            spreadRadius: 2,
-          )
-        ],
-      ), 
-      child: Texto(conteudo: conteudo,tamFonte: tamFonte),
+        border: Border.all(color: Colors.yellow[800], width:1),
+        color: Colors.yellow[800],
+        
+      ),
+      child: Text(conteudo, style: TextStyle(fontSize: tamFonte+1, fontWeight: FontWeight.w500, color: Colors.black) ,), 
+      //child: Texto(conteudo: conteudo,tamFonte: tamFonte),
     );
   }
 }

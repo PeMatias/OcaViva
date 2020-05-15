@@ -1,8 +1,5 @@
-import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
@@ -15,7 +12,7 @@ import '../texto2.dart';
 
 
 Positioned cardDemo(
-    Box pontuacao,
+    //Box pontuacao,
     String imagem,
     AnimatedRadialChartExample score,
     ProblemaList img,
@@ -93,25 +90,32 @@ Positioned cardDemo(
                         elevation: 30.0,
                         child: Container(
                           alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width,
+                          width: MediaQuery.of(context).size.width-30,
                           height: screenSize.height*0.435,
-                          //color: Colors.transparent,
+                          padding: EdgeInsets.symmetric(horizontal: 3,vertical: 1),
+                          //margin: EdgeInsets.symmetric(horizontal: 10),
+                          //margin: EdgeInsets.symmetric(vertical:1),
+                          color: Colors.blue[900],
                           child:                              
                               new Stack(
                                 //mainAxisAlignment: MainAxisAlignment.end,
                                 //crossAxisAlignment: CrossAxisAlignment.start,
+                                
                                 children: <Widget>[
-                                  BodyBackground(),
+                                  //BodyBackground(),
+                                  SingleChildScrollView( child:
                                   Column(
-                                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                    
+                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment: CrossAxisAlignment.center,
                                     children: <Widget>[
                                       
 
                                   Texto(conteudo: img.problema.toString(), tamFonte: 15), 
+                                  SizedBox(height: 15,),
                                   new RaisedButton(
                                      color: Colors.black45,
-                                     highlightColor: Colors.deepPurple,
+                                     highlightColor: Colors.blue[900] ,
                                       shape:RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.circular(18.0),
                                       ) ,
@@ -125,36 +129,37 @@ Positioned cardDemo(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                           Icon(Icons.arrow_back_ios, color: Colors.white,size: 45,),
-                                          Expanded(child: Texto3(conteudo:img.respostaList[0].resposta,tamFonte: 12.0,)),                                               
+                                          Expanded(child: Texto3(conteudo:img.respostaList[0].resposta,tamFonte: 14.0,)),                                               
                                         ],
                                       )
                                       ),
+                                      SizedBox(height: 15,),
                                     new RaisedButton(
                                       color: Colors.black45,
-                                     highlightColor: Colors.deepPurple,
+                                     highlightColor: Colors.blue[900] ,
                                      shape:RoundedRectangleBorder(
                                         borderRadius: new BorderRadius.circular(18.0),
                                       ) ,
                                     
                                       padding: new EdgeInsets.all(8.0),
                                       onPressed: () {
-                                        //scoreKey.currentState.atualiza(10);
-                                        //addImg(img);
+
                                         swipeRight(img);
                                         
                                       },
+                                      
                                       child: new Row(
                                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                         children: <Widget>[
                                          
-                                          Expanded(child: Texto3(conteudo:img.respostaList[1].resposta,tamFonte: 12.0,)),
+                                          Expanded(child: Texto3(conteudo:img.respostaList[1].resposta,tamFonte: 14.0,)),
                                           Icon(Icons.arrow_forward_ios, color: Colors.white,size: 45,),                                               
                                         ],
                                       )
                                       ),
                                     SizedBox(height: 15,),
                                 ]
-                              ),
+                              ),),
                                 ]
                               )
                            

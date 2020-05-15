@@ -1,5 +1,4 @@
 
-import 'package:ocaviva/widgets/SwipeAnimation/styles.dart';
 
 import '../texto2.dart';
 

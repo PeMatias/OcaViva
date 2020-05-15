@@ -41,14 +41,14 @@ class CampoEntrada extends StatelessWidget
           TextFormField(
             controller: controller,
             focusNode: focusNode,
-            style: TextStyle(color: Colors.white,fontSize: 16.0, fontFamily: "GoogleFonts.quantico",fontWeight: FontWeight.bold),
+            //style: TextStyle(color: Colors.white,fontSize: 16.0, fontFamily: "GoogleFonts.quantico",fontWeight: FontWeight.bold),
             obscureText: isPassword,
             decoration: InputDecoration(
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(25.0)),
                   borderSide: BorderSide( style: BorderStyle.none, )
               ),
-            fillColor: Colors.yellow[700],
+            fillColor: Colors.yellow[800],
             filled: true,
             hintText: "Digite "+ textoDica,
             prefixIcon: Icon(icone),

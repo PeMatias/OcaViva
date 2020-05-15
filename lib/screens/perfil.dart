@@ -1,13 +1,10 @@
 import 'package:avataaar_image/avataaar_image.dart';
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/usuario.dart';
-import 'package:ocaviva/screens/loginPage.dart';
 import 'package:ocaviva/screens/registroPage.dart';
 import 'package:ocaviva/screens/home_page.dart';
-import 'package:ocaviva/widgets/SwipeAnimation/styles.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/botao.dart';
 import 'package:ocaviva/widgets/campoEntrada.dart';
@@ -92,11 +89,14 @@ class PerfilState extends State<Perfil>
                             userAuth.usuario.nome = _nome.text;  
                             //userAuth.usuario.escola = _nome.text;
                             firestore.updateFromFirestore(userAuth.usuario);
+                            var key= userAuth.usuario.email+userAuth.usuario.senha;
+                            boxUsers.put(key, userAuth.usuario);
                             _nome.clear();
                             _escola.clear();
                             _nomeFocusNode.unfocus();
                             _escolaFocusNode.unfocus();
-                           return Navigator.pop(context); 
+                            
+                            return Navigator.pop(context); 
                                  
                           }                          
                         },
@@ -118,11 +118,13 @@ class PerfilState extends State<Perfil>
                             //userAuth.usuario.nome = _nome.text;  
                             userAuth.usuario.escola = _escola.text;
                             firestore.updateFromFirestore(userAuth.usuario);
+                            var key= userAuth.usuario.email+userAuth.usuario.senha;
+                            boxUsers.put(key, userAuth.usuario);
                             _nome.clear();
                             _escola.clear();
                             _nomeFocusNode.unfocus();
                             _escolaFocusNode.unfocus();
-                           return Navigator.pop(context); 
+                            return Navigator.pop(context); 
                                  
                           }                          
                         },

@@ -46,11 +46,12 @@ void escreveUsers(Users usuario) async {
   //print(ocaviva[0].desafioList[0].desafio.toString());
 }
 
-Future abrirCaixa() async { 
+Future<Box<Usuario>> abrirCaixa() async { 
    
   var dir = await getApplicationDocumentsDirectory();
   Hive.init(dir.path);
-  return await Hive.openBox<Usuario>('users');
+  
+  return Hive.openBox<Usuario>("users");
 }
 /*Future caixaUsuarios() async {  
   //Hive.registerAdapter(UsuarioAdapter());

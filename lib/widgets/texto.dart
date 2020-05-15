@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 class Texto extends StatelessWidget 
@@ -24,17 +26,18 @@ class Texto extends StatelessWidget
           "$conteudo", // texto com borda feito com Stroke .
           textAlign: TextAlign.center,
           //textAlign: TextAlign.justify,
+          softWrap: true,
           style: TextStyle
           (
             fontSize: tamFonte,
-            foreground: Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 3
-            ..color = Colors.black,
+            color: Colors.white,
+            
           ),
+          
         ),
-        Text
-        ( 
+        
+        /*Text
+        (
           "$conteudo", // texto com solida em branco
           textAlign: TextAlign.center,
           //textAlign: TextAlign.justify,
@@ -43,7 +46,8 @@ class Texto extends StatelessWidget
             fontSize: tamFonte,
             color: Colors.white,
           ),
-        ),
+          semanticsLabel: "",
+        ),*/
       ],
     );
   }

@@ -24,16 +24,15 @@ class Texto2 extends StatelessWidget
           "$conteudo", // texto com borda feito com Stroke .
           //textAlign: TextAlign.center,
           textAlign: TextAlign.justify,
+          softWrap: true,
           style: TextStyle
           (
             fontSize: tamFonte,
-            foreground: Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 3
-            ..color = Colors.black,
+            color: Colors.white,
+            
           ),
         ),
-        Text
+        /*Text
         ( 
           "$conteudo", // texto com solida em branco
           //textAlign: TextAlign.center,
@@ -43,7 +42,8 @@ class Texto2 extends StatelessWidget
             fontSize: tamFonte,
             color: Colors.white,
           ),
-        ),
+          semanticsLabel: "",
+        ),*/
       ],
     );
   }
@@ -73,16 +73,15 @@ class Texto3 extends StatelessWidget
           "$conteudo", // texto com borda feito com Stroke .
           //textAlign: TextAlign.center,
           textAlign: TextAlign.left,
+          softWrap: true,
           style: TextStyle
           (
             fontSize: tamFonte,
-            foreground: Paint()
-            ..style = PaintingStyle.stroke
-            ..strokeWidth = 3
-            ..color = Colors.black,
+            color: Colors.white,
+            
           ),
         ),
-        Text
+        /*Text
         ( 
           "$conteudo", // texto com solida em branco
           //textAlign: TextAlign.center,
@@ -92,7 +91,8 @@ class Texto3 extends StatelessWidget
             fontSize: tamFonte,
             color: Colors.white,
           ),
-        ),
+          semanticsLabel: "",
+        ),*/
       ],
     );
   }

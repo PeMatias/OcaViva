@@ -1,21 +1,15 @@
 import 'dart:async';
-import 'dart:math';
 
 
 import 'package:flutter/material.dart';
-import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/services/jogo_service.dart';
 import 'package:ocaviva/widgets/PageReveal/page_dragger.dart';
 import 'package:ocaviva/widgets/PageReveal/page_indicator.dart';
 import 'package:ocaviva/widgets/PageReveal/page_reveal.dart';
 import 'package:ocaviva/widgets/PageReveal/pages.dart';
-import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
-import 'package:ocaviva/widgets/desafioRow.dart';
 import 'package:ocaviva/widgets/texto.dart';
-import 'package:ocaviva/widgets/texto2.dart';
 import 'package:random_color/random_color.dart';
-import 'package:toast/toast.dart';
 
 SlideUpdate event;
 int activeIndex2;
@@ -128,6 +122,7 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
     break;
     default:{ widget.titulo = "Invalid choice"; } 
   }
+  
     
     return (new Scaffold(
        appBar: AppBar(
@@ -147,17 +142,21 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
                 int item = 0;
                 print(ocaviva.data.desafioList.length);
                 //pages.addAll(ocaviva.data.desafioList)  ;
+                
                 while(item < ocaviva.data.desafioList.length) {
                         
-                  pages.insert(item, new PageViewModel(widget.fase, _color, Icons.timer, Icons.contacts, "Desafio", ocaviva.data.desafioList[item]));
+                  pages.insert(item, new PageViewModel(widget.fase, _color, Icons.timer, Icons.contacts, "Desafio", ocaviva.data.desafioList[item],false));
                   item++;
                 }
                 print(pages.length);
-                while(ocaviva.data.desafioList.length != pages.length)
+                
+                while((ocaviva.data.desafioList.length)!= pages.length)
                   pages.removeLast();
                 print(pages.length);
                 maxDesafio = pages.length;
                 habilidade = ocaviva.data.habilidades;
+                pages.insert(0,new PageViewModel(widget.fase, _color, Icons.timer, Icons.lightbulb_outline, "Desafio",  ocaviva.data.desafioList[0],true) );
+                
                
                 /*pages = [
                   new PageViewModel(Colors.blue, Icons.timer, Icons.contacts,  "Desafio", ocaviva.data.desafioList[0]),
@@ -189,8 +188,8 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
                               slideDirection, activeIndex, pages, slidePercent),
                         ),
                         new PageDragger(
-                          canDragLeftToRight: activeIndex > 0,
-                          canDragRightToLeft: activeIndex < ocaviva.data.desafioList.length - 1,
+                          canDragLeftToRight: activeIndex > 1,
+                          canDragRightToLeft:(activeIndex != 0)? (activeIndex +1 < ocaviva.data.desafioList.length): false ,
                           slideUpdateSytream: this.slideUpdateStream,
                         )
                       ],

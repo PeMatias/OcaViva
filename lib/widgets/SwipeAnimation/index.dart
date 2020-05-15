@@ -9,7 +9,6 @@ import 'package:hive/hive.dart';
 import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/models/usuario.dart';
-import 'package:ocaviva/screens/loginPage.dart';
 import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/widgets/PageReveal/page_main.dart';
 import 'package:ocaviva/widgets/SwipeAnimation/activeCard.dart';
@@ -23,7 +22,6 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 
 AnimatedRadialChartExample score =  new AnimatedRadialChartExample(value: 50,);
-Box<Usuario> boxUsers = Hive.box<Usuario>('users');
 bool proxDesafio;
 bool lido = false;
 
@@ -46,21 +44,21 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   Animation<double> bottom;
   Animation<double> width;
   int flag = 0;
+  int desempenho;
 
    List<ProblemaList> data;
+  Box<Usuario> database; 
 
-  Box database;    
   List selectedData = [1];
   void initState() {
+    userAuth.getFromFirestore();
+
     super.initState();
     data = widget.problemas;
-   // database = Hive.box('jogo');
-   // var valor = database.get('score',defaultValue: 50.0);
-   if( boxUsers.getAt(userAuth.indice).score == null)
-      userAuth.usuario.score[fase] = 30;
-    else
-       userAuth.usuario.score = boxUsers.getAt(userAuth.indice).score;
-    score = new AnimatedRadialChartExample(value: userAuth.usuario.score[fase]);
+    desempenho = userAuth.usuario.score[fase];
+    database = Hive.box<Usuario>('users');
+   
+ 
     
 
     _buttonController = new AnimationController(
@@ -78,8 +76,11 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     rotate.addListener(() {
       setState(() {
         if (rotate.isCompleted) {
-          var i = data.removeLast();
-          data.insert(0, i);
+          if(data.length > 0)
+          {
+            var i = data.removeLast();
+            data.insert(0, i);
+          }
 
           _buttonController.reset();
         }
@@ -135,23 +136,24 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   dismissImg(ProblemaList img) {
     setState(() {
       data.remove(img);
-      //var valor = database.get('score',defaultValue: 50.0) + img.respostaList[0].ponto*10;
+      //var valor = //database.get('score',defaultValue: 50.0) + img.respostaList[0].ponto*10;
       //var valor = score.value + img.respostaList[0].ponto*5;
       userAuth.usuario.score[fase]+= img.respostaList[0].ponto*5;
-      boxUsers.putAt(userAuth.indice, userAuth.usuario);
-      //userAuth.updateFromFirestore(userAuth.usuario);
-      //database.put('score',valor);
+      var key = userAuth.usuario.email+userAuth.usuario.senha;
+      database.put(key, userAuth.usuario);
+      userAuth.updateFromFirestore(userAuth.usuario);
       score = new AnimatedRadialChartExample(value:userAuth.usuario.score[fase]);
      if(lido == false)
       {
         
         var esquerdo = "No canto superior esquerdo temos uma breve descrição das habilidades da BNCC e do ODS correspondente ao desafio";
         showToast(esquerdo, gravity: Toast.TOP, duration: Toast.LENGTH_SHORT)  ;
-        Timer(Duration(seconds: 3), () {
-          var direito = "No canto direito temos uma aba de pesquisa para ajudar nas dúvidas";
-          showToast(direito, gravity: Toast.TOP, duration: Toast.LENGTH_SHORT)  ;
+        //Timer(Duration(seconds: 3), () {
+        
+        var direito = "No canto direito temos uma aba de pesquisa para ajudar nas dúvidas";
+         showToast(direito, gravity: Toast.TOP, duration: Toast.LENGTH_SHORT)  ;
           lido = true;
-        });
+        //});
       }
 
     });
@@ -160,23 +162,24 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
   addImg(ProblemaList img) {
     setState(() {
       data.remove(img);
-      //var valor = database.get('score',defaultValue: 50.0) + img.respostaList[1].ponto*10;
-      //database.put('score',valor);
+      //var valor = //database.get('score',defaultValue: 50.0) + img.respostaList[1].ponto*10;
+      ////database.put('score',valor);
       // var valor = score.value + img.respostaList[1].ponto*5;
       userAuth.usuario.score[fase]+= img.respostaList[1].ponto*5;
       score = new AnimatedRadialChartExample(value: userAuth.usuario.score[fase]);
-      boxUsers.putAt(userAuth.indice, userAuth.usuario);
-      //userAuth.updateFromFirestore(userAuth.usuario);
+      var key = userAuth.usuario.email+userAuth.usuario.senha;
+      database.put(key, userAuth.usuario);
+      userAuth.updateFromFirestore(userAuth.usuario);
       //score =  new AnimatedRadialChartExample(value: 50,);
       if(lido == false)
       {
-        var esquerdo = "No canto superior esquerdo temos uma breve descrição das habilidades da BNCC e do ODS correspondente ao desafio";
+        var esquerdo = "← No canto superior esquerdo temos uma descrição da BNCC e do ODS correspondente ao desafio";
         showToast(esquerdo, gravity: Toast.TOP, duration: Toast.LENGTH_LONG)  ;
-        Timer(Duration(seconds: 3), () {
-          var direito = "No canto direito temos uma aba de pesquisa para ajudar nas dúvidas";
-          showToast(esquerdo, gravity: Toast.TOP, duration: Toast.LENGTH_LONG)  ;
-          lido = true;
-        });
+        /*Timer(Duration(seconds: 3), () {*/
+        var direito = "No canto direito temos uma aba de pesquisa para ajudar nas dúvidas →";
+        showToast(direito, gravity: Toast.TOP, duration: Toast.LENGTH_LONG)  ;
+        lido = true;
+        /*});*/
       }
       
       //selectedData.add(img);
@@ -205,31 +208,33 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
     swipeAnimation(img);
   }
   void showToast(String msg, {int duration, int gravity}) {
-    Toast.show(msg, context, duration: duration, gravity: gravity, backgroundColor: Colors.deepPurpleAccent);
+    Toast.show(msg, context, duration: duration, gravity: gravity, backgroundColor: Colors.blue[900]);
   }
 
 
   @override
   Widget build(BuildContext context) {
-    AnimatedRadialChartExample score_novo =  new AnimatedRadialChartExample(value: score.value,);
+    //userAuth.usuario.score// = //database.getAt(userAuth.indice).score;
+    score = new AnimatedRadialChartExample(value: userAuth.usuario.score[fase]);
+    //AnimatedRadialChartExample score_novo =  new AnimatedRadialChartExample(value: score.value,);
     timeDilation = 0.35;
     
     
 
-    double initialBottom = 15.0;
+    //double initialBottom = 15.0;
     var dataLength = data.length;
     double backCardWidth = -50.0;
     return (new Scaffold(
         appBar: new AppBar(
           elevation: 0.0,
-           backgroundColor: Colors.transparent,
+           backgroundColor: Colors.blue[900],
           centerTitle: true,
           leading: InkWell(
             child: new Container(
             margin: const EdgeInsets.all(15.0),
             child: new Icon(
               Icons.description,
-              color:Colors.amber,
+              color:Colors.yellow[800] ,
               size: 30.0,
               semanticLabel: "Descrição da BNCC e da ODS",
             ),
@@ -240,7 +245,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
             builder: (BuildContext context)
             {
               return AlertDialog(
-                title: Text("O que você está aprendendo", style: TextStyle(fontSize: 20, color: Colors.indigo, fontWeight: FontWeight.w700),),
+                title: Text("O que você está aprendendo", style: TextStyle(fontSize: 20, color: Colors.blue, fontWeight: FontWeight.w700),),
                 content: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Text(
@@ -271,7 +276,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                   margin: const EdgeInsets.all(15.0),
                   child: new Icon(
                     Icons.search,
-                    color: Colors.amber,
+                    color: Colors.yellow[800] ,
                     size: 30.0,
                     semanticLabel: "Pesquisar no Google",
                   ),
@@ -295,7 +300,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                 alignment: Alignment.center,
                 child: new Texto2( conteudo: data.length.toString(), tamFonte: 15.0),
                 decoration: new BoxDecoration(
-                    color: Colors.amber, shape: BoxShape.circle),
+                    color: Colors.yellow[800] , shape: BoxShape.circle),
               )
             ],
           ),
@@ -334,10 +339,10 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                         alignment: AlignmentDirectional.bottomCenter,
                         children:
                     data.map((item) {
-                    if (data.indexOf(item) != null   ) {
+                    
                       return 
                       cardDemo(
-                          database,
+                          //database,
                           widget.desafios.imagem,
                           score,
                           item,
@@ -356,8 +361,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                           swipeRight,
                           swipeLeft,
                           );
-                          
-                    } 
+                 
                   }).toList())
                   ])
               : new SingleChildScrollView(
@@ -367,6 +371,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
+                  SizedBox(height: 60,),
                   Texto(conteudo:"Fim do desafio",tamFonte:18),
                   Container(child: Row(
                     mainAxisAlignment:  MainAxisAlignment.center,
@@ -380,17 +385,20 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                   
                   Container(
                     color: Colors.black12,
-                    child: Column(children: <Widget>[
+                    margin: EdgeInsets.symmetric(horizontal:8),
+                    height: MediaQuery.of(context).size.height*.55,
+                    child:  SingleChildScrollView(
+                          child: Column(children: <Widget>[
                       Align(alignment: Alignment.centerLeft, child: Texto(conteudo: "Relatório do desafio:", tamFonte: 16),),
 
                       SizedBox.fromSize(
                         size: Size(200,150),
                         child: Image.asset(widget.desafios.imagemfeedback,fit:BoxFit.cover),),
-                        (score.value > 50) ? 
-                        Texto(conteudo:widget.desafios.feedbackList[0].resposta,tamFonte:14)
+                        (score.value > desempenho) ? 
+                         Texto(conteudo:widget.desafios.feedbackList[0].resposta,tamFonte:14)
                         : Texto(conteudo:widget.desafios.feedbackList[1].resposta,tamFonte:14),
                     ],
-                    )
+                    ))
                   ),
                   
                   /*CircleAvatar(
@@ -399,7 +407,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                     minRadius: 10,
                     maxRadius: 30,
                   ),*/                  
-                  SizedBox(height: 10,),
+                  SizedBox(height: 15,),
                    FlatButton(
                      onPressed: (){ userAuth.updateFromFirestore(userAuth.usuario); Navigator.pop(context);} , 
                      child: Row(  
@@ -407,9 +415,9 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                        crossAxisAlignment: CrossAxisAlignment.center,
                        children: <Widget>[  
                          Container(
-                           child:Icon(Icons.menu, color: Colors.amber,size: 40, ),
+                           child:Icon(Icons.menu, color: Colors.yellow[800] ,size: 40, ),
                            decoration: new  BoxDecoration(
-                            border: Border.all(color: Colors.amber, width: 3),
+                            border: Border.all(color: Colors.yellow[800] , width: 3),
                             shape: BoxShape.circle,
                            ),
                          ),             
@@ -441,9 +449,9 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                        crossAxisAlignment: CrossAxisAlignment.center,
                        children: <Widget>[  
                          Container(
-                           child:Icon(Icons.skip_next, color: Colors.amber,size: 40, ),
+                           child:Icon(Icons.skip_next, color: Colors.yellow[800] ,size: 40, ),
                            decoration: new  BoxDecoration(
-                            border: Border.all(color: Colors.amber, width: 3),
+                            border: Border.all(color: Colors.yellow[800] , width: 3),
                             shape: BoxShape.circle,
                            ),
                          ),             
@@ -472,9 +480,9 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                        crossAxisAlignment: CrossAxisAlignment.center,
                        children: <Widget>[  
                          Container(
-                           child:Icon(Icons.refresh, color: Colors.amber,size: 40, ),
+                           child:Icon(Icons.refresh, color: Colors.yellow[800] ,size: 40, ),
                            decoration: new  BoxDecoration(
-                            border: Border.all(color: Colors.amber, width: 3),
+                            border: Border.all(color: Colors.yellow[800] , width: 3),
                             shape: BoxShape.circle,
                            ),
                          ),             

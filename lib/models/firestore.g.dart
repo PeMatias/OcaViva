@@ -162,13 +162,6 @@ mixin _$Mobxfirestore on MobxfirestoreBase, Store {
         .run(() => super.pushToFirestore(usuario));
   }
 
-  final _$logoutAccountAsyncAction = AsyncAction('logoutAccount');
-
-  @override
-  Future<bool> logoutAccount() {
-    return _$logoutAccountAsyncAction.run(() => super.logoutAccount());
-  }
-
   final _$MobxfirestoreBaseActionController =
       ActionController(name: 'MobxfirestoreBase');
 
@@ -177,6 +170,16 @@ mixin _$Mobxfirestore on MobxfirestoreBase, Store {
     final _$actionInfo = _$MobxfirestoreBaseActionController.startAction();
     try {
       return super.changeLoginStatus(status);
+    } finally {
+      _$MobxfirestoreBaseActionController.endAction(_$actionInfo);
+    }
+  }
+
+  @override
+  void logoutAccount(BuildContext context, String routeName) {
+    final _$actionInfo = _$MobxfirestoreBaseActionController.startAction();
+    try {
+      return super.logoutAccount(context, routeName);
     } finally {
       _$MobxfirestoreBaseActionController.endAction(_$actionInfo);
     }

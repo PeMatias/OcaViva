@@ -2,20 +2,15 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:hive/hive.dart';
 import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/firestore.dart';
-import 'package:ocaviva/models/usuario.dart';
-import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/screens/loginPage.dart';
 import 'package:ocaviva/screens/registroPage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/botao.dart';
 import 'package:ocaviva/widgets/texto.dart';
-import 'package:progress_dialog/progress_dialog.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../services/jogo_service.dart';
-import 'package:path_provider/path_provider.dart';
 
 class WelcomePage extends StatefulWidget
 {
@@ -30,12 +25,13 @@ class WelcomeState extends State<WelcomePage>
   @override
   void initState() 
   {
+     userAuth = Mobxfirestore();
     super.initState();
-    userAuth = Mobxfirestore();
+   
     //checkFirstSeen();
-    new Timer(new Duration(milliseconds: 300), () {
-    checkFirstSeen();
-    });
+    
+    //checkFirstSeen();
+ 
   }
 
   @override
@@ -44,7 +40,7 @@ class WelcomeState extends State<WelcomePage>
     Size screenSize = MediaQuery.of(context).size;
     final GlobalKey<State> _keyLoader = new GlobalKey<State>();
 
-    double screenWidth = screenSize.width;
+    //double screenWidth = screenSize.width;
     String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
     return  FutureBuilder(
                   future: abrirCaixa(),
@@ -78,7 +74,8 @@ class WelcomeState extends State<WelcomePage>
                               Texto(conteudo: fraseInicial, tamFonte: 20),
                               InkWell
                               (
-                                onTap: () {
+                                onTap: () async {
+                                  await prefs.setBool('seen', true);
                                   Navigator.push(
                                     context, MaterialPageRoute(builder: (context) => RegistroPage() )
                                   );
@@ -88,7 +85,8 @@ class WelcomeState extends State<WelcomePage>
                               Texto(conteudo: "\nSe já possui conta:\n", tamFonte: 20),
                               InkWell
                               (
-                                onTap: () {
+                                onTap: () async {
+                                  await prefs.setBool('seen', true);
                                   Navigator.push(
                                     context, MaterialPageRoute(builder: (context) => LoginPage() )
                                   );
@@ -116,7 +114,7 @@ class WelcomeState extends State<WelcomePage>
                                       child: Column(children: [
                                         CircularProgressIndicator(),
                                         SizedBox(height: 10,),
-                                        Text("Iniciando....",style: TextStyle(color: Colors.deepPurple),)
+                                        Text("Iniciando....",style: TextStyle(color: Colors.blue[900] ),)
                                       ]),
                                     )
                                   ]
@@ -141,7 +139,7 @@ class WelcomeState extends State<WelcomePage>
     }
     else
     {
-        await prefs.setBool('seen', true);
+        
         Navigator.of(context).pushReplacement(
             new MaterialPageRoute(builder: (context) => new WelcomePage()));
         log("Tela de welcome");

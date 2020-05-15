@@ -1,10 +1,6 @@
 import 'dart:async';
-import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_mobx/flutter_mobx.dart';
 import 'package:hive/hive.dart';
 import 'package:ocaviva/models/usuario.dart';
 import 'package:ocaviva/models/firestore.dart';
@@ -12,8 +8,8 @@ import 'package:ocaviva/screens/loginPage.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/campoEntrada.dart';
 import 'package:ocaviva/widgets/texto.dart';
+import 'package:progress_dialog/progress_dialog.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import '../widgets/botao.dart';
 import 'package:ocaviva/main.dart';
 
@@ -50,15 +46,14 @@ class RegistroState extends State<RegistroPage>
   FocusNode _escolaFocusNode = new FocusNode();
   FocusNode _emailFocusNode = new FocusNode();
   FocusNode _senhaFocusNode = new FocusNode();
+   ProgressDialog pr;
 
   @override
   Widget build(BuildContext context) 
   {
-    Size screenSize = MediaQuery.of(context).size;
-    double screenWidth = screenSize.width;
-    String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
-    var radioValor = -1;
-    bool aluno = true;
+    //Size screenSize = MediaQuery.of(context).size;
+    //String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
+    
     return Scaffold(
       body: Stack
       (
@@ -91,14 +86,14 @@ class RegistroState extends State<RegistroPage>
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                         new Radio(
-                          activeColor: Colors.amber,
+                          activeColor: Colors.yellow[800] ,
                           value: true,
                           groupValue: _radioValue,
                           onChanged: _handleRadioValueChange,
                         ),
                         Texto(conteudo: "Aluno", tamFonte: 18,),
                         new Radio(
-                           activeColor: Colors.amber,
+                           activeColor: Colors.yellow[800] ,
                           value: false,
                           groupValue: _radioValue,
                           onChanged: _handleRadioValueChange,
@@ -108,18 +103,43 @@ class RegistroState extends State<RegistroPage>
 ,                      SizedBox(height: 10,),
                       InkWell
                       ( 
-                        onTap: () { 
+                        onTap: () async { 
+                          
                           if (verificaCampos())
                           {
                             Alert(context: context, title: "Cadastro não efetuado", desc: "Por favor verifique todos os campos, apenas quando todos forem preenchidos corretamente seu cadastrado será realizado").show();
                           }
                           else
                           {
-                            showDialog(context: context, child: Center(child: CircularProgressIndicator()));
+                            pr = new ProgressDialog(context);
+                            pr.style(
+                                  message: 'Aguarde,\Registrando...',
+                                  borderRadius: 10.0,
+                                  backgroundColor: Colors.white,
+                                  progressWidget: CircularProgressIndicator(),
+                                  elevation: 10.0,
+                                  insetAnimCurve: Curves.easeInOut,
+                                  progress: 0.0,
+                                  maxProgress: 100.0,
+                                  progressTextStyle: TextStyle(
+                                    color: Colors.black, fontSize: 13.0, fontWeight: FontWeight.w400),
+                                  messageTextStyle: TextStyle(
+                                    color: Colors.black, fontSize: 16.0, fontWeight: FontWeight.w400)
+                                );
+                            
+                            pr.show();
+                            AlertDialog(semanticLabel: "Por favor, Aguarde",);
+                            
+                                  
                               
                             var usuario = Usuario(_nome.text, _escola.text,  _email.text, _senha.text, _radioValue);
+                            var cadastrado = firestore.cadastraEmail(usuario);
+                            if(cadastrado!= null ){
+                            Future.delayed(new Duration(seconds: 4), () async {
+                             
                             firestore.pushToFirestore(usuario);
-                            firestore.CadastraEmail(usuario);
+                            
+                            
                             _nome.clear();
                             _escola.clear();
                             _email.clear();
@@ -128,10 +148,25 @@ class RegistroState extends State<RegistroPage>
                             _escolaFocusNode.unfocus();
                             _emailFocusNode.unfocus();
                             _senhaFocusNode.unfocus();
-                            boxUsers.add(usuario);
+                           // });
+                            //Future.delayed(new Duration(seconds: 3), () async {
+                            var key = usuario.email+usuario.senha;
+                            boxUsers.put(key,usuario);
                             userAuth.usuario = usuario;
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage() ) );
-                            //userAuth.LoginEmail(_email.text, _senha.text,context);
+                    
+                          userAuth.loginEmail(usuario.email, usuario.senha,context,pr2);
+                          pr.hide();
+                          //Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
+                         });
+                        }
+                         pr.hide();
+                       
+                            
+                           
+                          
+                      
+                           
+
                           }                          
                            },
                         child: Botao(conteudo: "Cadastrar", tamFonte: 25)

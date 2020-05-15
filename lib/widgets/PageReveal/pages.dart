@@ -2,17 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/jogo.dart';
 import 'package:ocaviva/screens/desafioPage.dart';
-import 'package:ocaviva/screens/loginPage.dart';
-import 'package:ocaviva/services/jogo_service.dart';
-import 'package:ocaviva/widgets/PageReveal/page_dragger.dart';
 import 'package:ocaviva/widgets/PageReveal/page_main.dart';
-import 'package:ocaviva/widgets/PageReveal/page_indicator.dart';
 
 import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
 import 'package:ocaviva/widgets/botao.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/texto.dart';
-import 'package:ocaviva/widgets/texto2.dart';
 import 'package:random_color/random_color.dart';
 
 
@@ -42,20 +37,21 @@ Page({this.viewModel,this.percentVisible=1.0});
 
   @override
   Widget build(BuildContext context) {
-     RandomColor _randomColor = RandomColor();
+     //RandomColor _randomColor = RandomColor();
 
-      Color _color = _randomColor.randomColor(colorHue: ColorHue.blue);
+     // Color _color = _randomColor.randomColor(colorHue: ColorHue.blue);
       var _score = userAuth.usuario.score[viewModel.fase-1];
     return new Container(
       width: double.infinity,
       //color: viewModel.color,
-      //color: _color,
+     // color: _color,
       child: new Opacity(
         opacity: percentVisible,
         child: new Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(child: Row(
+           (viewModel.intro) ? SizedBox(height: 1,)
+           :Container(child: Row(
                     mainAxisAlignment:  MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
@@ -73,15 +69,23 @@ Page({this.viewModel,this.percentVisible=1.0});
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
-                  (activeIndex > 0 )?Icon(Icons.arrow_back_ios, color: Colors.amber) :  SizedBox(width: 20,),   
+                  (activeIndex > 1 )?Icon(Icons.arrow_back_ios, color: Colors.yellow[800] ) :  SizedBox(width: 20,),   
                   SizedBox(width: 20,),
-                  CircleAvatar(
-                    backgroundImage: ExactAssetImage(viewModel.desafioList.imagem),
-                    minRadius: 50,
-                    maxRadius: 90,
+                  (viewModel.intro) ? CircleAvatar(
+                    backgroundColor: Colors.yellow[800] ,
+                    child: Icon(viewModel.iconName,semanticLabel: "Sobre a fase",),
+                    minRadius: 30,
+                    maxRadius: 30,
+                  )
+                  :CircleAvatar(
+                    backgroundImage: ExactAssetImage(viewModel.desafioList.imagemfeedback),
+                    radius: 70,
+                    //minRadius: 1,
+                    //maxRadius: 10,
+                    //child:Image.asset(viewModel.desafioList.imagemfeedback),
                   ),
-                   (activeIndex < desafioPages.length-1 )? SizedBox(width: 20,):SizedBox(width: 0,),
-                  (activeIndex < desafioPages.length-1 )? Icon(Icons.arrow_forward_ios, color: Colors.amber) :  SizedBox(width: 20,),
+                   (activeIndex < desafioPages.length )? SizedBox(width: 20,):SizedBox(width: 0,),
+                  (activeIndex < desafioPages.length)? Icon(Icons.arrow_forward_ios, color: Colors.yellow[800] ) :  SizedBox(width: 20,),
                 ]
               )
               ),
@@ -109,9 +113,25 @@ Page({this.viewModel,this.percentVisible=1.0});
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     
-                        Texto(conteudo: viewModel.desafioList.desafio ,tamFonte: 15.0),
+                        (viewModel.intro)? SingleChildScrollView(child:
+                        Container(
+                          height: MediaQuery.of(context).size.height*0.5,
+                         child: Texto(conteudo: "Você sabe o que são os sistemas do corpo?\nE para que servem?\nNas pessoas saudáveis eles têm de funcionar como uma linha de produção. Em total sincronia e completa interdependência.\n\nAgora, para que tudo funcione harmoniosamente, você tem que fazer sua parte.\n\n No sistema digestivo, o processo começa com a quebra dos alimentos na boca e continua por longo caminho até a absorção, esses alimentos são as políticas públicas da sua OcaViva e em cada etapa da digestão um desafio é apresentado.\n Bom trabalho!",tamFonte: 16,)),
+                        )
+                        :Texto(conteudo: viewModel.desafioList.desafio ,tamFonte: 16.0),
                         SizedBox(height: 20,),
+                        (viewModel.intro)?
                         new FlatButton(
+                          
+                          onPressed: () { 
+                            Center(child: CircularProgressIndicator());
+                            Navigator.pop(context);
+                            activeIndex++;
+
+                            Navigator.push(context,  MaterialPageRoute(builder: (context) => DesafioPage(fase: 1,score: score,)));},
+                          child: Botao(conteudo: "CONTINUAR", tamFonte: 18.0),)
+                        
+                        : new FlatButton(
                           onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => 
                           CardDemo(problemas: viewModel.desafioList.problemaList, desafios: viewModel.desafioList,) ) ),
                           child: Botao(conteudo: "INICIAR O DESAFIO", tamFonte: 18.0),)
@@ -137,5 +157,6 @@ class PageViewModel{
   final String title;
   final IconData iconAssetIcon;
   final DesafioList desafioList;
-  PageViewModel(this.fase,this.color,this.iconAssetIcon,this.iconName,this.title,this.desafioList);
+  final bool intro;
+  PageViewModel(this.fase,this.color,this.iconAssetIcon,this.iconName,this.title,this.desafioList,this.intro);
 }
