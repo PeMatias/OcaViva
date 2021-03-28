@@ -1,10 +1,12 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:ocaviva/models/usuario.dart';
 import 'package:ocaviva/models/firestore.dart';
 import 'package:ocaviva/screens/loginPage.dart';
+import 'package:ocaviva/widgets/CampoDropdown.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/campoEntrada.dart';
 import 'package:ocaviva/widgets/texto.dart';
@@ -31,14 +33,17 @@ class RegistroState extends State<RegistroPage>
   @override
   void initState() 
   {
+    //SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
+
     super.initState();
     boxUsers = Hive.box<Usuario>('users');
   }
 
   final TextEditingController _nome = TextEditingController();
-  final TextEditingController _escola = TextEditingController();
+   TextEditingController _escola = TextEditingController();
   final TextEditingController _email = TextEditingController();
   final TextEditingController _senha = TextEditingController();
+  
 
    bool _radioValue = true;
 
@@ -47,41 +52,49 @@ class RegistroState extends State<RegistroPage>
   FocusNode _emailFocusNode = new FocusNode();
   FocusNode _senhaFocusNode = new FocusNode();
    ProgressDialog pr;
+  List<String> comunidades = [];
+  var comunidadeValue;
+
+ 
+  
+  
+ 
+
 
   @override
   Widget build(BuildContext context) 
   {
     //Size screenSize = MediaQuery.of(context).size;
     //String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
-    
-    return Scaffold(
-      body: Stack
-      (
-        children: <Widget>
-        [
-          BodyBackground(),
-          Center(
-            child: Column
-            (
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>
-              [
-                SizedBox(height: 8, ),
-                //Image.asset('assets/images/oca_viva-logo.png',height: 92,width: 911,),
-                //SizedBox(height: 10, ),
-                Expanded
+    for (var item in boxUsers.values.toList()) {
+      if(!comunidades.contains(item.escola))
+        comunidades.add(item.escola);      
+    }
+        return Scaffold(
+          body: Stack
+          (
+            children: <Widget>
+            [
+              BodyBackground(),
+              Center(
+                child: Column
                 (
-                  child: ListView
-                  (
-                    shrinkWrap: true,
-                    padding: const EdgeInsets.all(25),
-                    children: <Widget>
-                    [ 
-                      CampoEntrada(titulo: "OcaViva", textoDica: "o nome da ocaviva",icone: Icons.person, isPassword: false,controller: _nome, focusNode: _nomeFocusNode,),
-                      CampoEntrada(titulo: "Comunidade", textoDica: "o nome da turma",icone: Icons.school, isPassword: false, controller: _escola, focusNode: _escolaFocusNode,),
-                      CampoEntrada(titulo: "Email", textoDica: "seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
-                      CampoEntrada(titulo: "Senha", textoDica: "uma senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>
+                  [
+                    SizedBox(height: 8, ),
+                    //Image.asset('assets/images/oca_viva-logo.png',height: 92,width: 911,),
+                    //SizedBox(height: 10, ),
+                    Expanded
+                    (
+                      child: ListView
+                      (
+                        shrinkWrap: true,
+                        padding: const EdgeInsets.all(25),
+                        children: <Widget>
+                        [ 
+                          CampoEntrada(titulo: "Nome da OcaViva", textoDica: "Dê um nome à OcaViva",icone: Icons.person, isPassword: false,controller: _nome, focusNode: _nomeFocusNode,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
@@ -98,12 +111,35 @@ class RegistroState extends State<RegistroPage>
                           groupValue: _radioValue,
                           onChanged: _handleRadioValueChange,
                         ),
-                       Texto(conteudo: "Professor", tamFonte: 18,),
-                        ])
-,                      SizedBox(height: 10,),
+                       Texto(conteudo: "Professor", tamFonte: 18,),   ]),                       
+                         SizedBox(height: 10,),
+                        (!_radioValue) ? CampoEntrada(titulo: "Comunidade - para você ver a sua turma", textoDica: "Informe ou crie uma. Ex:FNE-3ANO-A",icone: Icons.school, isPassword: false, controller: _escola, focusNode: _escolaFocusNode,)
+                          : DropDownField(
+                            controller: _escola,
+                            value: comunidadeValue,
+                            required: true,
+                            strict: true,
+                            labelText: 'Comunidade de Ocavivas',
+                            labelStyle: TextStyle(color: Colors.white, fontSize:16 ),
+                            hintText: "Escolha uma comunidade",
+                            textStyle: TextStyle(color: Colors.white, fontSize:18 ),
+                            icon: Icon(Icons.school),
+                            items: comunidades,
+                            setter: (dynamic newValue) {
+                              print(_escola.toString());
+                              comunidadeValue = newValue;
+                      }
+                  ),
+                    
+                      CampoEntrada(titulo: "Email", textoDica: "Digite seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
+                      CampoEntrada(titulo: "Senha", textoDica: "Digite uma senha ",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
+                      
+                      SizedBox(height: 10,),
+
                       InkWell
                       ( 
                         onTap: () async { 
+                          print(comunidadeValue.toString());
                           
                           if (verificaCampos())
                           {
@@ -132,13 +168,13 @@ class RegistroState extends State<RegistroPage>
                             
                                   
                               
-                            var usuario = Usuario(_nome.text, _escola.text,  _email.text, _senha.text, _radioValue);
-                            var cadastrado = firestore.cadastraEmail(usuario);
-                            if(cadastrado!= null ){
-                            Future.delayed(new Duration(seconds: 4), () async {
-                             
+                            var usuario = Usuario(_nome.text,_escola.text,  _email.text, _senha.text, _radioValue);
+                            //var cadastrado = firestore.cadastraEmail(usuario);
+
+
                             firestore.pushToFirestore(usuario);
-                            
+
+                            Future.delayed(new Duration(seconds: 3), () async {
                             
                             _nome.clear();
                             _escola.clear();
@@ -154,20 +190,15 @@ class RegistroState extends State<RegistroPage>
                             boxUsers.put(key,usuario);
                             userAuth.usuario = usuario;
                     
-                          userAuth.loginEmail(usuario.email, usuario.senha,context,pr2);
+                          userAuth.loginEmail(usuario.email, usuario.senha,context,pr);
                           pr.hide();
                           //Navigator.push(context, new MaterialPageRoute(builder: (context) => new HomePage())); 
                          });
                         }
-                         pr.hide();
-                       
-                            
-                           
-                          
-                      
-                           
+                         //pr.hide();
 
-                          }                          
+
+
                            },
                         child: Botao(conteudo: "Cadastrar", tamFonte: 25)
                       ) ,   
@@ -255,7 +286,7 @@ class RegistroState extends State<RegistroPage>
         Alert(context: context, title: "Erro no preenchimento", desc: "o campo NOME não pode ficar vazio").show();
         return true;
       }
-      if(_escola.text.length == 0)
+      if(_escola.text.length == 0 )
       {
         Alert(context: context, title: "Erro no preenchimento", desc: "o campo ESCOLA não pode ficar vazio").show();
         return true;
@@ -281,4 +312,11 @@ class RegistroState extends State<RegistroPage>
   }
 
 
+
+  
+
+  
+
+
 }
+

@@ -50,7 +50,7 @@ class CampoEntrada extends StatelessWidget
               ),
             fillColor: Colors.yellow[800],
             filled: true,
-            hintText: "Digite "+ textoDica,
+            hintText: textoDica,
             prefixIcon: Icon(icone),
             hintStyle: TextStyle(color: Colors.white),
             ),

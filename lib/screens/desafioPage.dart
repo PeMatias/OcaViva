@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:ocaviva/widgets/PageReveal/page_main.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
 
@@ -24,7 +25,10 @@ class DesafioState extends State<DesafioPage>
   @override
   void initState() 
   {
+    //SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
+
     super.initState();
+
   }
 
   @override

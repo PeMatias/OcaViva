@@ -36,7 +36,7 @@ void main() async
     .then((_) async {
        Hive.registerAdapter(UsuarioAdapter());
      
-     var usuarios = abrirCaixa() ;
+     //var usuarios = abrirCaixa() ;
       runApp(new MyApp());
      
      
@@ -69,25 +69,46 @@ class MyApp extends StatelessWidget {
 
     return MaterialApp(
       title: 'OCAVIVA',
-      theme: ThemeData(
+      theme: (isDark== false)? ThemeData(
         //primarySwatch: Colors.blueGrey,
+        brightness: Brightness.light,
         primarySwatch: Colors.blue,
         //primarySwatch: Colors.deepPurple,
         //primarySwatch: Colors.indigo,
         canvasColor: Colors.white,
-        textTheme: GoogleFonts.dosisTextTheme(),
-        /*textTheme: GoogleFonts.playTextTheme(textTheme).copyWith(
-          body1: GoogleFonts.play(textStyle: textTheme.body1),
-          title:  GoogleFonts.play(textStyle: textTheme.title),
-        ),*/
+            iconTheme: IconThemeData(color:Colors.yellow[800]),
+        appBarTheme: AppBarTheme(
+          textTheme: GoogleFonts.abelTextTheme(),
+          iconTheme: IconThemeData(color:Colors.yellow[800],size: 35)
+        ),
+       // scaffoldBackgroundColor: Colors.blue,
+        ///textTheme: GoogleFonts.heeboTextTheme(),
+        textTheme: GoogleFonts.abelTextTheme(textTheme).copyWith(
+          body1: GoogleFonts.abel(textStyle: textTheme.body1),
+          title:  GoogleFonts.abel(textStyle: textTheme.title),
+          headline:   GoogleFonts.abel(textStyle: textTheme.title),
+        ),
+       
        // primarySwatch: Colors.yellow[800] ,
         /*textTheme: GoogleFonts.quanticoTextTheme(textTheme).copyWith(
           body1: GoogleFonts.quantico(textStyle: textTheme.body1),
         ),*/
-      ),
+      ):ThemeData(
+         primaryColorDark: Colors.white,
+         iconTheme: IconThemeData(color:Colors.white),
+         //disabledColor: Colors.black,
+          primarySwatch: Colors.blue,
+           brightness: Brightness.dark,
+           textTheme: GoogleFonts.abelTextTheme(textTheme).copyWith(
+          body1: GoogleFonts.abel(textStyle: textTheme.body1),
+          title:  GoogleFonts.abel(textStyle: textTheme.title),
+          headline:   GoogleFonts.abel(textStyle: textTheme.title),
+        ),
+       ),
+
       //home: WelcomePage() ,
       
-      initialRoute: (prefs.getBool('seen') != null)?((prefs.getBool('seen') && prefs.getBool('logado')!=null && prefs.getBool('logado') && prefs.getString('email')!=null)?'/home': '/login' ):'/',
+      initialRoute: '/',
       routes: {
       // When navigating to the "/" route, build the FirstScreen widget.
       '/': (context) => WelcomePage(),
@@ -95,7 +116,6 @@ class MyApp extends StatelessWidget {
       '/login': (context) => LoginPage(),
       '/registro': (context) => RegistroPage(),
       '/home': (context)=> HomePage(),
-      '/problemas': (context)=> PageMain()   ,
       '/perfil': (context)=> Perfil(),
    
       //'/tinder': (context)=> SwipeFeedPage(),

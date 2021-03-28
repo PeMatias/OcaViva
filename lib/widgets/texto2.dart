@@ -23,12 +23,14 @@ class Texto2 extends StatelessWidget
         (
           "$conteudo", // texto com borda feito com Stroke .
           //textAlign: TextAlign.center,
-          textAlign: TextAlign.justify,
+          textAlign: TextAlign.left,
           softWrap: true,
           style: TextStyle
           (
             fontSize: tamFonte,
             color: Colors.white,
+            height: 1.5,
+             fontWeight: FontWeight.w500
             
           ),
         ),
@@ -78,6 +80,8 @@ class Texto3 extends StatelessWidget
           (
             fontSize: tamFonte,
             color: Colors.white,
+            height: 1.5,
+            fontWeight: FontWeight.w500
             
           ),
         ),

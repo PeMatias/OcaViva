@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/screens/home_page.dart';
 
 class BodyBackground extends StatelessWidget
 {
@@ -18,7 +19,7 @@ class BodyBackground extends StatelessWidget
       (
         //color: Colors.blue[900],
       
-        gradient: LinearGradient
+        gradient: (!isDark)? LinearGradient
         (
           
           colors: [gradientStart, gradientEnd],
@@ -27,7 +28,18 @@ class BodyBackground extends StatelessWidget
           stops: [0.0,1.0],
           tileMode: TileMode.clamp
           
-        ),
+        )
+        : LinearGradient
+        (
+          
+          colors: [ Colors.black, Colors.black],
+          begin: const FractionalOffset(0.5, 0.0),
+          end: const FractionalOffset(0.0, 0.5),
+          stops: [0.0,1.0],
+          tileMode: TileMode.clamp
+          
+        )
+        
       ),
     );
   }

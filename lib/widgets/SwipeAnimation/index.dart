@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart' show timeDilation;
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/jogo.dart';
@@ -51,6 +52,8 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
 
   List selectedData = [1];
   void initState() {
+    //SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
+
     userAuth.getFromFirestore();
 
     super.initState();
@@ -173,13 +176,11 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
       //score =  new AnimatedRadialChartExample(value: 50,);
       if(lido == false)
       {
-        var esquerdo = "← No canto superior esquerdo temos uma descrição da BNCC e do ODS correspondente ao desafio";
-        showToast(esquerdo, gravity: Toast.TOP, duration: Toast.LENGTH_LONG)  ;
-        /*Timer(Duration(seconds: 3), () {*/
-        var direito = "No canto direito temos uma aba de pesquisa para ajudar nas dúvidas →";
+        Timer(Duration(seconds: 5), () {
+        var direito = "No canto direito temos temos uma descrição da BNCC e do ODS correspondente ao desafio uma aba de pesquisa para ajudar nas dúvidas →";
         showToast(direito, gravity: Toast.TOP, duration: Toast.LENGTH_LONG)  ;
         lido = true;
-        /*});*/
+        });
       }
       
       //selectedData.add(img);
@@ -223,52 +224,22 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
 
     //double initialBottom = 15.0;
     var dataLength = data.length;
+    final Brightness brightnessValue = MediaQuery.of(context).platformBrightness;
     double backCardWidth = -50.0;
     return (new Scaffold(
         appBar: new AppBar(
           elevation: 0.0,
-           backgroundColor: Colors.blue[900],
+           backgroundColor:(!isDark)? Colors.blue[900]: Colors.black,
           centerTitle: true,
-          leading: InkWell(
-            child: new Container(
-            margin: const EdgeInsets.all(15.0),
-            child: new Icon(
-              Icons.description,
-              color:Colors.yellow[800] ,
-              size: 30.0,
-              semanticLabel: "Descrição da BNCC e da ODS",
+          leading: IconButton(
+              color:  (!isDark)? Colors.yellow[800] : Colors.white,
+              icon: Icon(Icons.arrow_back, semanticLabel: "Voltar",),
+              tooltip: "Retornar ao menu de desafios",
+              onPressed: () {Navigator.pop(context);},
             ),
-          ),
-          
-          onTap: (){ 
-            showDialog(context: context,
-            builder: (BuildContext context)
-            {
-              return AlertDialog(
-                title: Text("O que você está aprendendo", style: TextStyle(fontSize: 20, color: Colors.blue, fontWeight: FontWeight.w700),),
-                content: SingleChildScrollView(
-                  scrollDirection: Axis.vertical,
-                  child: Text(
-                  "ODS trabalhada:\n"+
-                  widget.desafios.desc+
-                  "\nHABILIDADES DA BNCC:\n"+
-                  habilidade,
-                  textAlign: TextAlign.left, style: TextStyle(fontSize: 15,),),),
-                actions: <Widget>[
-                  FlatButton(onPressed: (){
-                     Navigator.push(context, new MaterialPageRoute(builder: (context) => new WebView(initialUrl: widget.desafios.ods,
-                    javascriptMode: JavascriptMode.unrestricted, ))); } , child: Text("Ler mais sobre o ODS")),
-                  FlatButton(onPressed: (){ Navigator.pop(context);} , child: Text("OK")),
-                  
-                ],
-              );
-            }
-            );
-          },
-          ),
           actions: <Widget>[
             new GestureDetector(
-              onTap: () {
+              onTap: () { Navigator.pop(context);
 
               },
               child: new InkWell(
@@ -276,7 +247,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                   margin: const EdgeInsets.all(15.0),
                   child: new Icon(
                     Icons.search,
-                    color: Colors.yellow[800] ,
+                    color:  (!isDark)? Colors.yellow[800] : Colors.white,
                     size: 30.0,
                     semanticLabel: "Pesquisar no Google",
                   ),
@@ -288,19 +259,56 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                 } 
                 ),
             ),
+             InkWell(
+            child: new Container(
+            margin: const EdgeInsets.all(15.0),
+            child: new Icon(
+              Icons.description,
+              color: (!isDark)? Colors.yellow[800] : Colors.white,
+              size: 30.0,
+              semanticLabel: "Descrição da BNCC e da ODS",
+            ),
+          ),
+          
+          onTap: (){ 
+            showDialog(context: context,
+            builder: (BuildContext context)
+            {
+              return AlertDialog(
+                title: Text("O que você está aprendendo", style: TextStyle(fontSize: 20, color: (!isDark)? Colors.blue : Colors.white, fontWeight: FontWeight.w700),),
+                content: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: Text(
+                  "ODS trabalhada:"+
+                  widget.desafios.desc+
+                  "\nHABILIDADES DA BNCC:\n"+
+                  habilidade,
+                  textAlign: TextAlign.left, style: TextStyle(color: (!isDark)? Colors.black : Colors.white ,fontSize: 15,height: 1.5),),),
+                actions: <Widget>[
+                  FlatButton(onPressed: (){
+                     Navigator.push(context, new MaterialPageRoute(builder: (context) => new WebView(initialUrl: widget.desafios.ods,
+                    javascriptMode: JavascriptMode.unrestricted, ))); } , child: Text("Ler mais sobre o ODS", style: TextStyle(fontWeight: FontWeight.bold),)),
+                  FlatButton(onPressed: (){ Navigator.pop(context);} , child: Text("OK", style: TextStyle(fontWeight: FontWeight.bold))),
+                  
+                ],
+              );
+            }
+            );
+          },
+          ),
           ],
           title: new Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
-              new Texto2(conteudo: "PROBLEMAS", tamFonte: 18),
+              new Texto(conteudo: "PROBLEMAS", tamFonte: 18),
               new Container(
-                width: 21.0,
-                height: 21.0,
+                width: 23.0,
+                height: 25.0,
                 margin: new EdgeInsets.only(bottom: 20.0),
-                alignment: Alignment.center,
-                child: new Texto2( conteudo: data.length.toString(), tamFonte: 15.0),
+                alignment: Alignment.topCenter,
+                child: new Text(data.length.toString(), style:  TextStyle(color: (!isDark)? Colors.white : Colors.black),),
                 decoration: new BoxDecoration(
-                    color: Colors.yellow[800] , shape: BoxShape.circle),
+                    color: (!isDark)? Colors.yellow[800] : Colors.white , shape: BoxShape.circle),
               )
             ],
           ),
@@ -320,7 +328,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                             MediaQuery.of(context).size.width,
                             MediaQuery.of(context).size.height*.55
                           ),
-                          child: Image.asset(widget.desafios.imagem,fit:BoxFit.cover),),
+                          child: (isDark) ? Image.asset(widget.desafios.imagem,fit:BoxFit.cover): Image.asset(widget.desafios.imagem,fit:BoxFit.cover),),
                     Align(
                       alignment: Alignment.center,
                     child: Container(
@@ -415,14 +423,14 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                        crossAxisAlignment: CrossAxisAlignment.center,
                        children: <Widget>[  
                          Container(
-                           child:Icon(Icons.menu, color: Colors.yellow[800] ,size: 40, ),
+                           child:Icon(Icons.menu, color: Colors.yellow[800] ,size: 35, ),
                            decoration: new  BoxDecoration(
                             border: Border.all(color: Colors.yellow[800] , width: 3),
                             shape: BoxShape.circle,
                            ),
                          ),             
                          SizedBox(width: 20,),
-                         Texto3(conteudo: "Menu de desafios",tamFonte: 16),
+                         Texto3(conteudo: "Menu de desafios",tamFonte: 18),
                        ],
 
                      ),
@@ -449,7 +457,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                        crossAxisAlignment: CrossAxisAlignment.center,
                        children: <Widget>[  
                          Container(
-                           child:Icon(Icons.skip_next, color: Colors.yellow[800] ,size: 40, ),
+                           child:Icon(Icons.skip_next, color: Colors.yellow[800] ,size: 35, ),
                            decoration: new  BoxDecoration(
                             border: Border.all(color: Colors.yellow[800] , width: 3),
                             shape: BoxShape.circle,
@@ -459,7 +467,7 @@ class CardDemoState extends State<CardDemo> with TickerProviderStateMixin {
                          
                            
                          
-                         (activeIndex+1) < maxDesafio ? Texto3(conteudo: "Próximo desafio",tamFonte: 20) :  Texto3(conteudo: "Menu de Fases",tamFonte: 20),
+                         (activeIndex+1) < maxDesafio ? Text("Próximo desafio",style: TextStyle( color: Colors.yellow[800], fontSize: 20,fontWeight: FontWeight.bold)) :  Text("Menu de Fases",style: TextStyle(color: Colors.yellow[800], fontSize: 20,fontWeight: FontWeight.bold)),
                        ],
 
                      ),

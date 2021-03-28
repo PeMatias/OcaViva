@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/usuario.dart';
@@ -11,6 +12,7 @@ import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/campoEntrada.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
+import 'package:toast/toast.dart';
 import '../widgets/botao.dart';
 
 
@@ -34,17 +36,12 @@ class LoginState extends State<LoginPage>
   @override
   void initState() 
   {
-    /*boxUsers.deleteFromDisk();
-    boxUsers.clear();
-    boxUsers.close();*/
-    if(!Hive.isBoxOpen("users"))
-    {
-      abrirCaixa();
-    }
+  
    
+    
+    super.initState();
     userAuth.getFromFirestore();
     
-    super.initState(); 
     
     
     
@@ -59,6 +56,11 @@ class LoginState extends State<LoginPage>
   FocusNode _emailFocusNode = new FocusNode();
   FocusNode _senhaFocusNode = new FocusNode();
 
+  void showToast(String msg, {int duration, int gravity}) {
+    Toast.show(msg, context, duration: duration, gravity: gravity, backgroundColor: Colors.blue[900]);
+  }
+
+
   @override
   Widget build(BuildContext context) 
   {
@@ -67,9 +69,11 @@ class LoginState extends State<LoginPage>
     ///String fraseInicial = "Olá,  \nvejo que é a sua primeira\n vez aqui\n Vamos começar!\n\n Se não possui conta, então:\n";
     
      pr2 = new ProgressDialog(context);
-    if(pr2.isShowing())pr2.hide();
+     showToast("Cadastrados antes de 05/06/2020, devem refazer o cadastro! Agradecemos à compreensão", gravity: Toast.TOP, duration: Toast.LENGTH_LONG)  ;
+     
 
      return Scaffold(
+       extendBody: true,
           body: Stack
           (
             children: <Widget>
@@ -96,8 +100,8 @@ class LoginState extends State<LoginPage>
                         children: <Widget>
                         [ 
                          
-                          CampoEntrada(titulo: "Email", textoDica: "seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
-                          CampoEntrada(titulo: "Senha", textoDica: "sua senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
+                          CampoEntrada(titulo: "Email", textoDica: "Informe seu email",icone: Icons.email, isPassword: false,controller: _email, focusNode: _emailFocusNode,),
+                          CampoEntrada(titulo: "Senha", textoDica: "Informe sua senha",icone: Icons.lock, isPassword: true,controller: _senha, focusNode: _senhaFocusNode,),
                           SizedBox(height: 25,),
                          InkWell(    
                             onTap: ()  { 
@@ -109,6 +113,8 @@ class LoginState extends State<LoginPage>
                                 Alert(context: context, title: "Login não efetuado", desc: "Por favor verifique todos os campos, apenas quando todos forem corretamente preenchidos seu login será realizado").show();
                               }
                               else{
+                               
+                              
                                
                                
             
@@ -131,23 +137,18 @@ class LoginState extends State<LoginPage>
                                   );
                               
                                  pr2.show();
-                              AlertDialog(semanticLabel: "Por favor, Aguarde",);
-                                                           
+                              AlertDialog(semanticLabel: "Por favor, Aguarde");
+
                                Future.delayed(new Duration(seconds: 3), () async {
-                                 if(boxUsers.length == 0){
-                                  print("está zerado");
-                                  userAuth.getFromFirestore();
-                                 }
-                                                                   
+                                                              
 
                               
                                 
-                               
+                                 log(boxUsers.get(_email.text+_senha.text).nome.toString());
                                 
-                                 await  userAuth.loginEmail(_email.text, _senha.text,context, pr2);
+                                 userAuth.loginEmail(_email.text, _senha.text,context, pr2);
                                
 
-                                 //log(boxUsers.get(_email.text+_senha.text).nome.toString());
                                   
                                 
                                  });

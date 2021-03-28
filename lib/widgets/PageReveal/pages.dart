@@ -8,7 +8,7 @@ import 'package:ocaviva/widgets/SwipeAnimation/index.dart';
 import 'package:ocaviva/widgets/botao.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/texto.dart';
-import 'package:random_color/random_color.dart';
+import 'package:ocaviva/widgets/texto2.dart';
 
 
 List<DesafioList> desafioPages;
@@ -27,13 +27,13 @@ List<DesafioList> desafioPages;
 
 
 
-class Page extends StatelessWidget {
+class Page2 extends StatelessWidget {
 
   final PageViewModel viewModel;
   final double percentVisible;
 
   var slidePercent;
-Page({this.viewModel,this.percentVisible=1.0});
+Page2({this.viewModel,this.percentVisible=1.0});
 
   @override
   Widget build(BuildContext context) {
@@ -109,14 +109,14 @@ Page({this.viewModel,this.percentVisible=1.0});
                 //padding: const EdgeInsets.only(bottom:75.0),
                 padding:  EdgeInsets.all(22),
                 child: new Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: <Widget>[
                     
-                        (viewModel.intro)? SingleChildScrollView(child:
+                        (viewModel.intro)? 
                         Container(
-                          height: MediaQuery.of(context).size.height*0.5,
-                         child: Texto(conteudo: "Você sabe o que são os sistemas do corpo?\nE para que servem?\nNas pessoas saudáveis eles têm de funcionar como uma linha de produção. Em total sincronia e completa interdependência.\n\nAgora, para que tudo funcione harmoniosamente, você tem que fazer sua parte.\n\n No sistema digestivo, o processo começa com a quebra dos alimentos na boca e continua por longo caminho até a absorção, esses alimentos são as políticas públicas da sua OcaViva e em cada etapa da digestão um desafio é apresentado.\n Bom trabalho!",tamFonte: 16,)),
+                          height: MediaQuery.of(context).size.height*0.55,
+                         child: SingleChildScrollView(child:Texto2(conteudo: "Você sabe o que são os sistemas do corpo?\nE para que servem?\nNas pessoas saudáveis eles têm de funcionar como uma linha de produção. Em total sincronia e completa interdependência.\n\nAgora, para que tudo funcione harmoniosamente, você tem que fazer sua parte.\n\n No sistema digestivo, o processo começa com a quebra dos alimentos na boca e continua por longo caminho até a absorção, esses alimentos são as políticas públicas da sua OcaViva e em cada etapa da digestão um desafio é apresentado.\n Bom trabalho!",tamFonte: 16,)),
                         )
                         :Texto(conteudo: viewModel.desafioList.desafio ,tamFonte: 16.0),
                         SizedBox(height: 20,),
@@ -133,7 +133,7 @@ Page({this.viewModel,this.percentVisible=1.0});
                         
                         : new FlatButton(
                           onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => 
-                          CardDemo(problemas: viewModel.desafioList.problemaList, desafios: viewModel.desafioList,) ) ),
+                          new CardDemo(problemas: viewModel.desafioList.problemaList, desafios: viewModel.desafioList,) ) ),
                           child: Botao(conteudo: "INICIAR O DESAFIO", tamFonte: 18.0),)
                          
                         

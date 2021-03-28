@@ -43,7 +43,9 @@ class CircleRevealClipper extends CustomClipper<Rect>{
     final radius =distanceToCorner*revealPercent;
     final diameter=2*radius;
 
-    return new Rect.fromLTWH(epicenter.dx-radius,epicenter.dy-radius,diameter,diameter);
+    //return new Rect.fromLTWH(epicenter.dx-radius,epicenter.dy-radius,diameter,diameter);
+    return new Rect.fromLTWH(epicenter.dx,epicenter.dy,diameter,diameter);
+
 
 
   }

@@ -14,7 +14,7 @@
             "resposta": "A boca é a porta de entrada de nutrientes do corpo, também se expande para além dos sentidos e necessita de diversos órgão para realizar suas atividades. Assim como a boca, a o Sistema de Saúde da sua OcaViva depende de investimentos, insumos de qualidade e uma gerência eficiente.\n\n Parabéns suas decisões tomadas estão fortalecendo o sistema de saúde, deixando sua Ocaviva mais saudável."
           },
           {
-            "resposta": "A boca é a porta de entrada de nutrientes do corpo, também se expande para além dos sentidos e necessita de diversos órgão para realizar suas atividades. Assim como a boca, a o Sistema de Saúde da sua OcaViva depende de investimentos, insumos de qualidade e uma gerência eficiente.\n\n Infelizmente sua OcaViva está doente, você precisa revisar,estudar e tomar melhores decisões."
+            "resposta": "A boca é a porta de entrada de nutrientes do corpo, também se expande para além dos sentidos e necessita de diversos órgão para realizar suas atividades. Assim como a boca, a o Sistema de Saúde da sua OcaViva depende de investimentos, insumos de qualidade e uma gerência eficiente.\n\n Infelizmente sua decisões não tiverão efeitos positivos na sua OcaViva, você precisa revisar,estudar e tomar melhores decisões."
           }
         ],
         "problemaList": [
@@ -91,7 +91,7 @@
                 "ponto": 0
               },
               {
-                "resposta": "As opções nem sempre são sempre errada e certa, poderá haver duas certas ou duas erradas.\n Você deve pensar em manter o corpo saudável. Bom trabalho!",
+                "resposta": "As opções nem sempre são errada e certa, poderá haver duas certas ou duas erradas.\n Você deve pensar em manter o corpo saudável. Bom trabalho!",
                 "ponto": 0
               }
             ]
@@ -149,19 +149,6 @@
               {
                 "resposta": "Classificar a insatisfação como um problema intrínseco dos estudantes, ressaltando a qualidade do ensino para as Pesquisas Jornalísticas.",
                 "ponto": -2
-              }
-            ]
-          },
-          {
-            "problema": "Para você resolver os problemas decida por uma das opções que aparecerão.\nVocê pode arrastar para o lado (no sentido do icone), ou clicar no botão." ,
-            "respostaList": [
-              {
-                "resposta": "A pontuação é baseada em quanto uma decisão pode afetar a OcaViva de forma positiva ou negativa em curto e longo prazo.",
-                "ponto": 0
-              },
-              {
-                "resposta": "As opções nem sempre são sempre errada e certa, poderá haver duas certas ou duas erradas.\n Você deve pensar em manter o corpo saudável. Bom trabalho!",
-                "ponto": 0
               }
             ]
           }
@@ -231,19 +218,6 @@
               {
                 "resposta": "Apresentar a efetividade das ações já existentes e não atribuir novos gastos para novas operações.",
                 "ponto": -2
-              }
-            ]
-          },
-          {
-            "problema": "Para você resolver os problemas decida por uma das opções que aparecerão.\nVocê pode arrastar para o lado (no sentido do icone), ou clicar no botão." ,
-            "respostaList": [
-              {
-                "resposta": "A pontuação é baseada em quanto uma decisão pode afetar a OcaViva de forma positiva ou negativa em curto e longo prazo.",
-                "ponto": 0
-              },
-              {
-                "resposta": "As opções nem sempre são sempre errada e certa, poderá haver duas certas ou duas erradas.\n Você deve pensar em manter o corpo saudável. Bom trabalho!",
-                "ponto": 0
               }
             ]
           }

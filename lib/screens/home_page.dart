@@ -21,11 +21,14 @@ import 'package:webview_flutter/webview_flutter.dart';
 
 int position = 0;
 int currentPage = 0;
-  PageController _pageController;
 
 Avataaar avatar;
 
-Box<Usuario> boxUsers2 = Hive.box<Usuario>('users');
+bool isDark = false; 
+
+Box<Usuario> boxUsers2; 
+var nome;
+var comunidade;
 
 
 
@@ -50,20 +53,18 @@ class HomeState extends State<HomePage>
      
     avatar = Avataaar.random();
     avatar.toJson();   
-    if(!Hive.isBoxOpen("users"))
-    {
-      abrirCaixa();
-    }
+    isDark = false;
+
         
     super.initState();
      
-   // _pageController = PageController();    
+   
+     
 
   }
 
    @override
   void dispose() {
-    //_pageController.dispose();
     super.dispose();
   }
 
@@ -73,7 +74,7 @@ class HomeState extends State<HomePage>
   
   Drawer getNavDrawer(BuildContext context) {
     //var headerChild = DrawerHeader(child: Text("Header"));
-
+    
     
     var iniciais = userAuth.usuario.nome.split(" ");
     var circle = "";
@@ -83,7 +84,7 @@ class HomeState extends State<HomePage>
 
     var headerChild =  UserAccountsDrawerHeader(
       decoration: BoxDecoration(
-        color: Colors.blue[900]
+        color: (!isDark)? Colors.blue[900] : Colors.grey[900]
 
       ),
       accountName:(userAuth.usuario.nome != null)? Texto(conteudo:userAuth.usuario.nome,tamFonte: 14,): Text('aguarde'),
@@ -114,18 +115,19 @@ class HomeState extends State<HomePage>
     );
 
     var aboutChild = AboutListTile(
-        child: Text("Sobre"),
+        child: Text("Sobre",style: TextStyle(color: (!isDark)? Colors.black : Colors.white)),
         applicationName: "OCAVIVA",
-        applicationVersion: "v4.0.1",
+        applicationVersion: "v18.0.1",
         applicationIcon: Icon(Icons.adb),
         icon: Icon(Icons.info));
+
 
     
 
     ListTile getNavItem(var icon, String s, String routeName,bool sair) {
       return ListTile(
-        leading: Icon(icon),
-        title: Text(s),
+        leading: (!isDark)? Icon(icon, color: Colors.grey,):  Icon(icon, color: Colors.white,),
+        title: Text(s, style: TextStyle(color: (!isDark)? Colors.black : Colors.white ),),
         onTap: () {
           setState(()  {
             // pop closes the drawer
@@ -136,19 +138,10 @@ class HomeState extends State<HomePage>
            // Navigator.of(context).pushNamed(routeName);
             if(sair == true){
               userAuth.logoutAccount(this.context, routeName);
-            
-             
-                 
-                //Timer(Duration(seconds: 3), () {
-                  
-
-                //});
-             
-             // Timer(Duration(seconds: 3), () {
-             // ;});
+               Navigator.pushReplacementNamed(context, routeName); 
             }
     
-           Navigator.pushReplacementNamed(context, routeName); 
+           Navigator.pushNamed(context, routeName); 
           });
         },
       );
@@ -156,7 +149,25 @@ class HomeState extends State<HomePage>
     
    
     var myNavChildren = [
-      headerChild,      
+      Stack(
+        children: <Widget>[
+        headerChild,
+      Container(
+        alignment: Alignment.centerRight,
+      child: (!isDark)?
+        IconButton(
+        icon: Icon(Icons.wb_sunny, color: Colors.amber, semanticLabel: "Modo claro",size: 35,) , 
+        onPressed: (){setState(() {
+          isDark = true;
+        });} )
+        : IconButton(
+        icon: Icon(Icons.wb_cloudy , color: Colors.lightBlue, semanticLabel: "Modo escuro",size: 35,) , 
+        onPressed:  (){setState(() {
+          isDark = false;
+        });} )
+      ),
+        ]
+      ),
       
       //getNavItem(Icons.settings, "Configurações", "/home"),
       //getNavItem(Icons.home, "Home", "/tinder"),
@@ -165,8 +176,8 @@ class HomeState extends State<HomePage>
       getNavItem(Icons.exit_to_app, "Encerrar sessão", "/login", true),
 
       ListTile(
-        leading: Icon(Icons.rate_review),
-        title: Text("Avaliação"),
+        leading:  (!isDark)? Icon(Icons.rate_review, color: Colors.grey): Icon(Icons.rate_review, color: Colors.white),
+        title: Text("Avaliação",style: TextStyle(color: (!isDark)? Colors.black : Colors.white) ),
         onTap: (){
           userAuth.usuario.aluno ?
                    Navigator.push(context, new MaterialPageRoute(builder: (context) => new WebView(initialUrl: 'https://docs.google.com/forms/d/17ItUbRLnGIDLYemPKD9ORYlSrqUhda9i3NbJV2hKLZI/viewform?edit_requested=true',
@@ -185,7 +196,9 @@ class HomeState extends State<HomePage>
   
     return Drawer(
    
-      child: listView,
+      child: Container(
+        color: (isDark)? Colors.black : Colors.white,
+        child: listView,)
     );
   }
   Widget homePrincipal(BuildContext context)
@@ -256,10 +269,24 @@ class HomeState extends State<HomePage>
                     Texto2(conteudo: "Quadro geral de\n saúde da OcaViva:", tamFonte: 17),
 
                     Container(child:AnimatedRadialChartExampleDouble(value:score_geral),),
+                    
                   ],
                 ),
+                Container(
+                           alignment: Alignment.center,
+                            //width: MediaQuery.of(context).size.width*0.2,
+                            color: (score_geral< 0)? Colors.red:(score_geral<50) ? Colors.yellow[800] 
+                              : (score_geral<100)? Colors.lightBlue : Colors.lightGreen,
+                            child: 
+                          (score_geral< 0)?Text("Está internado",style:TextStyle(fontSize: 15,fontWeight: FontWeight.w600, color: Colors.white))
+                              :(score_geral<50) ?Text( "Está Doente",style:TextStyle(fontSize: 15,fontWeight: FontWeight.w600, color: Colors.white))
+                              : (score_geral<100)?Text("Melhorando, imunidade baixa",style:TextStyle(fontSize: 15,fontWeight: FontWeight.w600, color: Colors.white))
+                              : Text( "Está Saudável",style:TextStyle(fontSize: 15,fontWeight: FontWeight.w600, color: Colors.white))
+                         )
               ],
+              
             ),
+            
           ),
         ]
       );
@@ -362,38 +389,7 @@ class HomeState extends State<HomePage>
                          )
                         ],
                       )
-                      
-                      /*leading: Container(
-                        width: MediaQuery.of(context).size.width*0.6,
-                        alignment: Alignment.centerLeft,
-                        child: Row(
-                        children: <Widget>[
-                          AvataaarImage(
-                              avatar: Avataaar.random(),
-                              errorImage: Icon(Icons.error),
-                              placeholder: CircularProgressIndicator(),
-                              width: 50.0,
-                            ),
-                            Align(alignment: Alignment., child:
-                            Expanded(child:Texto3(conteudo:comunidade[index].nome, tamFonte: 16,)),
-                          ])
-                        ),
-                      
-                      title: Container(
-                        width: MediaQuery.of(context).size.width*0.2,
-                        color: (comunidade_score[index]< 0)? Colors.red:(comunidade_score[index]<50) ? Colors.yellow[800] 
-                          : (comunidade_score[index]<100)? Colors.lightBlue : Colors.lightGreen,
-
-                        child:Texto(conteudo: comunidade_score[index].toString(),tamFonte: 14,)),
-                        
-                      trailing: Container(
-                        width: MediaQuery.of(context).size.width*0.3,
-                        child: 
-                       (comunidade_score[index]< 0)? Texto(conteudo: "    Está internado",tamFonte: 12,)
-                          :(comunidade_score[index]<50) ? Texto(conteudo: "     Está Doente",tamFonte: 12,)
-                          : (comunidade_score[index]<100)?Texto(conteudo: "Melhorando,\nimunidade baixa",tamFonte: 12,) 
-                          : Texto(conteudo: "    Está Saudável",tamFonte: 12,),
-                      ), */
+  
                       
                     );
              
@@ -435,25 +431,26 @@ class HomeState extends State<HomePage>
         future: abrirCaixa(),
         builder: (context, snapshot) {
          
-        if (snapshot.connectionState == ConnectionState.done && snapshot.error == null) {
-         
-           Box<Usuario> boxUsers2 = Hive.box<Usuario>('users');
+        if (snapshot.connectionState == ConnectionState.done ) {       
+          Box<Usuario> boxUsers2 = Hive.box<Usuario>('users');
           var key = prefs.getString('email')+prefs.getString('senha');
-        userAuth.usuario = boxUsers2.get(key);
-         var nome = userAuth.usuario.nome;
-         var comunidade = userAuth.usuario.escola;
+          userAuth.usuario = boxUsers2.get(key);
+          nome = userAuth.usuario.nome;
+          comunidade = userAuth.usuario.escola;  
+          prefs.setBool('isDark', isDark);
+          
          
 
             
                 return Scaffold(
                   appBar: AppBar(
-                    textTheme: GoogleFonts.dosisTextTheme(TextTheme(title:TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w700))),
+//                    textTheme: GoogleFonts.dosisTextTheme(TextTheme(title:TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w700))),
                     
                     backgroundColor: Colors.transparent,
                     elevation: 0.0,
                     centerTitle: true,
-                    title: (_selectedIndex ==0) ? Text("Bem vindo a\n$nome",textAlign: TextAlign.center,): Text("Panorama da\n$comunidade", textAlign: TextAlign.center ,),
-                    //title: (_selectedIndex ==0) ? Texto(conteudo:"Bem vindo a\n$nome", tamFonte:18.0): Texto(conteudo:"Panorama da\n$comunidade", tamFonte:18.0),
+                    //title: (_selectedIndex ==0) ? Text("Bem vindo a\n$nome",textAlign: TextAlign.center,): Text("Panorama da\n$comunidade", textAlign: TextAlign.center ,),
+                    title: (_selectedIndex ==0) ? Texto(conteudo:"Bem vindo a\n$nome", tamFonte:18.0): Texto(conteudo:"Panorama da\n$comunidade", tamFonte:18.0),
                     actions: <Widget>[
             new GestureDetector(
               onTap: () {
@@ -464,7 +461,7 @@ class HomeState extends State<HomePage>
                   margin: const EdgeInsets.all(15.0),
                   child: new Icon(
                     Icons.help,
-                    color: Colors.yellow[800],
+                    color: (!isDark)? Colors.yellow[800] : Colors.white,
                     size: 35.0,
                     semanticLabel: "Ajuda",
                   ),
@@ -474,16 +471,16 @@ class HomeState extends State<HomePage>
             builder: (BuildContext context)
             {
               return AlertDialog(
-                title: Text("Ajuda", style: TextStyle(fontSize: 20, color: Colors.blue, fontWeight: FontWeight.w700),),
+                title: Text("Ajuda", style: (!isDark)? TextStyle(fontSize: 20, color: Colors.blue, fontWeight: FontWeight.w700):TextStyle(fontSize: 20, color: Colors.white, fontWeight: FontWeight.w700),),
                 content: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Text(
                   "Seja bem vindo ao OCAVIVA:\n\n"+
                   "Aqui você vai aprender jogando, a Ocaviva é a cidade como organismo vivo.\n\n"+
                   "Cada fase é um sistema do corpo-humano e cada sistema possuem funções para garantir que o corpo permaneça vivo. A execução destas funções ficará sobre sua responsabilidade podendo influenciar na saúde desse corpo. Essa funções são descritas na forma de desafios que possuem uma serie de problemas sociais para serem resolvidos.\nCuidando da cidade você cuida do corpo!\n\n Boa sorte, se cuida! ",
-                  textAlign: TextAlign.left, style: TextStyle(fontSize: 16,),),),
+                  textAlign: TextAlign.left, style: (!isDark)? TextStyle(fontSize: 16,height: 1.5,fontWeight: FontWeight.w500):TextStyle(fontSize: 16,height: 1.5,fontWeight: FontWeight.w500,color: Colors.white),),),
                 actions: <Widget>[
-                  FlatButton(onPressed: (){ Navigator.pop(context);} , child: Text("OK")),
+                  FlatButton(onPressed: (){ Navigator.pop(context);} , child: Text("OK",style:TextStyle(fontWeight: FontWeight.bold),)),
                 ],
               );
             });
@@ -500,6 +497,8 @@ class HomeState extends State<HomePage>
                   drawer: getNavDrawer(context),
              
                   bottomNavigationBar: BottomNavigationBar(
+                  backgroundColor: (!isDark)? Colors.white: Colors.black,
+                  unselectedItemColor: (!isDark)? Colors.grey: Colors.white,
                 items: const <BottomNavigationBarItem>[
                   BottomNavigationBarItem(
                     icon: Icon(Icons.home),
@@ -511,33 +510,10 @@ class HomeState extends State<HomePage>
                   ),
                 ],
                 currentIndex:   _selectedIndex,
-        selectedItemColor: Colors.blue ,
+                selectedItemColor: Colors.blue ,
         onTap: _onItemTapped,
       ),
-            /*FancyBottomNavigation(
-              //barBackgroundColor: Colors.transparent,
-        tabs: [
-            TabData(iconData: Icons.home, title: "Principal"),
-            TabData(iconData: Icons.school, title: "Comunidade"),
-        ],
-        onTabChangedListener: (currentPage) {
-  
-            /*if(currentPage == 0)
-              showToast("Menu das fases da OcaViva", duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
-            else
-              showToast("OcaVivas que fazem parte da sua comunidade", duration: Toast.LENGTH_SHORT,gravity: Toast.TOP);*/
-          if(mounted ){
-            setState(() {
-              print(currentPage);
-            currentPage = position;
-            if(currentPage == 0)
-              showToast("Menu das fases da OcaViva", duration: Toast.LENGTH_SHORT, gravity: Toast.TOP);
-            else
-              showToast("OcaVivas que fazem parte da sua comunidade", duration: Toast.LENGTH_SHORT,gravity: Toast.TOP);
-            });
-          }
-        },
-      )*/
+
     );}
         
     else{
@@ -546,14 +522,15 @@ class HomeState extends State<HomePage>
       position = 0;
       currentPage = 0;
       return SimpleDialog(
-                    key: new GlobalKey<State>(),
                     backgroundColor: Colors.white,
+                    key: new GlobalKey<State>(),
+                    //backgroundColor: Colors.white,
                     children: <Widget>[
                       Center(
                         child: Column(children: [
                           CircularProgressIndicator(),
                           SizedBox(height: 10,),
-                          Text("Iniciando a OcaViva ...",style: TextStyle(color: Colors.blue[900] ),)
+                          Text("Iniciando a OcaViva ...",)//style: TextStyle(color: (!isDark)? Colors.blue[900]: Colors.white ),)
                         ]),
                       )
                     ]

@@ -112,7 +112,7 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
     RandomColor _randomColor = RandomColor();
    
 
-    Color _color = _randomColor.randomColor(colorHue: ColorHue.blue);
+    Color _color = Colors.amber[700]; //_randomColor.randomColor(colorHue: ColorHue.blue);
    
     // print(slidePercent);
     switch (widget.fase) {
@@ -172,13 +172,13 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
                       alignment: Alignment.center,
                       children: <Widget>[
                         BodyBackground(),
-                        new Page(
+                        new Page2(
                           viewModel: pages[activeIndex],
                           percentVisible: 1.0,
                         ),             
                         new PageReveal(
                           revealPercent: slidePercent,
-                          child: new Page(
+                          child: new Page2(
                             viewModel: pages[nextPageIndex],
                             percentVisible: slidePercent,
                           ),
@@ -188,8 +188,8 @@ class PageMainState extends State<PageMain> with TickerProviderStateMixin {
                               slideDirection, activeIndex, pages, slidePercent),
                         ),
                         new PageDragger(
-                          canDragLeftToRight: activeIndex > 1,
-                          canDragRightToLeft:(activeIndex != 0)? (activeIndex +1 < ocaviva.data.desafioList.length): false ,
+                          canDragLeftToRight: activeIndex > 0,
+                          canDragRightToLeft:(activeIndex != 0)? (activeIndex  < ocaviva.data.desafioList.length): false ,
                           slideUpdateSytream: this.slideUpdateStream,
                         )
                       ],

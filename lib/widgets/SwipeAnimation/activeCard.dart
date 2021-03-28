@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:ocaviva/models/jogo.dart';
+import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/widgets/bodyBackground.dart';
 import 'package:ocaviva/widgets/circular_chart.dart';
 import 'package:ocaviva/widgets/texto.dart';
@@ -95,7 +96,7 @@ Positioned cardDemo(
                           padding: EdgeInsets.symmetric(horizontal: 3,vertical: 1),
                           //margin: EdgeInsets.symmetric(horizontal: 10),
                           //margin: EdgeInsets.symmetric(vertical:1),
-                          color: Colors.blue[900],
+                          color: (!isDark)? Colors.blue[900] : Colors.black26,
                           child:                              
                               new Stack(
                                 //mainAxisAlignment: MainAxisAlignment.end,
@@ -112,7 +113,12 @@ Positioned cardDemo(
                                       
 
                                   Texto(conteudo: img.problema.toString(), tamFonte: 15), 
-                                  SizedBox(height: 15,),
+                                  SizedBox(height: 4,),
+                                  Container( 
+                                    width: MediaQuery.of(context).size.width-30 ,
+                                    color: (!isDark)? Colors.yellow[800]: Colors.yellow[900],
+                                    child:Texto(conteudo:"O que você fará?",tamFonte: 14,)),
+                                  SizedBox(height: 4,),
                                   new RaisedButton(
                                      color: Colors.black45,
                                      highlightColor: Colors.blue[900] ,

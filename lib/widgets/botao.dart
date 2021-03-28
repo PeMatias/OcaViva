@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ocaviva/screens/home_page.dart';
 import 'package:ocaviva/widgets/texto.dart';
 
 class Botao extends StatelessWidget 
@@ -25,11 +26,11 @@ class Botao extends StatelessWidget
       decoration: BoxDecoration
       (
         borderRadius: BorderRadius.all( Radius.circular(28.0) ),
-        border: Border.all(color: Colors.yellow[800], width:1),
-        color: Colors.yellow[800],
+        border: Border.all(color: (!isDark)? Colors.yellow[800]: Colors.white, width:1),
+        color: (!isDark)? Colors.yellow[800]: Colors.white,
         
       ),
-      child: Text(conteudo, style: TextStyle(fontSize: tamFonte+1, fontWeight: FontWeight.w500, color: Colors.black) ,), 
+      child: Text(conteudo, style: TextStyle(fontSize: tamFonte+1, fontWeight: FontWeight.w600, color: Colors.black) ,), 
       //child: Texto(conteudo: conteudo,tamFonte: tamFonte),
     );
   }

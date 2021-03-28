@@ -31,6 +31,8 @@ class Texto extends StatelessWidget
           (
             fontSize: tamFonte,
             color: Colors.white,
+            height: 1.5,
+             fontWeight: FontWeight.w600
             
           ),
           

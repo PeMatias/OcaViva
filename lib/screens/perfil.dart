@@ -1,5 +1,6 @@
 import 'package:avataaar_image/avataaar_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:ocaviva/main.dart';
 import 'package:ocaviva/models/usuario.dart';
@@ -27,6 +28,8 @@ class PerfilState extends State<Perfil>
   @override
   void initState() 
   {
+    //SystemChrome.setEnabledSystemUIOverlays ([SystemUiOverlay.top]);
+
     super.initState();
     boxUsers = Hive.box<Usuario>('users');
   }
@@ -46,6 +49,12 @@ class PerfilState extends State<Perfil>
         elevation: 0.0,
         centerTitle: true,
         title: Texto(conteudo:"Perfil", tamFonte:18.0),
+         leading: IconButton(
+              color:  (!isDark)? Colors.yellow[800] : Colors.white,
+              icon: Icon(Icons.arrow_back, semanticLabel: "Voltar",),
+              tooltip: "Retornar ao menu de desafios",
+              onPressed: () {Navigator.pop(context);},
+            ),
         ),
         extendBodyBehindAppBar: true,
         //extendBody: true,
