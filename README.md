@@ -34,11 +34,11 @@ Com o intuito de proporcionar uma _dinâmica para compreender as_  _estruturas s
 
 ## 05 - As funcionalidades e a usabilidade do app
 
-<img src="img\Apresentação Pitch10.gif" width=500px />
+<img src="img\Apresentação Pitch10.gif" width=210px />
 
-<img src="img\Apresentação Pitch11.gif" width=500px />
+<img src="img\Apresentação Pitch11.gif" width=210px />
 
-<img src="img\Apresentação Pitch12.gif" width=500px />
+<img src="img\Apresentação Pitch12.gif" width=210px />
 
 ## 06 - # O aspecto da acessibilidade no app
 
